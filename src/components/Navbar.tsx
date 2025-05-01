@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { cn } from "@/lib/utils";
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useLocation } from 'react-router-dom';
-import { Home, Briefcase, Info, Tool, MessageSquare, Phone } from 'lucide-react';
+import { Home, Briefcase, Info, Wrench, MessageSquare, Phone } from 'lucide-react';
 
 interface NavbarProps {
   className?: string;
@@ -17,7 +17,7 @@ export const navigationItems = [
   { id: 'about', label: 'About', icon: <Info className="h-4 w-4" /> },
   { id: 'career', label: 'Timeline', icon: <Briefcase className="h-4 w-4" /> },
   { id: 'works', label: 'Works', icon: <Briefcase className="h-4 w-4" /> },
-  { id: 'skills', label: 'Skills & Tools', icon: <Tool className="h-4 w-4" /> },
+  { id: 'skills', label: 'Skills & Tools', icon: <Wrench className="h-4 w-4" /> },
   { id: 'testimonials', label: 'Testimonials', icon: <MessageSquare className="h-4 w-4" /> },
   { id: 'faq', label: 'FAQ', icon: <MessageSquare className="h-4 w-4" /> },
   { id: 'contact', label: 'Contact', icon: <Phone className="h-4 w-4" /> },
