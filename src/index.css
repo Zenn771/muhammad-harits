@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -90,6 +89,14 @@
   html {
     @apply scroll-smooth;
   }
+}
+
+/* Enhanced grid effect with more visible texture */
+.grid-background {
+  background-image: 
+    linear-gradient(to right, rgba(67, 56, 202, 0.15) 1px, transparent 1px), 
+    linear-gradient(to bottom, rgba(67, 56, 202, 0.15) 1px, transparent 1px);
+  opacity: 0.6;
 }
 
 /* Enhanced grain effect with more subtle texture */
@@ -323,7 +330,7 @@ html {
   transform: scale(1.15);
 }
 
-/* Grid pattern background with fade effect for works section */
+/* Grid pattern background with enhanced fade effect for works section */
 .bg-grid-pattern {
   position: relative;
 }
@@ -332,7 +339,7 @@ html {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 50%, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+  background: radial-gradient(circle at 50% 50%, transparent 0%, rgba(0, 0, 0, 0.9) 100%);
   pointer-events: none;
   z-index: 1;
 }

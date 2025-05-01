@@ -65,6 +65,9 @@ export default {
 				},
 				dark: '#0a0a0a',
 				accent: '#facc15',
+                grid: {
+                    line: 'rgba(67, 56, 202, 0.2)'
+                }
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -158,13 +161,13 @@ export default {
                 },
                 'grid-fade': {
                     '0%': {
-                        opacity: '0.02'
-                    },
-                    '50%': {
                         opacity: '0.05'
                     },
+                    '50%': {
+                        opacity: '0.1'
+                    },
                     '100%': {
-                        opacity: '0.02'
+                        opacity: '0.05'
                     }
                 }
 			},
@@ -182,8 +185,11 @@ export default {
                 'float-card': 'float-card 3s ease-in-out infinite',
                 'reveal': 'reveal 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards',
                 'fade-up': 'fade-up 0.6s ease-out forwards',
-                'grid-fade': 'grid-fade 4s ease-in-out infinite'
-			}
+                'grid-fade': 'grid-fade 4s ease-in-out infinite',
+			},
+            backgroundImage: {
+                'grid-lines': 'linear-gradient(to right, var(--grid-color) 1px, transparent 1px), linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px)',
+            }
 		},
 	},
 	plugins: [],

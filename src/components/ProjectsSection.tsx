@@ -83,34 +83,33 @@ const ProjectsSection: React.FC = () => {
       ref={sectionRef}
       className="py-16 md:py-24 lg:py-32 overflow-hidden bg-black relative"
     >
-      {/* Grid pattern background with fading gradients */}
+      {/* Enhanced Grid pattern background with more visible fading gradients */}
       <div className="absolute inset-0 z-0">
-        {/* Grid pattern */}
+        {/* Grid pattern - now more visible */}
         <div 
-          className="absolute inset-0 bg-grid-pattern opacity-[0.03] pointer-events-none"
+          className="absolute inset-0 grid-background pointer-events-none"
           style={{
-            backgroundImage: 'linear-gradient(to right, #4338ca11 1px, transparent 1px), linear-gradient(to bottom, #4338ca11 1px, transparent 1px)',
-            backgroundSize: '30px 30px',
+            backgroundSize: '40px 40px',
             transform: `translateY(${scrollY * 0.05}px)`,
           }}
         />
         
-        {/* Top gradient fade */}
+        {/* Enhanced top gradient fade */}
         <motion.div 
-          className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-black to-transparent z-10 pointer-events-none"
+          className="absolute top-0 left-0 right-0 h-64 bg-gradient-to-b from-black via-black/90 to-transparent z-10 pointer-events-none"
           style={{ opacity: opacityGradientTop }}
         />
         
-        {/* Bottom gradient fade */}
+        {/* Enhanced bottom gradient fade */}
         <motion.div 
-          className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-black to-transparent z-10 pointer-events-none"
+          className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-black via-black/90 to-transparent z-10 pointer-events-none"
           style={{ opacity: opacityGradientBottom }}
         />
 
-        {/* Ambient glow spots */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-amber-900/10 blur-[100px] pointer-events-none" 
+        {/* Ambient glow spots with enhanced visibility */}
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-amber-900/20 blur-[100px] pointer-events-none" 
           style={{ transform: `translateY(${scrollY * -0.02}px)` }}/>
-        <div className="absolute bottom-1/3 right-1/5 w-80 h-80 rounded-full bg-blue-900/10 blur-[100px] pointer-events-none"
+        <div className="absolute bottom-1/3 right-1/5 w-80 h-80 rounded-full bg-blue-900/20 blur-[100px] pointer-events-none"
           style={{ transform: `translateY(${scrollY * 0.03}px)` }}/>
       </div>
 
