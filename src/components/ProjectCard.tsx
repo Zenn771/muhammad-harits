@@ -18,7 +18,7 @@ interface ProjectCardProps {
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, scrollY }) => {
-  // Calculate position based on scroll - only translate Y without rotation
+  // Calculate position based on scroll - use negative Y value to make cards move upwards
   const scrollFactor = Math.min(scrollY * 0.0015, 1);
   const yOffset = Math.min(60 * scrollFactor * (index + 1), 100);
   
@@ -31,7 +31,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, scrollY }) =>
         "transform transition-all duration-300"
       )}
       style={{
-        transform: `translateY(${yOffset}px)`,
+        transform: `translateY(-${yOffset}px)`, // Changed to negative value for upward movement
         zIndex: 10 - index,
       }}
     >
