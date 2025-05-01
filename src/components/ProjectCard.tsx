@@ -18,9 +18,8 @@ interface ProjectCardProps {
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, scrollY }) => {
-  // Calculate rotation and position based on scroll
+  // Calculate position based on scroll - only translate Y without rotation
   const scrollFactor = Math.min(scrollY * 0.0015, 1);
-  const rotation = Math.min(8 * scrollFactor * (index + 1), 25);
   const yOffset = Math.min(60 * scrollFactor * (index + 1), 100);
   
   return (
@@ -32,8 +31,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, scrollY }) =>
         "transform transition-all duration-300"
       )}
       style={{
-        transform: `perspective(2000px) rotateX(${rotation}deg) translateY(${yOffset}px)`,
-        transformOrigin: "center top",
+        transform: `translateY(${yOffset}px)`,
         zIndex: 10 - index,
       }}
     >

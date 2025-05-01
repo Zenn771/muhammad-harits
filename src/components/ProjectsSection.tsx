@@ -105,25 +105,28 @@ const ProjectsSection: React.FC = () => {
         </div>
 
         <div className="relative">
-          {/* Card container with enhanced perspective */}
+          {/* Card container with stacking perspective */}
           <div 
             className="relative w-full mx-auto"
             style={{
-              perspective: '2000px',
-              transformStyle: 'preserve-3d',
               maxWidth: '1200px',
               minHeight: '800px' // Ensure space for cards to stack
             }}
           >
-            {/* Stacked cards with improved layout */}
-            {portfolioProjects.map((project, index) => (
-              <ProjectCard 
-                key={index} 
-                project={project} 
-                index={index}
-                scrollY={scrollY}
-              />
-            ))}
+            {/* Stacked cards with reversed order so first card appears at bottom */}
+            {[...portfolioProjects].reverse().map((project, reversedIndex) => {
+              // Calculate the original index (since we reversed the array)
+              const originalIndex = portfolioProjects.length - 1 - reversedIndex;
+              
+              return (
+                <ProjectCard 
+                  key={originalIndex} 
+                  project={project} 
+                  index={reversedIndex}  // Use the reversed index for stacking
+                  scrollY={scrollY}
+                />
+              );
+            })}
           </div>
         </div>
       </div>
