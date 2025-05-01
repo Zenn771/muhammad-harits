@@ -309,7 +309,7 @@ const MobileSkillCard: React.FC<{ skill: Skill; index: number }> = ({ skill, ind
       <div 
         className="bento-card p-4 h-full bg-gradient-to-br from-white/5 to-white/2 backdrop-blur-sm border border-white/10 rounded-lg relative overflow-hidden"
       >
-        <div className="absolute inset-0 grain-texture"></div>
+        {/* Removed grain texture */}
         {/* Glowing border effect on hover */}
         <div className="absolute -inset-[0.5px] bg-gradient-to-r from-amber-500/0 via-amber-500/30 to-blue-500/0 opacity-0 group-hover:opacity-100 rounded-lg transition-opacity duration-700"></div>
         
@@ -354,8 +354,7 @@ const SkillCategory: React.FC<{ title: string; skills: Skill[] }> = ({ title, sk
       {/* Interior glowing border */}
       <div className="absolute inset-0 border border-white/5 rounded-xl"></div>
       
-      {/* Background texture */}
-      <div className="absolute inset-0 grain-texture opacity-30"></div>
+      {/* Removed grain texture */}
       
       <h3 className="text-xl md:text-2xl font-semibold text-white mb-6 text-center relative z-10">{title}</h3>
 
@@ -382,8 +381,7 @@ const SkillItem: React.FC<{ skill: Skill; index: number }> = ({ skill, index }) 
       {/* Interior glow effect on hover */}
       <div className="absolute inset-0 bg-gradient-to-br from-amber-500/0 to-blue-500/0 opacity-0 group-hover:bg-gradient-to-br group-hover:from-amber-500/10 group-hover:to-blue-500/10 transition-opacity duration-300"></div>
       
-      {/* Background texture */}
-      <div className="absolute inset-0 grain-texture opacity-20"></div>
+      {/* Removed grain texture */}
       
       <div className="p-3 rounded-full bg-gradient-to-br from-amber-500/20 to-blue-500/20 mb-3 relative z-10 skill-icon">
         <span className="text-white">{skill.icon}</span>
