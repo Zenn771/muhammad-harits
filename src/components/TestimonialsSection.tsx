@@ -98,7 +98,7 @@ const TestimonialsSection = () => {
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
           ref={containerRef}
-          style={{ position: 'relative' }} {/* Add this to fix framer-motion warning */}
+          style={{ position: 'relative' }}  
         >
           <motion.div 
             className="flex gap-6"
@@ -112,7 +112,7 @@ const TestimonialsSection = () => {
                 pause: isPaused
               }
             }}
-            style={{ position: 'relative' }} {/* Add this to fix framer-motion warning */}
+            style={{ position: 'relative' }}
           >
             {duplicatedItems.map((testimonial, index) => (
               <div 

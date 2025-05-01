@@ -568,7 +568,7 @@ html {
 
 /* Testimonial quote marks */
 .testimonial-quote::before {
-  content: "\"";
+  content: "\201C";
   position: absolute;
   top: 0;
   left: 0;
