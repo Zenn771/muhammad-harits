@@ -8,6 +8,7 @@ import BentoBox from '@/components/BentoGrid';
 import ProjectsSection from '@/components/ProjectsSection';
 import SkillsSection from '@/components/SkillsSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
+import ContactSection from '@/components/ContactSection';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Briefcase, Calendar, Award, ChevronRight, GraduationCap } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -94,7 +95,7 @@ const Index = () => {
       // Determine active section based on scroll position
       const scrollPosition = window.scrollY;
       
-      const sections = ['home', 'about', 'career', 'works', 'faq'];
+      const sections = ['home', 'about', 'career', 'works', 'faq', 'contact'];
       for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
@@ -457,6 +458,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* CONTACT SECTION - New Addition */}
+      <ContactSection />
     </div>
   );
 };

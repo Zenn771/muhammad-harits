@@ -1,0 +1,276 @@
+
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { Mail, Linkedin, Clock } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import StatusBadge from '@/components/StatusBadge';
+import { toast } from 'sonner';
+
+// Define the form schema with zod for validation
+const formSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Please enter a valid email address"),
+  subject: z.string().min(1, "Please select a subject"),
+  message: z.string().min(10, "Message must be at least 10 characters"),
+});
+
+type FormValues = z.infer<typeof formSchema>;
+
+const ContactSection = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  // Initialize the form with react-hook-form and zod validation
+  const form = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      subject: "",
+      message: "",
+    },
+  });
+
+  // Handle form submission
+  const onSubmit = async (data: FormValues) => {
+    setIsSubmitting(true);
+    
+    try {
+      // Here we would normally add the API call to Resend
+      // For now, we'll just simulate a successful submission
+      console.log("Form submitted:", data);
+      
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      // Show success toast
+      toast.success("Message sent successfully! I'll get back to you soon.");
+      
+      // Reset the form
+      form.reset();
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast.error("Failed to send message. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <section id="contact" className="min-h-screen w-full py-16 md:py-24 lg:py-32 px-4 md:px-8 bg-black vintage-effect">
+      <div className="max-w-6xl mx-auto relative">
+        <motion.h2 
+          className="text-4xl md:text-6xl font-bold mb-12 md:mb-16 text-center text-gray-100 vintage-text"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          Get in Touch
+        </motion.h2>
+        
+        <div className="mb-8 max-w-3xl mx-auto text-center">
+          <motion.p 
+            className="text-lg text-gray-300/90"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            Interested in working together? I'd love to hear from you.
+          </motion.p>
+        </div>
+
+        <motion.div 
+          className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          viewport={{ once: true }}
+        >
+          {/* Contact Info Column */}
+          <div className="lg:col-span-2 space-y-8">
+            {/* Contact Card */}
+            <div className="vintage-card p-6 md:p-8 rounded-xl bg-gradient-to-br from-blue-900/20 to-purple-900/10 border border-white/10 backdrop-blur-sm">
+              <div className="absolute inset-0 grain-effect opacity-10 rounded-xl"></div>
+              
+              {/* Alternative Contact Methods */}
+              <h3 className="text-xl font-semibold text-white mb-6">Contact Details</h3>
+              
+              <div className="space-y-5">
+                <a 
+                  href="mailto:contact@example.com" 
+                  className="flex items-center gap-4 text-gray-300 hover:text-accent transition-colors group"
+                >
+                  <div className="p-3 rounded-full bg-blue-900/20 border border-blue-400/20 group-hover:border-blue-400/40 transition-all">
+                    <Mail className="h-5 w-5 text-blue-400" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-white/60">Email</p>
+                    <p className="text-white">contact@example.com</p>
+                  </div>
+                </a>
+                
+                <a 
+                  href="https://linkedin.com/in/yourprofile" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="flex items-center gap-4 text-gray-300 hover:text-accent transition-colors group"
+                >
+                  <div className="p-3 rounded-full bg-blue-900/20 border border-blue-400/20 group-hover:border-blue-400/40 transition-all">
+                    <Linkedin className="h-5 w-5 text-blue-400" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-white/60">LinkedIn</p>
+                    <p className="text-white">linkedin.com/in/yourprofile</p>
+                  </div>
+                </a>
+              </div>
+              
+              {/* Availability Status */}
+              <div className="mt-8 pt-8 border-t border-white/10">
+                <div className="flex items-center justify-between mb-4">
+                  <h4 className="text-white font-medium">Current Availability</h4>
+                  <StatusBadge status="available" />
+                </div>
+                
+                <div className="flex items-start gap-3 mt-6 text-white/70">
+                  <Clock className="h-5 w-5 text-blue-400 mt-1" />
+                  <p className="text-sm">
+                    I typically respond to inquiries within 24-48 hours. For urgent matters, please mention it in the subject line.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Form Column */}
+          <div className="lg:col-span-3 vintage-card p-6 md:p-8 rounded-xl bg-gradient-to-br from-amber-900/10 to-purple-900/5 border border-white/10 backdrop-blur-sm">
+            <div className="absolute inset-0 grain-effect opacity-10 rounded-xl"></div>
+            
+            <h3 className="text-xl font-semibold text-white mb-6">Send Me a Message</h3>
+            
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-gray-200">Name</FormLabel>
+                        <FormControl>
+                          <Input 
+                            placeholder="Your name" 
+                            className="bg-white/5 border-white/10 text-white" 
+                            {...field} 
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-gray-200">Email</FormLabel>
+                        <FormControl>
+                          <Input 
+                            placeholder="Your email" 
+                            type="email" 
+                            className="bg-white/5 border-white/10 text-white" 
+                            {...field} 
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                
+                <FormField
+                  control={form.control}
+                  name="subject"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-gray-200">Subject</FormLabel>
+                      <Select 
+                        onValueChange={field.onChange} 
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger className="bg-white/5 border-white/10 text-white">
+                            <SelectValue placeholder="Select a subject" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="Project Inquiry">Project Inquiry</SelectItem>
+                          <SelectItem value="Job Opportunity">Job Opportunity</SelectItem>
+                          <SelectItem value="Collaboration">Collaboration</SelectItem>
+                          <SelectItem value="Other">Other</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                
+                <FormField
+                  control={form.control}
+                  name="message"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-gray-200">Message</FormLabel>
+                      <FormControl>
+                        <Textarea 
+                          placeholder="Your message..." 
+                          className="bg-white/5 border-white/10 text-white min-h-[120px]" 
+                          {...field} 
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                
+                <div className="pt-2">
+                  <Button 
+                    type="submit" 
+                    disabled={isSubmitting}
+                    className="bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white border-none w-full sm:w-auto px-8 py-2 h-auto text-base transition-all hover:scale-[1.02]"
+                  >
+                    {isSubmitting ? "Sending..." : "Send Message"}
+                  </Button>
+                </div>
+              </form>
+            </Form>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+export default ContactSection;

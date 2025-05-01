@@ -576,3 +576,45 @@ html {
   line-height: 1;
   color: rgba(255, 255, 255, 0.05);
 }
+
+/* Contact form styling */
+.contact-form-input {
+  @apply bg-white/5 border-white/10 text-white transition-all duration-300;
+}
+
+.contact-form-input:focus {
+  @apply border-blue-400/50 ring-1 ring-blue-400/30 bg-white/10;
+}
+
+.contact-icon {
+  @apply transition-transform duration-300;
+}
+
+a:hover .contact-icon {
+  @apply scale-110;
+}
+
+.contact-submit-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-submit-button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: all 0.6s;
+}
+
+.contact-submit-button:hover::after {
+  left: 100%;
+}
