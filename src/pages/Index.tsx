@@ -9,6 +9,7 @@ import ProjectsSection from '@/components/ProjectsSection';
 import SkillsSection from '@/components/SkillsSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import ContactSection from '@/components/ContactSection';
+import SectionBackground from '@/components/backgrounds/SectionBackground';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Briefcase, Calendar, Award, ChevronRight, GraduationCap } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -21,7 +22,7 @@ import {
 } from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
 
-// Career timeline data - copied from Career.tsx to maintain the same data
+// Career timeline data
 const careerData = [
   {
     id: 1,
@@ -145,7 +146,7 @@ const Index = () => {
         <Navbar activeSection={activeSection} scrollBased={true} className={scrolled ? 'scale-95' : ''} />
       </div>
       
-      {/* HOME SECTION */}
+      {/* HOME SECTION - Keep existing structure but enhance with transitions */}
       <section id="home" className="min-h-screen w-full overflow-hidden bg-black relative grain-effect">
         {/* Enhanced background particles with more density */}
         <ParticleEffect count={100} />
@@ -226,241 +227,255 @@ const Index = () => {
         })}
       </section>
 
-      {/* ABOUT SECTION - With new bento grid */}
-      <section id="about" className="min-h-screen w-full py-16 md:py-24 lg:py-32 px-4 md:px-8 bg-black vintage-effect">
-        <div className="max-w-6xl mx-auto relative">
-          <h2 className="text-4xl md:text-6xl font-bold mb-12 md:mb-16 text-center text-gray-100 vintage-text">
-            About Me
-          </h2>
-          
-          <div className="mb-12 max-w-3xl mx-auto text-center">
-            <p className="text-lg text-gray-300/90">
-              I'm a passionate AI and electrical engineer with over 5 years of experience creating intelligent systems and innovative solutions. My multidisciplinary approach combines technical expertise with creative problem-solving.
-            </p>
+      {/* ABOUT SECTION - With new hexagon grid pattern */}
+      <SectionBackground pattern="hexagon" withTransition={true}>
+        <section id="about" className="min-h-screen w-full py-16 md:py-24 lg:py-32 px-4 md:px-8">
+          <div className="max-w-6xl mx-auto relative">
+            <h2 className="text-4xl md:text-6xl font-bold mb-12 md:mb-16 text-center text-gray-100 vintage-text">
+              About Me
+            </h2>
+            
+            <div className="mb-12 max-w-3xl mx-auto text-center">
+              <p className="text-lg text-gray-300/90">
+                I'm a passionate AI and electrical engineer with over 5 years of experience creating intelligent systems and innovative solutions. My multidisciplinary approach combines technical expertise with creative problem-solving.
+              </p>
+            </div>
+            
+            <BentoBox />
           </div>
-          
-          <BentoBox />
-        </div>
-      </section>
+        </section>
+      </SectionBackground>
 
-      {/* CAREER SECTION - Added from Career.tsx */}
-      <section id="career" className="min-h-screen w-full py-16 md:py-24 lg:py-32 px-4 md:px-8 bg-black vintage-effect">
-        <div className="max-w-7xl mx-auto relative">
-          <motion.h2 
-            className="text-4xl md:text-6xl font-bold mb-12 md:mb-16 text-center text-gray-100 vintage-text"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            Career Timeline
-          </motion.h2>
-          
-          <div className="mb-12 max-w-3xl mx-auto text-center">
-            <motion.p 
-              className="text-lg text-gray-300/90"
+      {/* CAREER SECTION - With diagonal grid pattern */}
+      <SectionBackground pattern="diagonal" accentColor="rgba(67, 56, 202, 0.1)" withTransition={true}>
+        <section id="career" className="min-h-screen w-full py-16 md:py-24 lg:py-32 px-4 md:px-8">
+          <div className="max-w-7xl mx-auto relative">
+            <motion.h2 
+              className="text-4xl md:text-6xl font-bold mb-12 md:mb-16 text-center text-gray-100 vintage-text"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
-              A journey through my professional experiences and academic achievements
-            </motion.p>
-          </div>
-
-          {/* Timeline */}
-          <div className="relative">
-            {/* Vertical line */}
-            <div 
-              className="absolute left-4 sm:left-1/2 sm:-ml-0.5 w-1 bg-white/10 h-full"
-              style={{ 
-                boxShadow: '0 0 10px rgba(255, 255, 255, 0.1)'
-              }}
-            ></div>
+              Career Timeline
+            </motion.h2>
             
-            <div className="space-y-16 relative">
-              {careerData.map((item, index) => {
-                const isEven = index % 2 === 0;
-                return (
-                  <motion.div 
-                    key={item.id}
-                    className={cn(
-                      "relative",
-                      isEven ? "sm:pr-8 sm:pl-0" : "sm:pl-8 sm:pr-0"
-                    )}
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: index * 0.1 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                  >
-                    <div 
+            <div className="mb-12 max-w-3xl mx-auto text-center">
+              <motion.p 
+                className="text-lg text-gray-300/90"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                viewport={{ once: true }}
+              >
+                A journey through my professional experiences and academic achievements
+              </motion.p>
+            </div>
+
+            {/* Timeline */}
+            <div className="relative">
+              {/* Vertical line */}
+              <div 
+                className="absolute left-4 sm:left-1/2 sm:-ml-0.5 w-1 bg-white/10 h-full"
+                style={{ 
+                  boxShadow: '0 0 10px rgba(255, 255, 255, 0.1)'
+                }}
+              ></div>
+              
+              <div className="space-y-16 relative">
+                {careerData.map((item, index) => {
+                  const isEven = index % 2 === 0;
+                  return (
+                    <motion.div 
+                      key={item.id}
                       className={cn(
-                        "flex flex-col sm:items-center sm:flex-row sm:gap-8",
-                        isEven ? "sm:flex-row" : "sm:flex-row-reverse"
+                        "relative",
+                        isEven ? "sm:pr-8 sm:pl-0" : "sm:pl-8 sm:pr-0"
                       )}
+                      initial={{ opacity: 0, y: 50 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8, delay: index * 0.1 }}
+                      viewport={{ once: true, margin: "-100px" }}
                     >
-                      {/* Timeline Node */}
-                      <div className="absolute left-0 sm:left-1/2 sm:-translate-x-1/2 -translate-y-1 z-10">
-                        <motion.div 
-                          className="w-9 h-9 rounded-full bg-gradient-to-br from-white/20 to-white/5 flex items-center justify-center border border-white/20 shadow-lg"
-                          whileHover={{ scale: 1.2 }}
-                        >
-                          <span className="text-accent">{item.icon}</span>
-                        </motion.div>
-                      </div>
-                      
-                      {/* Timeline Card */}
-                      <motion.div 
+                      <div 
                         className={cn(
-                          "relative flex-1 ml-12 sm:ml-0",
-                          isEven ? "sm:text-right" : "sm:text-left"
+                          "flex flex-col sm:items-center sm:flex-row sm:gap-8",
+                          isEven ? "sm:flex-row" : "sm:flex-row-reverse"
                         )}
-                        whileHover={{ translateY: -5 }}
                       >
-                        <div 
-                          className="vintage-card p-6 md:p-8 rounded-xl bg-gradient-to-br border border-white/10 backdrop-blur-sm shadow-xl"
-                          style={{
-                            backgroundImage: `linear-gradient(to bottom right, ${item.color.split(" ")[0].replace("from-", "rgba(29, 78, 216, 0.15)")}, ${item.color.split(" ")[1].replace("to-", "rgba(8, 47, 73, 0.05)")})`
-                          }}
-                        >
-                          {/* Content */}
-                          <div className="absolute inset-0 grain-effect opacity-10 rounded-xl"></div>
-                          <div className="flex items-center mb-3 gap-2">
-                            <div className="px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm text-xs font-medium text-white">
-                              <span className="flex items-center">
-                                <Calendar className="h-3 w-3 mr-1" />
-                                {item.year}
-                              </span>
-                            </div>
-                            <div className="px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm text-xs font-medium text-white">
-                              {item.type === "work" ? "Work" : "Education"}
-                            </div>
-                          </div>
-                          
-                          <h3 className="text-xl md:text-2xl font-bold text-white mb-2">{item.role}</h3>
-                          <p className="text-white/80 font-medium mb-4">{item.company}</p>
-                          
-                          <p className="text-white/70 text-sm md:text-base mb-6">
-                            {item.description}
-                          </p>
-                          
-                          <div className="flex flex-wrap gap-2">
-                            {item.skills.map((skill, i) => (
-                              <span 
-                                key={i}
-                                className="vintage-skill px-3 py-1 bg-white/5 backdrop-blur-sm rounded-full text-xs text-white/60"
-                              >
-                                {skill}
-                              </span>
-                            ))}
-                          </div>
-                          
-                          <motion.div
-                            className="absolute bottom-5 right-5 opacity-30 pointer-events-none"
-                            animate={{ rotate: 360 }}
-                            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                        {/* Timeline Node */}
+                        <div className="absolute left-0 sm:left-1/2 sm:-translate-x-1/2 -translate-y-1 z-10">
+                          <motion.div 
+                            className="w-9 h-9 rounded-full bg-gradient-to-br from-white/20 to-white/5 flex items-center justify-center border border-white/20 shadow-lg"
+                            whileHover={{ scale: 1.2 }}
                           >
-                            <div className="w-20 h-20 border border-white/5 rounded-full"></div>
+                            <span className="text-accent">{item.icon}</span>
                           </motion.div>
                         </div>
-                      </motion.div>
-                      
-                      {/* Year on opposite side for larger screens */}
-                      <div className={cn(
-                        "hidden sm:block sm:w-1/2 relative",
-                        isEven ? "sm:text-right" : "sm:text-left"
-                      )}>
+                        
+                        {/* Timeline Card */}
                         <motion.div 
-                          className="absolute top-0 px-4 py-2"
-                          style={{ 
-                            [isEven ? 'right' : 'left']: '0',
-                          }}
-                          whileHover={{ scale: 1.05 }}
+                          className={cn(
+                            "relative flex-1 ml-12 sm:ml-0",
+                            isEven ? "sm:text-right" : "sm:text-left"
+                          )}
+                          whileHover={{ translateY: -5 }}
                         >
-                          <span className="vintage-text text-white/40 text-sm">
-                            {item.type === "work" 
-                              ? <Briefcase className="h-3 w-3 inline mr-1" />
-                              : <GraduationCap className="h-3 w-3 inline mr-1" />
-                            }
-                          </span>
+                          <div 
+                            className="vintage-card p-6 md:p-8 rounded-xl bg-gradient-to-br border border-white/10 backdrop-blur-sm shadow-xl"
+                            style={{
+                              backgroundImage: `linear-gradient(to bottom right, ${item.color.split(" ")[0].replace("from-", "rgba(29, 78, 216, 0.15)")}, ${item.color.split(" ")[1].replace("to-", "rgba(8, 47, 73, 0.05)")})`
+                            }}
+                          >
+                            {/* Content */}
+                            <div className="absolute inset-0 grain-effect opacity-10 rounded-xl"></div>
+                            <div className="flex items-center mb-3 gap-2">
+                              <div className="px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm text-xs font-medium text-white">
+                                <span className="flex items-center">
+                                  <Calendar className="h-3 w-3 mr-1" />
+                                  {item.year}
+                                </span>
+                              </div>
+                              <div className="px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm text-xs font-medium text-white">
+                                {item.type === "work" ? "Work" : "Education"}
+                              </div>
+                            </div>
+                            
+                            <h3 className="text-xl md:text-2xl font-bold text-white mb-2">{item.role}</h3>
+                            <p className="text-white/80 font-medium mb-4">{item.company}</p>
+                            
+                            <p className="text-white/70 text-sm md:text-base mb-6">
+                              {item.description}
+                            </p>
+                            
+                            <div className="flex flex-wrap gap-2">
+                              {item.skills.map((skill, i) => (
+                                <span 
+                                  key={i}
+                                  className="vintage-skill px-3 py-1 bg-white/5 backdrop-blur-sm rounded-full text-xs text-white/60"
+                                >
+                                  {skill}
+                                </span>
+                              ))}
+                            </div>
+                            
+                            <motion.div
+                              className="absolute bottom-5 right-5 opacity-30 pointer-events-none"
+                              animate={{ rotate: 360 }}
+                              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                            >
+                              <div className="w-20 h-20 border border-white/5 rounded-full"></div>
+                            </motion.div>
+                          </div>
                         </motion.div>
+                        
+                        {/* Year on opposite side for larger screens */}
+                        <div className={cn(
+                          "hidden sm:block sm:w-1/2 relative",
+                          isEven ? "sm:text-right" : "sm:text-left"
+                        )}>
+                          <motion.div 
+                            className="absolute top-0 px-4 py-2"
+                            style={{ 
+                              [isEven ? 'right' : 'left']: '0',
+                            }}
+                            whileHover={{ scale: 1.05 }}
+                          >
+                            <span className="vintage-text text-white/40 text-sm">
+                              {item.type === "work" 
+                                ? <Briefcase className="h-3 w-3 inline mr-1" />
+                                : <GraduationCap className="h-3 w-3 inline mr-1" />
+                              }
+                            </span>
+                          </motion.div>
+                        </div>
                       </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </div>
+            
+            <motion.div 
+              className="mt-16 text-center"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <a 
+                href="#works" 
+                className="flex items-center justify-center gap-2 text-accent hover:text-white transition-colors duration-300"
+              >
+                <span>View My Projects</span>
+                <ChevronRight className="h-4 w-4" />
+              </a>
+            </motion.div>
+          </div>
+        </section>
+      </SectionBackground>
+
+      {/* WORKS SECTION with existing ProjectsSection but wrapped in our background */}
+      <SectionBackground pattern="diagonal">
+        <ProjectsSection />
+      </SectionBackground>
+      
+      {/* SKILLS SECTION - With circuit board pattern */}
+      <SectionBackground pattern="circuit" accentColor="rgba(56, 189, 248, 0.1)" withTransition={true}>
+        <SkillsSection />
+      </SectionBackground>
+
+      {/* TESTIMONIALS SECTION - With flow pattern */}
+      <SectionBackground pattern="flow" accentColor="rgba(191, 219, 254, 0.1)" withTransition={true}>
+        <TestimonialsSection />
+      </SectionBackground>
+
+      {/* FAQ SECTION - With dots pattern */}
+      <SectionBackground pattern="dots" accentColor="rgba(250, 204, 21, 0.1)" withTransition={true}>
+        <section id="faq" className="min-h-screen w-full py-16 md:py-24 lg:py-32 px-4 md:px-8">
+          <div className="max-w-3xl mx-auto relative">
+            <h2 className="text-4xl md:text-6xl font-bold mb-10 md:mb-16 text-center text-gray-100 vintage-text">
+              Frequently Asked Questions
+            </h2>
+            
+            <div className="space-y-4">
+              <Accordion type="single" collapsible className="w-full">
+                {faqItems.map((item, index) => (
+                  <AccordionItem 
+                    key={index} 
+                    value={`item-${index}`}
+                    className="border-b border-gray-200/20 last:border-b-0"
+                  >
+                    <AccordionTrigger className="text-gray-100/80 hover:text-gray-100 text-left py-6 vintage-text">
+                      {item.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-gray-300/80 pb-6">
+                      {item.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
+            
+            <div className="mt-16 text-center">
+              <p className="text-gray-300/80 mb-6">
+                Still have questions? Feel free to reach out directly.
+              </p>
+              <a 
+                href="mailto:contact@example.com" 
+                className="inline-flex items-center justify-center px-6 py-3 bg-blue-900/20 hover:bg-blue-900/30 text-blue-200 border border-blue-400/30 rounded-full transition-all hover:scale-105"
+              >
+                Contact Me
+              </a>
             </div>
           </div>
-          
-          <motion.div 
-            className="mt-16 text-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <a 
-              href="#works" 
-              className="flex items-center justify-center gap-2 text-accent hover:text-white transition-colors duration-300"
-            >
-              <span>View My Projects</span>
-              <ChevronRight className="h-4 w-4" />
-            </a>
-          </motion.div>
-        </div>
-      </section>
+        </section>
+      </SectionBackground>
 
-      {/* WORKS SECTION - Replaced with new ProjectsSection */}
-      <ProjectsSection />
-      
-      {/* SKILLS SECTION - New addition */}
-      <SkillsSection />
-
-      {/* TESTIMONIALS SECTION - Add this section */}
-      <TestimonialsSection />
-
-      {/* FAQ SECTION - with vintage effect */}
-      <section id="faq" className="min-h-screen w-full py-16 md:py-24 lg:py-32 px-4 md:px-8 bg-black vintage-effect">
-        <div className="max-w-3xl mx-auto relative">
-          <h2 className="text-4xl md:text-6xl font-bold mb-10 md:mb-16 text-center text-gray-100 vintage-text">
-            Frequently Asked Questions
-          </h2>
-          
-          <div className="space-y-4">
-            <Accordion type="single" collapsible className="w-full">
-              {faqItems.map((item, index) => (
-                <AccordionItem 
-                  key={index} 
-                  value={`item-${index}`}
-                  className="border-b border-gray-200/20 last:border-b-0"
-                >
-                  <AccordionTrigger className="text-gray-100/80 hover:text-gray-100 text-left py-6 vintage-text">
-                    {item.question}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-gray-300/80 pb-6">
-                    {item.answer}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
-          
-          <div className="mt-16 text-center">
-            <p className="text-gray-300/80 mb-6">
-              Still have questions? Feel free to reach out directly.
-            </p>
-            <a 
-              href="mailto:contact@example.com" 
-              className="inline-flex items-center justify-center px-6 py-3 bg-blue-900/20 hover:bg-blue-900/30 text-blue-200 border border-blue-400/30 rounded-full transition-all hover:scale-105"
-            >
-              Contact Me
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* CONTACT SECTION - New Addition */}
-      <ContactSection />
+      {/* CONTACT SECTION - With topographic pattern */}
+      <SectionBackground pattern="topo" accentColor="rgba(56, 189, 248, 0.08)" withTransition={true}>
+        <ContactSection />
+      </SectionBackground>
     </div>
   );
 };
