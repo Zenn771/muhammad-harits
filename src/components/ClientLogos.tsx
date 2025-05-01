@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { motion } from 'framer-motion';
 
 const ClientLogos: React.FC = () => {
   // Changed from clients to soft skills list
@@ -25,15 +26,61 @@ const ClientLogos: React.FC = () => {
         <div className="flex whitespace-nowrap animate-scroll-left">
           {/* Double the skills to create seamless loop */}
           {[...softSkills, ...softSkills].map((skill, index) => (
-            <div 
+            <motion.div 
               key={index} 
               className="inline-block mx-8 h-8 hover:scale-110 transition-all duration-300 relative group"
+              whileHover={{ 
+                y: -5,
+                transition: { duration: 0.2 }
+              }}
             >
-              <span className="text-lg font-bold tracking-wide text-white/80 relative">
+              <motion.span 
+                className="text-lg font-bold tracking-wide text-white/80 relative"
+                whileHover={{ color: "#facc15" }}
+              >
                 {skill}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300"></span>
-              </span>
-            </div>
+                <motion.span 
+                  className="absolute -bottom-1 left-0 h-0.5 bg-accent"
+                  initial={{ width: 0 }}
+                  whileHover={{ width: "100%" }}
+                  transition={{ duration: 0.3 }}
+                />
+              </motion.span>
+              
+              {/* Subtle particle effect on hover */}
+              <motion.div 
+                className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-full h-2 pointer-events-none"
+                initial={{ opacity: 0 }}
+                whileHover={{ opacity: 1 }}
+              >
+                {[...Array(5)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className="absolute w-1 h-1 rounded-full bg-accent/80"
+                    initial={{ 
+                      x: 0,
+                      y: 0, 
+                      opacity: 0 
+                    }}
+                    animate={{ 
+                      x: [-10 + Math.random() * 20, -20 + Math.random() * 40],
+                      y: [0, -10 - Math.random() * 10],
+                      opacity: [0, 0.8, 0] 
+                    }}
+                    transition={{ 
+                      duration: 1 + Math.random(), 
+                      ease: "easeOut",
+                      repeat: Infinity,
+                      repeatType: "loop",
+                      delay: Math.random() * 0.5 
+                    }}
+                    style={{
+                      left: `${Math.random() * 100}%`
+                    }}
+                  />
+                ))}
+              </motion.div>
+            </motion.div>
           ))}
         </div>
       </div>
