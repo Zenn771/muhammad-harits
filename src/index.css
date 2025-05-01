@@ -240,6 +240,59 @@ html {
   animation: scrollLeft 30s linear infinite;
 }
 
+/* Bento Grid Card Effects */
+.bento-card {
+  @apply relative overflow-hidden rounded-xl transition-all duration-500;
+  transform-style: preserve-3d;
+  transform-origin: center;
+}
+
+.bento-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3);
+}
+
+.bento-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right bottom,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.05) 10%,
+    rgba(0, 0, 0, 0.05) 80%
+  );
+  z-index: 2;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.bento-card:hover::before {
+  opacity: 1;
+}
+
+.bento-card .grain-texture {
+  position: absolute;
+  inset: 0;
+  background-image: url('/lovable-uploads/aee8a65b-b9d5-4255-949d-bb430a0cba2d.png');
+  opacity: 0.08;
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+  z-index: 1;
+  border-radius: inherit;
+  animation: pan-noise 20s ease-in-out infinite alternate;
+}
+
+.bento-card .bento-icon {
+  transition: transform 0.3s ease;
+}
+
+.bento-card:hover .bento-icon {
+  transform: scale(1.15);
+}
+
 /* Responsive improvements */
 @media (max-width: 640px) {
   .vintage-text {
@@ -249,4 +302,18 @@ html {
   .circle-stack .circle {
     transform: scale(0.8) translate(-60%, -60%);
   }
+
+  .bento-card {
+    @apply col-span-1 row-span-1;
+  }
 }
+
+/* Staggered animation delays for bento grid */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+.stagger-6 { animation-delay: 0.6s; }
+.stagger-7 { animation-delay: 0.7s; }
+.stagger-8 { animation-delay: 0.8s; }

@@ -5,6 +5,7 @@ import CircleStack from '@/components/CircleStack';
 import ParticleEffect from '@/components/ParticleEffect';
 import StatusBadge from '@/components/StatusBadge';
 import ClientLogos from '@/components/ClientLogos';
+import BentoBox from '@/components/BentoGrid';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -28,7 +29,7 @@ const Index = () => {
       // Determine active section based on scroll position
       const scrollPosition = window.scrollY;
       
-      const sections = ['home', 'works', 'about', 'faq'];
+      const sections = ['home', 'about', 'works', 'faq'];
       for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
@@ -159,6 +160,23 @@ const Index = () => {
         })}
       </section>
 
+      {/* ABOUT SECTION - With new bento grid */}
+      <section id="about" className="min-h-screen w-full py-16 md:py-24 lg:py-32 px-4 md:px-8 bg-black vintage-effect">
+        <div className="max-w-6xl mx-auto relative">
+          <h2 className="text-4xl md:text-6xl font-bold mb-12 md:mb-16 text-center text-gray-100 vintage-text">
+            About Me
+          </h2>
+          
+          <div className="mb-12 max-w-3xl mx-auto text-center">
+            <p className="text-lg text-gray-300/90">
+              I'm a passionate AI and electrical engineer with over 5 years of experience creating intelligent systems and innovative solutions. My multidisciplinary approach combines technical expertise with creative problem-solving.
+            </p>
+          </div>
+          
+          <BentoBox />
+        </div>
+      </section>
+
       {/* WORKS SECTION - with vintage effect */}
       <section id="works" className="min-h-screen w-full py-16 md:py-24 lg:py-32 px-4 md:px-8 bg-black vintage-effect">
         <div className="max-w-5xl mx-auto relative">
@@ -193,44 +211,6 @@ const Index = () => {
             <Button variant="outline" className="border-amber-400/30 text-amber-200 hover:bg-amber-900/20 hover:border-amber-400 transition-all hover:scale-105 px-8 py-3 text-base font-medium">
               View All Projects <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* ABOUT SECTION - with vintage effect and improved text color */}
-      <section id="about" className="min-h-screen w-full py-16 md:py-24 lg:py-32 px-4 md:px-8 bg-black vintage-effect">
-        <div className="max-w-3xl mx-auto relative">
-          <h2 className="text-4xl md:text-6xl font-bold mb-10 md:mb-16 text-center text-gray-100 vintage-text">
-            About Me
-          </h2>
-          
-          <div className="space-y-8 text-gray-300 text-lg">
-            <p>
-              I am a passionate AI and electrical engineer with over 5 years of experience creating intelligent systems and solutions. My work spans across various industries, helping organizations leverage cutting-edge technology to solve complex problems.
-            </p>
-            
-            <p>
-              My approach combines deep technical knowledge with practical implementation skills, ensuring that every project not only meets technical specifications but also delivers exceptional value and performance.
-            </p>
-            
-            <div>
-              <h3 className="text-2xl font-semibold mb-6 text-blue-100 vintage-text">Core Skills</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {[
-                  "Machine Learning Systems", 
-                  "Neural Networks", 
-                  "Electrical System Design", 
-                  "Computer Vision",
-                  "Natural Language Processing", 
-                  "Hardware Integration"
-                ].map((skill, index) => (
-                  <div key={index} className="flex items-center vintage-skill">
-                    <span className="w-2 h-2 rounded-full bg-blue-400/50 mr-3"></span>
-                    {skill}
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
         </div>
       </section>
