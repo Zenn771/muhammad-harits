@@ -189,6 +189,7 @@ export const SectionBackground: React.FC<SectionBackgroundProps> = ({
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
         variants={fadeInVariants}
+        style={{ position: 'relative' }} // Add explicit position relative to fix framer-motion warning
       >
         {children}
       </motion.div>

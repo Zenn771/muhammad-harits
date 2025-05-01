@@ -49,7 +49,7 @@ const Faq = () => {
         <div className="flex flex-col items-center justify-center pt-32 pb-20 px-6">
           <div className="max-w-3xl mx-auto w-full relative spotlight-enhanced">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-10 text-white text-center animate-fade-in">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-accent to-white">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-amber-400 to-white">
                 Frequently Asked Questions
               </span>
             </h1>
@@ -62,7 +62,7 @@ const Faq = () => {
                     value={`item-${index}`}
                     className="border-b border-white/10 last:border-b-0"
                   >
-                    <AccordionTrigger className="text-white hover:text-accent text-left py-6">
+                    <AccordionTrigger className="text-white hover:text-amber-400 text-left py-6">
                       {item.question}
                     </AccordionTrigger>
                     <AccordionContent className="text-white/70 pb-6">
@@ -79,7 +79,7 @@ const Faq = () => {
               </p>
               <a 
                 href="mailto:contact@example.com" 
-                className="inline-flex items-center justify-center px-6 py-3 bg-accent/20 hover:bg-accent/30 text-accent border border-accent/30 rounded-full transition-all hover:scale-105"
+                className="inline-flex items-center justify-center px-6 py-3 bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 border border-amber-500/30 rounded-full transition-all hover:scale-105"
               >
                 Contact Me
               </a>

@@ -19,6 +19,15 @@ export const useSectionAnimation = ({
 
   useEffect(() => {
     const currentRef = ref.current;
+    
+    // Make sure the ref element has a non-static position
+    if (currentRef) {
+      const currentPosition = window.getComputedStyle(currentRef).position;
+      if (currentPosition === 'static') {
+        currentRef.style.position = 'relative';
+      }
+    }
+    
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
