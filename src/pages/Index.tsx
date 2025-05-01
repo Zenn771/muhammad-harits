@@ -43,36 +43,34 @@ const Index = () => {
               <StatusBadge status="available" />
             </div>
             
-            {/* Enhanced main headline */}
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 text-white tracking-tight animate-fade-in">
-              Welcome to
+            {/* Updated main headline with personal greeting */}
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 tracking-tight animate-fade-in">
+              <span className="text-white">Hi everyone,</span>
               <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-200 animate-pulse-slow">
-                my digital humble
-              </span>
-              <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-100 via-accent to-amber-100">
-                abode
+                my name is Harits
               </span>
             </h1>
             
-            {/* Enhanced subtitle with staggered animation */}
+            {/* Updated subtitle with professional information */}
             <div className="space-y-4 mb-14">
-              <p className="text-lg md:text-xl text-white/70 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-                I'm an independent designer.
+              <p className="text-xl md:text-2xl text-white animate-fade-in" style={{ animationDelay: '0.2s' }}>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-100 via-accent to-amber-100">
+                  AI & Electrical Engineer
+                </span>
               </p>
-              <p className="text-lg md:text-xl text-white/70 animate-fade-in" style={{ animationDelay: '0.4s' }}>
-                My interest lies in brand experience, and user experience.
+              <p className="text-lg md:text-xl text-white/90 animate-fade-in" style={{ animationDelay: '0.4s' }}>
+                Passionate about creating intelligent systems and innovative solutions.
               </p>
             </div>
             
-            {/* Enhanced CTA buttons with hover effects */}
+            {/* Enhanced CTA buttons with improved contrast */}
             <div className="flex flex-col sm:flex-row gap-6 justify-center animate-fade-in" style={{ animationDelay: '0.6s' }}>
-              <Button className="bg-white text-dark hover:bg-accent hover:text-black transition-all hover:scale-105 px-8 py-6 text-base font-medium">
+              <Button className="bg-accent text-black hover:bg-amber-300 hover:text-black transition-all hover:scale-105 px-8 py-6 text-base font-medium">
                 👋 Let's talk
               </Button>
-              <Button variant="outline" className="border-white/20 text-white hover:bg-white/10 hover:border-white transition-all hover:scale-105 px-8 py-6 text-base font-medium">
-                Get Template <ArrowRight className="ml-2 h-4 w-4" />
+              <Button variant="outline" className="border-amber-400/30 text-amber-200 hover:bg-amber-900/20 hover:border-amber-400 transition-all hover:scale-105 px-8 py-6 text-base font-medium">
+                View Projects <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </div>
           </div>
