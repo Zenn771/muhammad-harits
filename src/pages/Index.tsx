@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import CircleStack from '@/components/CircleStack';
@@ -8,6 +7,7 @@ import ClientLogos from '@/components/ClientLogos';
 import BentoBox from '@/components/BentoGrid';
 import ProjectsSection from '@/components/ProjectsSection';
 import SkillsSection from '@/components/SkillsSection';
+import TestimonialsSection from '@/components/TestimonialsSection';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Briefcase, Calendar, Award, ChevronRight, GraduationCap } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -414,6 +414,9 @@ const Index = () => {
       
       {/* SKILLS SECTION - New addition */}
       <SkillsSection />
+
+      {/* TESTIMONIALS SECTION - Add this section */}
+      <TestimonialsSection />
 
       {/* FAQ SECTION - with vintage effect */}
       <section id="faq" className="min-h-screen w-full py-16 md:py-24 lg:py-32 px-4 md:px-8 bg-black vintage-effect">
