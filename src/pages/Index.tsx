@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import CircleStack from '@/components/CircleStack';
@@ -154,8 +155,11 @@ const Index = () => {
         {/* Enhanced circle stack with more depth */}
         <CircleStack />
         
-        {/* Light beam from above */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-1/2 bg-gradient-to-b from-amber-200/20 to-transparent" style={{ filter: 'blur(50px)' }}></div>
+        {/* Light beam from above - enhanced for more visibility */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2/5 h-3/5 bg-gradient-to-b from-amber-200/30 to-transparent" style={{ filter: 'blur(60px)' }}></div>
+        
+        {/* Overhead spotlight effect specific to the header text */}
+        <div className="absolute top-[30%] left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-gradient-to-b from-amber-200/40 to-transparent rounded-full" style={{ filter: 'blur(80px)', transformOrigin: 'center top' }}></div>
         
         {/* Main content positioned in the center with enhanced spotlight effect */}
         <div className="relative h-screen flex flex-col items-center justify-center z-10 spotlight-enhanced overhead-spotlight">
@@ -169,9 +173,9 @@ const Index = () => {
               {/* Condensed main headline with personal greeting on a single line */}
               <div className="text-highlight relative">
                 <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-8 tracking-tight animate-fade-in text-white relative">
-                  Hi everyone, my name is <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-200 animate-pulse-slow relative">
+                  Hi everyone, my name is <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-200 animate-pulse-slow relative glow-effect">
                     Harits
-                    <span className="absolute -inset-1 bg-amber-400/20 blur-lg -z-10 rounded-full"></span>
+                    <span className="absolute -inset-1 bg-amber-400/30 blur-lg -z-10 rounded-full"></span>
                   </span>
                 </h1>
               </div>
@@ -207,11 +211,11 @@ const Index = () => {
         </div>
         
         {/* Enhanced glowing stars/particles with increased glow effect */}
-        {[...Array(20)].map((_, i) => {
-          const size = Math.random() * 8 + 2;
+        {[...Array(30)].map((_, i) => {
+          const size = Math.random() * 10 + 3;
           const top = Math.random() * 80 + 10;
           const left = Math.random() * 80 + 10;
-          const opacity = Math.random() * 0.7 + 0.3;
+          const opacity = Math.random() * 0.8 + 0.4;
           const delay = i * 0.3;
           
           return (
@@ -228,7 +232,7 @@ const Index = () => {
                 borderRadius: '50%',
                 filter: 'blur(2px)',
                 animationDelay: `${delay}s`,
-                boxShadow: '0 0 15px 4px rgba(250,204,21,0.4)',
+                boxShadow: '0 0 20px 6px rgba(250,204,21,0.5)',
               }}
             />
           );
@@ -277,7 +281,7 @@ const Index = () => {
                 viewport={{ once: true }}
               >
                 A journey through my professional experiences and academic achievements
-              </p>
+              </motion.p>
             </div>
 
             {/* Timeline */}
