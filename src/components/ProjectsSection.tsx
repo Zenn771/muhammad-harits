@@ -62,6 +62,7 @@ const ProjectsSection: React.FC = () => {
     };
 
     window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Initial call to set state on mount
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -71,8 +72,8 @@ const ProjectsSection: React.FC = () => {
       ref={sectionRef}
       className="py-16 md:py-24 lg:py-32 overflow-hidden bg-black"
     >
-      <div className="container mx-auto px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-16">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
           <motion.p 
             className="text-sm uppercase tracking-widest text-amber-200 font-medium mb-2"
             initial={{ opacity: 0, y: 20 }}
@@ -109,8 +110,10 @@ const ProjectsSection: React.FC = () => {
           <div 
             className="relative w-full mx-auto"
             style={{
-              maxWidth: '1200px',
-              minHeight: '800px' // Ensure space for cards to stack
+              maxWidth: '1000px',
+              perspective: '1500px',
+              minHeight: '600px', // Mobile height
+              height: 'calc(100vh - 100px)' // Responsive height for larger screens
             }}
           >
             {/* Stacked cards with reversed order so first card appears at bottom */}
