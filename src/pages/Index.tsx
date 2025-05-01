@@ -147,7 +147,7 @@ const Index = () => {
       </div>
       
       {/* HOME SECTION - Keep existing structure but enhance with transitions */}
-      <section id="home" className="min-h-screen w-full overflow-hidden bg-black relative grain-effect">
+      <section id="home" className="min-h-screen w-full overflow-hidden bg-black relative">
         {/* Enhanced background particles with more density */}
         <ParticleEffect count={100} />
         

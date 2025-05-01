@@ -1,4 +1,3 @@
-
 import React, { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -125,7 +124,7 @@ const SkillsSection: React.FC = () => {
   };
 
   return (
-    <section id="skills" className="py-16 md:py-24 lg:py-32 bg-black relative grain-effect overflow-hidden">
+    <section id="skills" className="py-16 md:py-24 lg:py-32 bg-black relative">
       <div className="absolute inset-0 z-0">
         {/* Enhanced grid pattern with more visible texture */}
         <div className="absolute inset-0 grid-background opacity-10 pointer-events-none" />

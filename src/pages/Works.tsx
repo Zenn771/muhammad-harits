@@ -18,7 +18,7 @@ const Works = () => {
           <ProjectsSection />
         </SectionBackground>
         
-        <SectionBackground pattern="circuit" withGrain={true}>
+        <SectionBackground pattern="circuit" withGrain={false}>
           <SkillsSection />
         </SectionBackground>
         
