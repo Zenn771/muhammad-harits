@@ -7,6 +7,7 @@ import StatusBadge from '@/components/StatusBadge';
 import ClientLogos from '@/components/ClientLogos';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
 import {
   Accordion,
   AccordionContent,
@@ -17,6 +18,7 @@ import {
 const Index = () => {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const isMobile = useIsMobile();
   
   // Handle scroll effect for navbar and section highlighting
   useEffect(() => {
@@ -93,19 +95,15 @@ const Index = () => {
                 <StatusBadge status="available" />
               </div>
               
-              {/* Updated main headline with personal greeting */}
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 tracking-tight animate-fade-in">
-                <span className="text-white">Hi everyone,</span>
-                <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-200 animate-pulse-slow">
-                  my name is Harits
-                </span>
+              {/* Condensed main headline with personal greeting on a single line */}
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-8 tracking-tight animate-fade-in text-white">
+                Hi everyone, my name is <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-200 animate-pulse-slow">Harits</span>
               </h1>
               
               {/* Updated subtitle with professional information */}
               <div className="space-y-4 mb-14">
                 <p className="text-xl md:text-2xl text-white animate-fade-in" style={{ animationDelay: '0.2s' }}>
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-100 via-accent to-amber-100">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-sky-300 to-blue-300">
                     AI & Electrical Engineer
                   </span>
                 </p>
@@ -116,7 +114,7 @@ const Index = () => {
               
               {/* Enhanced CTA buttons with improved contrast */}
               <div className="flex flex-col sm:flex-row gap-6 justify-center animate-fade-in" style={{ animationDelay: '0.6s' }}>
-                <Button className="bg-accent text-black hover:bg-amber-300 hover:text-black transition-all hover:scale-105 px-8 py-6 text-base font-medium">
+                <Button className="bg-white hover:bg-gray-100 text-gray-800 hover:text-black transition-all hover:scale-105 px-8 py-6 text-base font-medium">
                   👋 Let's talk
                 </Button>
                 <Button variant="outline" className="border-amber-400/30 text-amber-200 hover:bg-amber-900/20 hover:border-amber-400 transition-all hover:scale-105 px-8 py-6 text-base font-medium">
@@ -127,7 +125,7 @@ const Index = () => {
           </div>
         </div>
         
-        {/* Enhanced footer with client logos */}
+        {/* Scrolling soft skills */}
         <div className="absolute bottom-0 left-0 right-0 pb-10 animate-fade-in" style={{ animationDelay: '0.8s' }}>
           <ClientLogos />
         </div>
@@ -162,13 +160,13 @@ const Index = () => {
       </section>
 
       {/* WORKS SECTION - with vintage effect */}
-      <section id="works" className="min-h-screen w-full py-32 px-4 bg-black vintage-effect">
+      <section id="works" className="min-h-screen w-full py-16 md:py-24 lg:py-32 px-4 md:px-8 bg-black vintage-effect">
         <div className="max-w-5xl mx-auto relative">
-          <h2 className="text-4xl md:text-6xl font-bold mb-16 text-center text-amber-100/90 vintage-text">
+          <h2 className="text-4xl md:text-6xl font-bold mb-10 md:mb-16 text-center text-amber-100/90 vintage-text">
             Selected Works
           </h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
             {[1, 2, 3, 4].map((item) => (
               <div 
                 key={item}
@@ -191,7 +189,7 @@ const Index = () => {
             ))}
           </div>
           
-          <div className="mt-20 text-center">
+          <div className="mt-16 md:mt-20 text-center">
             <Button variant="outline" className="border-amber-400/30 text-amber-200 hover:bg-amber-900/20 hover:border-amber-400 transition-all hover:scale-105 px-8 py-3 text-base font-medium">
               View All Projects <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
@@ -199,14 +197,14 @@ const Index = () => {
         </div>
       </section>
 
-      {/* ABOUT SECTION - with vintage effect */}
-      <section id="about" className="min-h-screen w-full py-32 px-6 bg-black vintage-effect">
+      {/* ABOUT SECTION - with vintage effect and improved text color */}
+      <section id="about" className="min-h-screen w-full py-16 md:py-24 lg:py-32 px-4 md:px-8 bg-black vintage-effect">
         <div className="max-w-3xl mx-auto relative">
-          <h2 className="text-4xl md:text-6xl font-bold mb-16 text-center text-amber-100/90 vintage-text">
+          <h2 className="text-4xl md:text-6xl font-bold mb-10 md:mb-16 text-center text-gray-100 vintage-text">
             About Me
           </h2>
           
-          <div className="space-y-8 text-amber-200/70 text-lg">
+          <div className="space-y-8 text-gray-300 text-lg">
             <p>
               I am a passionate AI and electrical engineer with over 5 years of experience creating intelligent systems and solutions. My work spans across various industries, helping organizations leverage cutting-edge technology to solve complex problems.
             </p>
@@ -216,7 +214,7 @@ const Index = () => {
             </p>
             
             <div>
-              <h3 className="text-2xl font-semibold mb-6 text-amber-100/80 vintage-text">Core Skills</h3>
+              <h3 className="text-2xl font-semibold mb-6 text-blue-100 vintage-text">Core Skills</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {[
                   "Machine Learning Systems", 
@@ -227,7 +225,7 @@ const Index = () => {
                   "Hardware Integration"
                 ].map((skill, index) => (
                   <div key={index} className="flex items-center vintage-skill">
-                    <span className="w-2 h-2 rounded-full bg-amber-400/50 mr-3"></span>
+                    <span className="w-2 h-2 rounded-full bg-blue-400/50 mr-3"></span>
                     {skill}
                   </div>
                 ))}
@@ -238,9 +236,9 @@ const Index = () => {
       </section>
 
       {/* FAQ SECTION - with vintage effect */}
-      <section id="faq" className="min-h-screen w-full py-32 px-6 bg-black vintage-effect">
+      <section id="faq" className="min-h-screen w-full py-16 md:py-24 lg:py-32 px-4 md:px-8 bg-black vintage-effect">
         <div className="max-w-3xl mx-auto relative">
-          <h2 className="text-4xl md:text-6xl font-bold mb-16 text-center text-amber-100/90 vintage-text">
+          <h2 className="text-4xl md:text-6xl font-bold mb-10 md:mb-16 text-center text-gray-100 vintage-text">
             Frequently Asked Questions
           </h2>
           
@@ -250,12 +248,12 @@ const Index = () => {
                 <AccordionItem 
                   key={index} 
                   value={`item-${index}`}
-                  className="border-b border-amber-200/20 last:border-b-0"
+                  className="border-b border-gray-200/20 last:border-b-0"
                 >
-                  <AccordionTrigger className="text-amber-100/80 hover:text-amber-100 text-left py-6 vintage-text">
+                  <AccordionTrigger className="text-gray-100/80 hover:text-gray-100 text-left py-6 vintage-text">
                     {item.question}
                   </AccordionTrigger>
-                  <AccordionContent className="text-amber-200/60 pb-6">
+                  <AccordionContent className="text-gray-300/80 pb-6">
                     {item.answer}
                   </AccordionContent>
                 </AccordionItem>
@@ -264,12 +262,12 @@ const Index = () => {
           </div>
           
           <div className="mt-16 text-center">
-            <p className="text-amber-200/60 mb-6">
+            <p className="text-gray-300/80 mb-6">
               Still have questions? Feel free to reach out directly.
             </p>
             <a 
               href="mailto:contact@example.com" 
-              className="inline-flex items-center justify-center px-6 py-3 bg-amber-900/20 hover:bg-amber-900/30 text-amber-200 border border-amber-400/30 rounded-full transition-all hover:scale-105"
+              className="inline-flex items-center justify-center px-6 py-3 bg-blue-900/20 hover:bg-blue-900/30 text-blue-200 border border-blue-400/30 rounded-full transition-all hover:scale-105"
             >
               Contact Me
             </a>

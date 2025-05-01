@@ -154,7 +154,7 @@
 }
 
 .vintage-skill:hover {
-  color: rgba(252, 211, 77, 0.9);
+  color: rgba(191, 219, 254, 0.9); /* Changed from yellow to blue */
 }
 
 /* Enhanced spotlight effect with more pronounced glow */
@@ -224,4 +224,29 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px; /* Offset for fixed header */
+}
+
+/* Animation for infinite scrolling */
+@keyframes scrollLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll-left {
+  animation: scrollLeft 30s linear infinite;
+}
+
+/* Responsive improvements */
+@media (max-width: 640px) {
+  .vintage-text {
+    letter-spacing: 0.03em;
+  }
+  
+  .circle-stack .circle {
+    transform: scale(0.8) translate(-60%, -60%);
+  }
 }

@@ -123,6 +123,10 @@ export default {
 					'50%': {
 						boxShadow: '0 0 30px 8px rgba(250, 204, 21, 0.5)'
 					},
+				},
+				'scroll-left': {
+					'0%': { transform: 'translateX(0)' },
+					'100%': { transform: 'translateX(-50%)' }
 				}
 			},
 			animation: {
@@ -135,6 +139,7 @@ export default {
 				'spotlight': 'spotlight 2s ease forwards',
 				'fade-in': 'fadeIn 1s forwards',
 				'glow': 'glow 4s infinite',
+				'scroll-left': 'scroll-left 30s linear infinite',
 			},
 			backgroundImage: {
         'grain': "url('/lovable-uploads/aee8a65b-b9d5-4255-949d-bb430a0cba2d.png')",
