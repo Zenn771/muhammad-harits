@@ -1,5 +1,5 @@
 
-import React, { useRef } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle, ArrowUpRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -18,47 +18,46 @@ interface ProjectCardProps {
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, scrollY }) => {
-  const cardRef = useRef<HTMLDivElement>(null);
-  
-  // Calculate parallax and rotation effects based on scroll position
-  const rotation = Math.min(scrollY * 0.03 * (index + 1), 25);
-  const yOffset = Math.min(scrollY * 0.5 * (index + 1), 100);
+  // Calculate rotation and position based on scroll
+  const scrollFactor = Math.min(scrollY * 0.0015, 1);
+  const rotation = Math.min(8 * scrollFactor * (index + 1), 25);
+  const yOffset = Math.min(60 * scrollFactor * (index + 1), 100);
   
   return (
     <motion.div
-      ref={cardRef}
       className={cn(
-        "w-full relative mb-10 mx-auto",
-        "grain-effect vintage-card",
-        "bg-[#221F26] border border-white/5 rounded-xl overflow-hidden",
-        "transform transition-all duration-500 ease-out",
+        "w-full mx-auto mb-16",
+        "bg-[#221F26] rounded-3xl overflow-hidden",
+        "border border-white/10 shadow-xl",
+        "transform transition-all duration-300"
       )}
       style={{
-        transform: `perspective(1000px) rotateX(${rotation}deg) translateY(${yOffset}px)`,
+        transform: `perspective(2000px) rotateX(${rotation}deg) translateY(${yOffset}px)`,
+        transformOrigin: "center top",
         zIndex: 10 - index,
-        maxHeight: '650px',
       }}
     >
-      <div className="absolute inset-0 grain-effect opacity-20"></div>
+      {/* Grain texture overlay */}
+      <div className="absolute inset-0 bg-grain opacity-10 mix-blend-soft-light pointer-events-none rounded-3xl"></div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-8">
         {/* Project details */}
         <div className="flex flex-col">
           <div className="flex items-center space-x-2 text-sm font-medium">
-            <span className="text-amber-200/80">{project.company}</span>
+            <span className="text-amber-200">{project.company}</span>
             <span className="text-white/30">&bull;</span>
-            <span className="text-white/60">{project.year}</span>
+            <span className="text-white/70">{project.year}</span>
           </div>
           
-          <h3 className="mt-4 text-2xl md:text-3xl font-bold text-white tracking-tight">
+          <h3 className="mt-4 text-3xl md:text-4xl font-bold text-white tracking-tight">
             {project.title}
           </h3>
           
           <hr className="border-t border-white/10 my-6" />
           
-          <ul className="space-y-3 mb-8">
+          <ul className="space-y-4 mb-8">
             {project.results.map((result, i) => (
-              <li key={i} className="flex items-start gap-3 text-white/70">
+              <li key={i} className="flex items-start gap-3 text-white/80">
                 <CheckCircle className="h-5 w-5 text-amber-200 flex-shrink-0 mt-0.5" />
                 <span>{result.title}</span>
               </li>
@@ -79,7 +78,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, scrollY }) =>
         </div>
         
         {/* Project image */}
-        <div className="relative h-[200px] md:h-auto overflow-hidden rounded-lg">
+        <div className="h-[300px] md:h-full overflow-hidden rounded-lg relative">
           {project.image ? (
             <img 
               src={project.image} 
@@ -91,7 +90,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, scrollY }) =>
               No Image Available
             </div>
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#221F26]/80 to-transparent pointer-events-none"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#221F26]/80 to-transparent"></div>
         </div>
       </div>
     </motion.div>

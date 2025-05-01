@@ -1,8 +1,7 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import ProjectCard from './ProjectCard';
-import { ArrowUpRight, CheckCircle } from 'lucide-react';
 
 // Sample projects data
 const portfolioProjects = [
@@ -46,10 +45,20 @@ const portfolioProjects = [
 
 const ProjectsSection: React.FC = () => {
   const [scrollY, setScrollY] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
 
+  // Enhanced scroll handler with section-specific scroll tracking
   useEffect(() => {
     const handleScroll = () => {
-      setScrollY(window.scrollY);
+      if (sectionRef.current) {
+        const rect = sectionRef.current.getBoundingClientRect();
+        // Only count scroll when section is in view
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          // Calculate relative scroll position within the section
+          const sectionScrollY = Math.max(0, -rect.top);
+          setScrollY(sectionScrollY);
+        }
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -57,7 +66,11 @@ const ProjectsSection: React.FC = () => {
   }, []);
 
   return (
-    <section id="works" className="py-16 md:py-24 lg:py-32 overflow-hidden">
+    <section 
+      id="works" 
+      ref={sectionRef}
+      className="py-16 md:py-24 lg:py-32 overflow-hidden bg-black"
+    >
       <div className="container mx-auto px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <motion.p 
@@ -92,16 +105,17 @@ const ProjectsSection: React.FC = () => {
         </div>
 
         <div className="relative">
-          {/* Card container with perspective */}
+          {/* Card container with enhanced perspective */}
           <div 
             className="relative w-full mx-auto"
             style={{
-              perspective: '1000px',
+              perspective: '2000px',
               transformStyle: 'preserve-3d',
-              maxWidth: '1200px'
+              maxWidth: '1200px',
+              minHeight: '800px' // Ensure space for cards to stack
             }}
           >
-            {/* Stacked cards */}
+            {/* Stacked cards with improved layout */}
             {portfolioProjects.map((project, index) => (
               <ProjectCard 
                 key={index} 
