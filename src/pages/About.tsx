@@ -2,7 +2,6 @@
 import React from 'react';
 import Navbar from '@/components/Navbar';
 import ParticleEffect from '@/components/ParticleEffect';
-import AnimatedSkillCards from '@/components/AnimatedSkillCards';
 
 const About = () => {
   return (
@@ -34,8 +33,33 @@ const About = () => {
             </p>
             
             <div className="animate-fade-in" style={{ animationDelay: '0.6s' }}>
-              <h2 className="text-2xl font-semibold mb-6 text-white">Core Skills</h2>
-              <AnimatedSkillCards />
+              <h2 className="text-2xl font-semibold mb-4 text-white">Core Skills</h2>
+              <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <li className="flex items-center">
+                  <span className="w-2 h-2 rounded-full bg-accent mr-3"></span>
+                  Brand Identity Design
+                </li>
+                <li className="flex items-center">
+                  <span className="w-2 h-2 rounded-full bg-accent mr-3"></span>
+                  User Experience (UX)
+                </li>
+                <li className="flex items-center">
+                  <span className="w-2 h-2 rounded-full bg-accent mr-3"></span>
+                  User Interface (UI) Design
+                </li>
+                <li className="flex items-center">
+                  <span className="w-2 h-2 rounded-full bg-accent mr-3"></span>
+                  Interactive Prototyping
+                </li>
+                <li className="flex items-center">
+                  <span className="w-2 h-2 rounded-full bg-accent mr-3"></span>
+                  Design Systems
+                </li>
+                <li className="flex items-center">
+                  <span className="w-2 h-2 rounded-full bg-accent mr-3"></span>
+                  Motion Design
+                </li>
+              </ul>
             </div>
           </div>
         </div>
