@@ -64,14 +64,14 @@ const TestimonialsSection = () => {
   // Create duplicated items to enable infinite scroll effect
   useEffect(() => {
     // Duplicate the testimonials to create seamless infinite scroll
-    setDuplicatedItems([...testimonials, ...testimonials]);
+    setDuplicatedItems([...testimonials, ...testimonials, ...testimonials]);
   }, []);
 
   return (
-    <section id="testimonials" className="w-full py-16 md:py-24 lg:py-32 bg-black vintage-effect overflow-hidden">
+    <section id="testimonials" className="w-full py-12 md:py-16 bg-black vintage-effect overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 relative">
         <motion.h2 
-          className="text-4xl md:text-6xl font-bold mb-12 text-center text-gray-100 vintage-text"
+          className="text-4xl md:text-6xl font-bold mb-8 text-center text-gray-100 vintage-text"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -80,7 +80,7 @@ const TestimonialsSection = () => {
           What People Say
         </motion.h2>
         
-        <div className="mb-12 max-w-3xl mx-auto text-center">
+        <div className="mb-8 max-w-3xl mx-auto text-center">
           <motion.p 
             className="text-lg text-gray-300/90"
             initial={{ opacity: 0, y: 20 }}
@@ -92,73 +92,42 @@ const TestimonialsSection = () => {
           </motion.p>
         </div>
 
-        {/* Infinite scrolling testimonial carousel */}
+        {/* Infinite scrolling testimonial carousel with improved animation speed and entry/exit points */}
         <div 
           className="relative w-full overflow-hidden"
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
           ref={containerRef}
-          style={{ position: 'relative' }}  
         >
           <motion.div 
             className="flex gap-6"
-            animate={{ x: isPaused ? "0%" : "-50%" }}
+            animate={{ x: isPaused ? "0%" : "-100%" }}
             transition={{
               x: {
                 repeat: Infinity,
                 repeatType: "loop",
-                duration: 40,
+                duration: 25, // Increased animation speed (was 40)
                 ease: "linear",
                 pause: isPaused
               }
             }}
-            style={{ position: 'relative' }}
+            style={{ 
+              position: 'relative',
+              willChange: 'transform' // Performance optimization
+            }}
           >
             {duplicatedItems.map((testimonial, index) => (
               <div 
                 key={`${testimonial.id}-${index}`}
-                className="flex-shrink-0 w-[300px] md:w-[350px] vintage-project-card rounded-xl bento-card glow-border"
+                className="flex-shrink-0 w-[280px] md:w-[320px] vintage-project-card rounded-xl bento-card glow-border"
               >
-                <div className="p-6 flex flex-col h-full">
-                  <div className="flex items-center gap-4 mb-4">
-                    <Avatar className="h-14 w-14 border-2 border-white/10">
-                      <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
-                      <AvatarFallback className="bg-gradient-to-br from-blue-900/80 to-blue-600/50 text-white">
-                        {testimonial.initials}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <h4 className="font-medium text-white text-lg">{testimonial.name}</h4>
-                      <p className="text-sm text-blue-300/80">{testimonial.position}</p>
-                    </div>
-                  </div>
-                  <div className="grain-texture rounded-xl"></div>
-                  <p className="text-white/80 text-sm leading-relaxed">{testimonial.text}</p>
-
-                  {/* Decorative element */}
-                  <div className="absolute bottom-4 right-4 opacity-20">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M9.63 17.93C5.38 17.93 2 14.46 2 10.3C2 6.25 5.38 2.77 9.63 2.77C13.88 2.77 17.26 6.25 17.26 10.3C17.26 14.46 13.88 17.93 9.63 17.93Z" stroke="currentColor" strokeWidth="0.5" strokeMiterlimit="10"/>
-                      <path d="M21.98 21.98C21.98 21.98 17.51 17.59 17.26 17.33" stroke="currentColor" strokeWidth="0.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </motion.div>
-        </div>
-
-        {/* Mobile view - Horizontal scrollable container */}
-        <div className="mt-6 md:hidden">
-          <div className="flex overflow-x-auto pb-6 scrollbar-hide gap-4 snap-x snap-mandatory">
-            {testimonials.map((testimonial) => (
-              <div 
-                key={testimonial.id}
-                className="flex-shrink-0 w-[85vw] snap-start vintage-project-card rounded-xl bento-card"
-              >
-                <div className="p-4 flex flex-col h-full">
-                  <div className="flex items-center gap-3 mb-3">
-                    <Avatar className="h-10 w-10 border-2 border-white/10">
+                <div className="p-5 flex flex-col h-full relative">
+                  {/* Enhanced vintage texture overlay */}
+                  <div className="absolute inset-0 rounded-xl bg-[#221F26] opacity-60 mix-blend-soft-light pointer-events-none z-0"></div>
+                  <div className="absolute inset-0 grain-texture rounded-xl opacity-30"></div>
+                  
+                  <div className="flex items-center gap-3 mb-3 relative z-10">
+                    <Avatar className="h-12 w-12 border-2 border-white/10">
                       <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
                       <AvatarFallback className="bg-gradient-to-br from-blue-900/80 to-blue-600/50 text-white">
                         {testimonial.initials}
@@ -169,19 +138,24 @@ const TestimonialsSection = () => {
                       <p className="text-xs text-blue-300/80">{testimonial.position}</p>
                     </div>
                   </div>
-                  <div className="grain-texture rounded-xl"></div>
-                  <p className="text-white/80 text-xs leading-relaxed">{testimonial.text}</p>
+                  
+                  <p className="text-white/80 text-sm leading-relaxed relative z-10 mt-1">{testimonial.text}</p>
+
+                  {/* Decorative vintage quote element */}
+                  <div className="absolute bottom-3 right-3 opacity-20">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M9.63 17.93C5.38 17.93 2 14.46 2 10.3C2 6.25 5.38 2.77 9.63 2.77C13.88 2.77 17.26 6.25 17.26 10.3C17.26 14.46 13.88 17.93 9.63 17.93Z" stroke="currentColor" strokeWidth="0.5" strokeMiterlimit="10"/>
+                      <path d="M21.98 21.98C21.98 21.98 17.51 17.59 17.26 17.33" stroke="currentColor" strokeWidth="0.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
                 </div>
               </div>
             ))}
-          </div>
-          <div className="flex justify-center mt-4">
-            <div className="flex space-x-2">
-              {[0, 1, 2, 3, 4].map((index) => (
-                <div key={index} className="w-1 h-1 rounded-full bg-white/30"></div>
-              ))}
-            </div>
-          </div>
+          </motion.div>
+          
+          {/* Left and right fade effects for better entry/exit points */}
+          <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none"></div>
+          <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none"></div>
         </div>
       </div>
     </section>
