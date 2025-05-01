@@ -3,6 +3,7 @@ import React from 'react';
 import Navbar from '@/components/Navbar';
 import ProjectsSection from '@/components/ProjectsSection';
 import SkillsSection from '@/components/SkillsSection';
+import TestimonialsSection from '@/components/TestimonialsSection';
 
 const Works = () => {
   return (
@@ -14,6 +15,7 @@ const Works = () => {
       <div className="pt-24">
         <ProjectsSection />
         <SkillsSection />
+        <TestimonialsSection />
       </div>
     </div>
   );
