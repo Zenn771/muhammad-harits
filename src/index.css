@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -48,27 +49,82 @@
   .spotlight-enhanced::before {
     content: '';
     position: absolute;
-    top: -50%;
+    top: -100%;
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 40%);
+    background: radial-gradient(
+      ellipse at center,
+      rgba(250, 204, 21, 0.25) 0%,
+      rgba(250, 204, 21, 0.15) 20%,
+      transparent 60%
+    );
     pointer-events: none;
-    animation: spotlight 5s linear infinite;
-    opacity: 0;
+    animation: spotlight 8s ease-in-out infinite alternate;
+    opacity: 0.7;
     transition: opacity 0.3s;
+    z-index: -1;
   }
 
   .spotlight-enhanced:hover::before {
-    opacity: 1;
+    opacity: 0.9;
+  }
+  
+  /* New overhead spotlight effect */
+  .overhead-spotlight {
+    position: relative;
+  }
+  
+  .overhead-spotlight::before {
+    content: '';
+    position: absolute;
+    top: -150px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(
+      circle at center,
+      rgba(255, 223, 128, 0.8) 0%,
+      rgba(255, 223, 128, 0.4) 30%,
+      rgba(255, 223, 128, 0) 70%
+    );
+    pointer-events: none;
+    opacity: 0.6;
+    z-index: -1;
+    filter: blur(20px);
+  }
+  
+  .text-highlight {
+    position: relative;
+  }
+  
+  .text-highlight::after {
+    content: '';
+    position: absolute;
+    top: -20%;
+    left: 0;
+    width: 100%;
+    height: 140%;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(255, 233, 150, 0.25) 0%,
+      rgba(255, 223, 128, 0.15) 40%, 
+      transparent 80%
+    );
+    pointer-events: none;
+    z-index: -1;
+    filter: blur(10px);
   }
 
   @keyframes spotlight {
     0% {
-      transform: translate(0, 0);
+      transform: translate(-5%, -5%) scale(1);
+      opacity: 0.7;
     }
     100% {
-      transform: translate(25%, 25%);
+      transform: translate(5%, 5%) scale(1.2);
+      opacity: 0.9;
     }
   }
 }
