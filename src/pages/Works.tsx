@@ -17,11 +17,9 @@ const Works = () => {
 
   return (
     <div className="min-h-screen w-full overflow-hidden bg-black relative">
-      <div className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'py-3 backdrop-blur-lg bg-black/70' : 'py-5'}`}>
-        <Navbar activeSection={activeSection} scrollBased={true} className={scrolled ? 'scale-95' : ''} />
-      </div>
-      
-      <div className="pt-24">
+      <div className="pt-24 mt-4">
+        <Navbar activeSection={activeSection} scrollBased={true} className={scrolled ? 'backdrop-blur-lg bg-black/70' : ''} />
+        
         <SectionBackground pattern="diagonal" withGrain={true}>
           <section id="works" className="min-h-screen py-16 md:py-24 lg:py-32 px-4 md:px-8">
             <ProjectsSection />

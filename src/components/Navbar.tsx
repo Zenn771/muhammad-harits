@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { cn } from "@/lib/utils";
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useLocation } from 'react-router-dom';
-import { Home, Briefcase, Info, Wrench, MessageSquare, Phone } from 'lucide-react';
 
 interface NavbarProps {
   className?: string;
@@ -13,14 +12,14 @@ interface NavbarProps {
 
 // Define all navigation items for consistency across the site
 export const navigationItems = [
-  { id: 'home', label: 'Home', icon: <Home className="h-4 w-4" /> },
-  { id: 'about', label: 'About', icon: <Info className="h-4 w-4" /> },
-  { id: 'career', label: 'Timeline', icon: <Briefcase className="h-4 w-4" /> },
-  { id: 'works', label: 'Works', icon: <Briefcase className="h-4 w-4" /> },
-  { id: 'skills', label: 'Skills & Tools', icon: <Wrench className="h-4 w-4" /> },
-  { id: 'testimonials', label: 'Testimonials', icon: <MessageSquare className="h-4 w-4" /> },
-  { id: 'faq', label: 'FAQ', icon: <MessageSquare className="h-4 w-4" /> },
-  { id: 'contact', label: 'Contact', icon: <Phone className="h-4 w-4" /> },
+  { id: 'home', label: 'Home' },
+  { id: 'about', label: 'About' },
+  { id: 'career', label: 'Timeline' },
+  { id: 'works', label: 'Works' },
+  { id: 'skills', label: 'Skills & Tools' },
+  { id: 'testimonials', label: 'Testimonials' },
+  { id: 'faq', label: 'FAQ' },
+  { id: 'contact', label: 'Contact' },
 ];
 
 const Navbar: React.FC<NavbarProps> = ({ className, activeSection = 'home', scrollBased = false }) => {
@@ -32,14 +31,13 @@ const Navbar: React.FC<NavbarProps> = ({ className, activeSection = 'home', scro
     e.preventDefault();
     
     if (location.pathname !== '/') {
-      // If we're not on the home page, navigate to home page with hash
       window.location.href = `/#${sectionId}`;
       return;
     }
     
     const element = document.getElementById(sectionId);
     if (element) {
-      const navbarHeight = 80; // Approximate navbar height
+      const navbarHeight = 80;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
       
@@ -56,10 +54,10 @@ const Navbar: React.FC<NavbarProps> = ({ className, activeSection = 'home', scro
 
   return (
     <nav className={cn(
-      "px-4 py-3 flex justify-center w-full z-50 transition-all duration-300", 
+      "fixed top-0 left-0 right-0 px-4 py-3 flex justify-center w-full z-50 transition-all duration-300", 
       className
     )}>
-      <div className="backdrop-blur-xl bg-black/30 px-4 sm:px-8 py-3 rounded-full border border-white/10 shadow-[0_0_20px_rgba(0,0,0,0.3)] w-full max-w-4xl mx-auto flex justify-between items-center glass-effect">
+      <div className="backdrop-blur-xl bg-black/40 px-6 sm:px-8 py-4 rounded-full border border-white/10 shadow-lg w-full max-w-4xl mx-auto flex justify-between items-center">
         {/* Mobile menu button */}
         {isMobile && (
           <button 
@@ -77,25 +75,24 @@ const Navbar: React.FC<NavbarProps> = ({ className, activeSection = 'home', scro
       
         {/* Desktop menu */}
         {!isMobile && (
-          <ul className="flex space-x-4 sm:space-x-6 text-sm font-medium mx-auto">
+          <ul className="flex space-x-6 sm:space-x-8 text-sm font-medium mx-auto">
             {navigationItems.map((item) => (
               <li key={item.id}>
                 <a 
                   href={`#${item.id}`} 
                   onClick={(e) => handleScrollTo(item.id, e)}
                   className={cn(
-                    "transition-all duration-300 px-2 py-1 relative group flex items-center gap-1.5",
+                    "transition-all duration-300 px-3 py-2 relative group",
                     activeSection === item.id 
-                      ? "text-accent" 
+                      ? "text-accent font-semibold" 
                       : "text-white/80 hover:text-white"
                   )}
                 >
-                  <span className="hidden sm:inline">{item.icon}</span>
-                  <span>{item.label}</span>
+                  {item.label}
                   {activeSection === item.id && (
                     <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-accent rounded-full glow-effect"></span>
                   )}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent rounded-full group-hover:w-full transition-all duration-300"></span>
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent/70 rounded-full group-hover:w-full transition-all duration-300"></span>
                 </a>
               </li>
             ))}
@@ -116,13 +113,12 @@ const Navbar: React.FC<NavbarProps> = ({ className, activeSection = 'home', scro
                   href={`#${item.id}`} 
                   onClick={(e) => handleScrollTo(item.id, e)}
                   className={cn(
-                    "flex items-center justify-center gap-2 py-2 px-4 transition-all",
+                    "flex justify-center py-3 px-4 transition-all rounded-md",
                     activeSection === item.id 
-                      ? "text-accent font-medium" 
-                      : "text-white/90 hover:text-white"
+                      ? "text-accent font-medium bg-white/5" 
+                      : "text-white/90 hover:text-white hover:bg-white/5"
                   )}
                 >
-                  {item.icon}
                   <span>{item.label}</span>
                 </a>
               </li>
