@@ -48,7 +48,7 @@ const Navbar: React.FC<NavbarProps> = ({ className, activeSection = 'home', scro
       
         {/* Desktop menu */}
         {!isMobile && (
-          <ul className="flex space-x-6 sm:space-x-10 text-sm font-medium mx-auto">
+          <ul className="flex space-x-6 sm:space-x-8 text-sm font-medium mx-auto">
             <li>
               <a 
                 href="#home" 
@@ -69,24 +69,6 @@ const Navbar: React.FC<NavbarProps> = ({ className, activeSection = 'home', scro
             </li>
             <li>
               <a 
-                href="#works"
-                onClick={(e) => handleScrollTo('works', e)}
-                className={cn(
-                  "transition-all duration-300 px-2 py-1 relative group",
-                  activeSection === "works" 
-                    ? "text-accent" 
-                    : "text-white/80 hover:text-white"
-                )}
-              >
-                Works
-                {activeSection === "works" && (
-                  <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-accent"></span>
-                )}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300"></span>
-              </a>
-            </li>
-            <li>
-              <a 
                 href="#about"
                 onClick={(e) => handleScrollTo('about', e)}
                 className={cn(
@@ -98,6 +80,41 @@ const Navbar: React.FC<NavbarProps> = ({ className, activeSection = 'home', scro
               >
                 About
                 {activeSection === "about" && (
+                  <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-accent"></span>
+                )}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300"></span>
+              </a>
+            </li>
+            <li>
+              <a 
+                href="/career" 
+                className={cn(
+                  "transition-all duration-300 px-2 py-1 relative group",
+                  activeSection === "career" 
+                    ? "text-accent" 
+                    : "text-white/80 hover:text-white"
+                )}
+              >
+                Career
+                {activeSection === "career" && (
+                  <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-accent"></span>
+                )}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300"></span>
+              </a>
+            </li>
+            <li>
+              <a 
+                href="#works"
+                onClick={(e) => handleScrollTo('works', e)}
+                className={cn(
+                  "transition-all duration-300 px-2 py-1 relative group",
+                  activeSection === "works" 
+                    ? "text-accent" 
+                    : "text-white/80 hover:text-white"
+                )}
+              >
+                Works
+                {activeSection === "works" && (
                   <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-accent"></span>
                 )}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300"></span>
@@ -148,20 +165,6 @@ const Navbar: React.FC<NavbarProps> = ({ className, activeSection = 'home', scro
             </li>
             <li>
               <a 
-                href="#works"
-                onClick={(e) => handleScrollTo('works', e)}
-                className={cn(
-                  "block py-2 px-4 transition-all",
-                  activeSection === "works" 
-                    ? "text-accent font-medium" 
-                    : "text-white/90 hover:text-white"
-                )}
-              >
-                Works
-              </a>
-            </li>
-            <li>
-              <a 
                 href="#about"
                 onClick={(e) => handleScrollTo('about', e)}
                 className={cn(
@@ -172,6 +175,33 @@ const Navbar: React.FC<NavbarProps> = ({ className, activeSection = 'home', scro
                 )}
               >
                 About
+              </a>
+            </li>
+            <li>
+              <a 
+                href="/career"
+                className={cn(
+                  "block py-2 px-4 transition-all",
+                  activeSection === "career" 
+                    ? "text-accent font-medium" 
+                    : "text-white/90 hover:text-white"
+                )}
+              >
+                Career
+              </a>
+            </li>
+            <li>
+              <a 
+                href="#works"
+                onClick={(e) => handleScrollTo('works', e)}
+                className={cn(
+                  "block py-2 px-4 transition-all",
+                  activeSection === "works" 
+                    ? "text-accent font-medium" 
+                    : "text-white/90 hover:text-white"
+                )}
+              >
+                Works
               </a>
             </li>
             <li>
