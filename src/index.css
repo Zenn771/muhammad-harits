@@ -323,6 +323,36 @@ html {
   transform: scale(1.15);
 }
 
+/* Grid pattern background with fade effect for works section */
+.bg-grid-pattern {
+  position: relative;
+}
+
+.bg-grid-pattern::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Enhanced card reveal animations */
+@keyframes cardReveal {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.card-reveal {
+  animation: cardReveal 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
 /* Responsive improvements */
 @media (max-width: 640px) {
   .vintage-text {
@@ -336,6 +366,18 @@ html {
   .bento-card {
     @apply col-span-1 row-span-1;
   }
+  
+  /* Better project card spacing on mobile */
+  .works-section .project-card {
+    margin-bottom: 1rem;
+    padding: 1rem;
+  }
+  
+  /* Optimize image height on mobile */
+  .project-image {
+    height: 180px;
+    max-height: 35vh;
+  }
 }
 
 /* Staggered animation delays for bento grid */
@@ -347,3 +389,16 @@ html {
 .stagger-6 { animation-delay: 0.6s; }
 .stagger-7 { animation-delay: 0.7s; }
 .stagger-8 { animation-delay: 0.8s; }
+
+/* Subtle parallax effects */
+.parallax-slow {
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.parallax-medium {
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.parallax-fast {
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
