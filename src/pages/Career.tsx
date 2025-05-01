@@ -174,7 +174,7 @@ const Career: React.FC = () => {
                       <motion.div 
                         className={cn(
                           "relative flex-1 ml-12 sm:ml-0",
-                          isEven ? "sm:text-right" : "sm:text-left",
+                          isEven ? "sm:text-right" : "sm:text-left"
                         )}
                         whileHover={{ translateY: -5 }}
                         style={{ 
@@ -185,7 +185,7 @@ const Career: React.FC = () => {
                         <div 
                           className="vintage-card p-6 md:p-8 rounded-xl bg-gradient-to-br border border-white/10 backdrop-blur-sm shadow-xl"
                           style={{
-                            background: `linear-gradient(to bottom right, ${item.color.split(" ")[0].replace("from-", "rgb(var(--"))}, ${item.color.split(" ")[1].replace("to-", "rgb(var(--"))})`
+                            backgroundImage: `linear-gradient(to bottom right, ${item.color.split(" ")[0].replace("from-", "rgba(29, 78, 216, 0.15)")}, ${item.color.split(" ")[1].replace("to-", "rgba(8, 47, 73, 0.05)")})`
                           }}
                         >
                           {/* Content */}
