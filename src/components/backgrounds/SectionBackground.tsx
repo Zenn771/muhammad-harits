@@ -17,11 +17,14 @@ export const SectionBackground: React.FC<SectionBackgroundProps> = ({
   children,
   className,
   pattern,
-  baseColor = 'from-black to-dark',
+  baseColor = 'from-black to-gray-900',
   accentColor = 'rgba(250, 204, 21, 0.05)', // amber with low opacity
   withGrain = true,
   withTransition = true,
 }) => {
+  // Generate unique pattern IDs to prevent conflicts
+  const patternId = `pattern-${pattern}-${Math.random().toString(36).substring(2, 9)}`;
+
   // SVG patterns for different section backgrounds
   const getPatternBackground = () => {
     switch (pattern) {
@@ -30,7 +33,7 @@ export const SectionBackground: React.FC<SectionBackgroundProps> = ({
           <div className="absolute inset-0 pointer-events-none opacity-[0.06]" aria-hidden="true">
             <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
               <defs>
-                <pattern id="hexagon-pattern" width="50" height="43.4" patternUnits="userSpaceOnUse" patternTransform="scale(1.5) rotate(0)">
+                <pattern id={patternId} width="50" height="43.4" patternUnits="userSpaceOnUse" patternTransform="scale(1.5) rotate(0)">
                   <path
                     d="M25,0 L50,14.5 L50,38.5 L25,50 L0,38.5 L0,14.5 Z"
                     fill="none"
@@ -40,7 +43,7 @@ export const SectionBackground: React.FC<SectionBackgroundProps> = ({
                   />
                 </pattern>
               </defs>
-              <rect width="100%" height="100%" fill="url(#hexagon-pattern)" />
+              <rect width="100%" height="100%" fill={`url(#${patternId})`} />
             </svg>
           </div>
         );
@@ -50,7 +53,7 @@ export const SectionBackground: React.FC<SectionBackgroundProps> = ({
           <div className="absolute inset-0 pointer-events-none opacity-[0.04]" aria-hidden="true">
             <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
               <defs>
-                <pattern id="diagonal-pattern" width="40" height="40" patternUnits="userSpaceOnUse">
+                <pattern id={patternId} width="40" height="40" patternUnits="userSpaceOnUse">
                   <path
                     d="M-10,10 L30,-30 M0,40 L40,0 M30,70 L70,30"
                     stroke={accentColor}
@@ -58,7 +61,7 @@ export const SectionBackground: React.FC<SectionBackgroundProps> = ({
                   />
                 </pattern>
               </defs>
-              <rect width="100%" height="100%" fill="url(#diagonal-pattern)" />
+              <rect width="100%" height="100%" fill={`url(#${patternId})`} />
             </svg>
           </div>
         );
@@ -68,7 +71,7 @@ export const SectionBackground: React.FC<SectionBackgroundProps> = ({
           <div className="absolute inset-0 pointer-events-none opacity-[0.05]" aria-hidden="true">
             <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
               <defs>
-                <pattern id="circuit-pattern" width="100" height="100" patternUnits="userSpaceOnUse">
+                <pattern id={patternId} width="100" height="100" patternUnits="userSpaceOnUse">
                   <circle cx="10" cy="10" r="1.5" fill={accentColor} />
                   <circle cx="50" cy="90" r="1.5" fill={accentColor} />
                   <circle cx="90" cy="50" r="1.5" fill={accentColor} />
@@ -81,7 +84,7 @@ export const SectionBackground: React.FC<SectionBackgroundProps> = ({
                   <line x1="30" y1="70" x2="10" y2="10" stroke={accentColor} strokeWidth="0.5" />
                 </pattern>
               </defs>
-              <rect width="100%" height="100%" fill="url(#circuit-pattern)" />
+              <rect width="100%" height="100%" fill={`url(#${patternId})`} />
             </svg>
           </div>
         );
@@ -91,11 +94,11 @@ export const SectionBackground: React.FC<SectionBackgroundProps> = ({
           <div className="absolute inset-0 pointer-events-none opacity-[0.04]" aria-hidden="true">
             <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
               <defs>
-                <pattern id="dots-pattern" width="20" height="20" patternUnits="userSpaceOnUse">
+                <pattern id={patternId} width="20" height="20" patternUnits="userSpaceOnUse">
                   <circle cx="2" cy="2" r="1" fill={accentColor} />
                 </pattern>
               </defs>
-              <rect width="100%" height="100%" fill="url(#dots-pattern)" />
+              <rect width="100%" height="100%" fill={`url(#${patternId})`} />
             </svg>
           </div>
         );
@@ -105,7 +108,7 @@ export const SectionBackground: React.FC<SectionBackgroundProps> = ({
           <div className="absolute inset-0 pointer-events-none opacity-[0.04]" aria-hidden="true">
             <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
               <defs>
-                <pattern id="flow-pattern" width="200" height="200" patternUnits="userSpaceOnUse">
+                <pattern id={patternId} width="200" height="200" patternUnits="userSpaceOnUse">
                   <path
                     d="M0,100 C50,50 100,150 200,100"
                     fill="none"
@@ -120,7 +123,7 @@ export const SectionBackground: React.FC<SectionBackgroundProps> = ({
                   />
                 </pattern>
               </defs>
-              <rect width="100%" height="100%" fill="url(#flow-pattern)" />
+              <rect width="100%" height="100%" fill={`url(#${patternId})`} />
             </svg>
           </div>
         );
@@ -130,7 +133,7 @@ export const SectionBackground: React.FC<SectionBackgroundProps> = ({
           <div className="absolute inset-0 pointer-events-none opacity-[0.06]" aria-hidden="true">
             <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
               <defs>
-                <pattern id="topo-pattern" width="200" height="200" patternUnits="userSpaceOnUse">
+                <pattern id={patternId} width="200" height="200" patternUnits="userSpaceOnUse">
                   {/* Topographic contour lines */}
                   {[40, 80, 120, 160].map((radius, index) => (
                     <circle 
@@ -145,7 +148,7 @@ export const SectionBackground: React.FC<SectionBackgroundProps> = ({
                   ))}
                 </pattern>
               </defs>
-              <rect width="100%" height="100%" fill="url(#topo-pattern)" />
+              <rect width="100%" height="100%" fill={`url(#${patternId})`} />
             </svg>
           </div>
         );

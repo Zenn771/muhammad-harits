@@ -35,7 +35,7 @@ const Faq = () => {
   ];
 
   return (
-    <div className="min-h-screen w-full overflow-hidden bg-gradient-to-b from-black to-dark relative">
+    <div className="min-h-screen w-full overflow-hidden bg-black relative">
       {/* Background particles with reduced count */}
       <ParticleEffect count={30} />
       
