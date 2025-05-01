@@ -87,7 +87,8 @@ const Navbar: React.FC<NavbarProps> = ({ className, activeSection = 'home', scro
             </li>
             <li>
               <a 
-                href="/career" 
+                href="#career" 
+                onClick={(e) => handleScrollTo('career', e)}
                 className={cn(
                   "transition-all duration-300 px-2 py-1 relative group",
                   activeSection === "career" 
@@ -179,7 +180,8 @@ const Navbar: React.FC<NavbarProps> = ({ className, activeSection = 'home', scro
             </li>
             <li>
               <a 
-                href="/career"
+                href="#career"
+                onClick={(e) => handleScrollTo('career', e)}
                 className={cn(
                   "block py-2 px-4 transition-all",
                   activeSection === "career" 
