@@ -108,9 +108,9 @@ const ContactSection = () => {
           viewport={{ once: true }}
         >
           {/* Contact Info Column */}
-          <div className="lg:col-span-2 space-y-8">
-            {/* Contact Card */}
-            <div className="vintage-card p-6 md:p-8 rounded-xl bg-gradient-to-br from-blue-900/20 to-purple-900/10 border border-white/10 backdrop-blur-sm">
+          <div className="lg:col-span-2 flex">
+            {/* Contact Card - Added flex-grow for full height */}
+            <div className="vintage-card p-6 md:p-8 rounded-xl bg-gradient-to-br from-blue-900/20 to-purple-900/10 border border-white/10 backdrop-blur-sm w-full flex flex-col">
               <div className="absolute inset-0 grain-effect opacity-10 rounded-xl"></div>
               
               {/* Alternative Contact Methods */}
@@ -146,8 +146,8 @@ const ContactSection = () => {
                 </a>
               </div>
               
-              {/* Availability Status */}
-              <div className="mt-8 pt-8 border-t border-white/10">
+              {/* Push the availability section to the bottom with flex-grow */}
+              <div className="mt-8 pt-8 border-t border-white/10 flex-grow flex flex-col justify-end">
                 <div className="flex items-center justify-between mb-4">
                   <h4 className="text-white font-medium">Current Availability</h4>
                   <StatusBadge status="available" />
@@ -164,24 +164,90 @@ const ContactSection = () => {
           </div>
           
           {/* Form Column */}
-          <div className="lg:col-span-3 vintage-card p-6 md:p-8 rounded-xl bg-gradient-to-br from-amber-900/10 to-purple-900/5 border border-white/10 backdrop-blur-sm">
-            <div className="absolute inset-0 grain-effect opacity-10 rounded-xl"></div>
-            
-            <h3 className="text-xl font-semibold text-white mb-6">Send Me a Message</h3>
-            
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div className="lg:col-span-3 flex">
+            <div className="vintage-card p-6 md:p-8 rounded-xl bg-gradient-to-br from-amber-900/10 to-purple-900/5 border border-white/10 backdrop-blur-sm w-full flex flex-col">
+              <div className="absolute inset-0 grain-effect opacity-10 rounded-xl"></div>
+              
+              <h3 className="text-xl font-semibold text-white mb-6">Send Me a Message</h3>
+              
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5 flex-grow flex flex-col">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <FormField
+                      control={form.control}
+                      name="name"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-gray-200">Name</FormLabel>
+                          <FormControl>
+                            <Input 
+                              placeholder="Your name" 
+                              className="bg-white/5 border-white/10 text-white" 
+                              {...field} 
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-gray-200">Email</FormLabel>
+                          <FormControl>
+                            <Input 
+                              placeholder="Your email" 
+                              type="email" 
+                              className="bg-white/5 border-white/10 text-white" 
+                              {...field} 
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  
                   <FormField
                     control={form.control}
-                    name="name"
+                    name="subject"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-gray-200">Name</FormLabel>
+                        <FormLabel className="text-gray-200">Subject</FormLabel>
+                        <Select 
+                          onValueChange={field.onChange} 
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger className="bg-white/5 border-white/10 text-white">
+                              <SelectValue placeholder="Select a subject" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="Project Inquiry">Project Inquiry</SelectItem>
+                            <SelectItem value="Job Opportunity">Job Opportunity</SelectItem>
+                            <SelectItem value="Collaboration">Collaboration</SelectItem>
+                            <SelectItem value="Other">Other</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <FormField
+                    control={form.control}
+                    name="message"
+                    render={({ field }) => (
+                      <FormItem className="flex-grow flex flex-col">
+                        <FormLabel className="text-gray-200">Message</FormLabel>
                         <FormControl>
-                          <Input 
-                            placeholder="Your name" 
-                            className="bg-white/5 border-white/10 text-white" 
+                          <Textarea 
+                            placeholder="Your message..." 
+                            className="bg-white/5 border-white/10 text-white flex-grow min-h-[120px]" 
                             {...field} 
                           />
                         </FormControl>
@@ -190,82 +256,18 @@ const ContactSection = () => {
                     )}
                   />
                   
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-gray-200">Email</FormLabel>
-                        <FormControl>
-                          <Input 
-                            placeholder="Your email" 
-                            type="email" 
-                            className="bg-white/5 border-white/10 text-white" 
-                            {...field} 
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-                
-                <FormField
-                  control={form.control}
-                  name="subject"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-gray-200">Subject</FormLabel>
-                      <Select 
-                        onValueChange={field.onChange} 
-                        defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger className="bg-white/5 border-white/10 text-white">
-                            <SelectValue placeholder="Select a subject" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          <SelectItem value="Project Inquiry">Project Inquiry</SelectItem>
-                          <SelectItem value="Job Opportunity">Job Opportunity</SelectItem>
-                          <SelectItem value="Collaboration">Collaboration</SelectItem>
-                          <SelectItem value="Other">Other</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                
-                <FormField
-                  control={form.control}
-                  name="message"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-gray-200">Message</FormLabel>
-                      <FormControl>
-                        <Textarea 
-                          placeholder="Your message..." 
-                          className="bg-white/5 border-white/10 text-white min-h-[120px]" 
-                          {...field} 
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                
-                <div className="pt-2">
-                  <Button 
-                    type="submit" 
-                    disabled={isSubmitting}
-                    className="bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white border-none w-full sm:w-auto px-8 py-2 h-auto text-base transition-all hover:scale-[1.02]"
-                  >
-                    {isSubmitting ? "Sending..." : "Send Message"}
-                  </Button>
-                </div>
-              </form>
-            </Form>
+                  <div className="pt-2 mt-auto">
+                    <Button 
+                      type="submit" 
+                      disabled={isSubmitting}
+                      className="bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white border-none w-full sm:w-auto px-8 py-2 h-auto text-base transition-all hover:scale-[1.02]"
+                    >
+                      {isSubmitting ? "Sending..." : "Send Message"}
+                    </Button>
+                  </div>
+                </form>
+              </Form>
+            </div>
           </div>
         </motion.div>
       </div>
