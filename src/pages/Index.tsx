@@ -7,6 +7,7 @@ import StatusBadge from '@/components/StatusBadge';
 import ClientLogos from '@/components/ClientLogos';
 import BentoBox from '@/components/BentoGrid';
 import ProjectsSection from '@/components/ProjectsSection';
+import SkillsSection from '@/components/SkillsSection';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Briefcase, Calendar, Award, ChevronRight, GraduationCap } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -410,6 +411,9 @@ const Index = () => {
 
       {/* WORKS SECTION - Replaced with new ProjectsSection */}
       <ProjectsSection />
+      
+      {/* SKILLS SECTION - New addition */}
+      <SkillsSection />
 
       {/* FAQ SECTION - with vintage effect */}
       <section id="faq" className="min-h-screen w-full py-16 md:py-24 lg:py-32 px-4 md:px-8 bg-black vintage-effect">

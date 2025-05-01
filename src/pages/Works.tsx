@@ -2,6 +2,7 @@
 import React from 'react';
 import Navbar from '@/components/Navbar';
 import ProjectsSection from '@/components/ProjectsSection';
+import SkillsSection from '@/components/SkillsSection';
 
 const Works = () => {
   return (
@@ -12,6 +13,7 @@ const Works = () => {
       
       <div className="pt-24">
         <ProjectsSection />
+        <SkillsSection />
       </div>
     </div>
   );
