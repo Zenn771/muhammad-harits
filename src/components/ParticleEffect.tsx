@@ -23,6 +23,8 @@ const ParticleEffect: React.FC<ParticleEffectProps> = ({ count = 50, className =
       speedX: number;
       speedY: number;
       opacity: number;
+      pulse: number;
+      pulseSpeed: number;
     }> = [];
     
     const resizeCanvas = () => {
@@ -36,10 +38,12 @@ const ParticleEffect: React.FC<ParticleEffectProps> = ({ count = 50, className =
         particles.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          size: Math.random() * 2 + 0.1,
-          speedX: Math.random() * 0.5 - 0.25,
-          speedY: Math.random() * 0.5 - 0.25,
-          opacity: Math.random() * 0.5 + 0.1
+          size: Math.random() * 3 + 0.5,
+          speedX: Math.random() * 0.6 - 0.3,
+          speedY: Math.random() * 0.6 - 0.3,
+          opacity: Math.random() * 0.7 + 0.1,
+          pulse: 0,
+          pulseSpeed: Math.random() * 0.04 + 0.02
         });
       }
     };
@@ -48,9 +52,34 @@ const ParticleEffect: React.FC<ParticleEffectProps> = ({ count = 50, className =
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
       particles.forEach(particle => {
+        // Update pulse value for opacity variation
+        particle.pulse += particle.pulseSpeed;
+        if (particle.pulse > Math.PI * 2) particle.pulse = 0;
+        
+        // Calculate pulsing opacity
+        const pulsingOpacity = particle.opacity * (0.7 + Math.sin(particle.pulse) * 0.3);
+        
+        // Draw glow effect
+        const gradient = ctx.createRadialGradient(
+          particle.x, 
+          particle.y, 
+          0, 
+          particle.x, 
+          particle.y, 
+          particle.size * 4
+        );
+        gradient.addColorStop(0, `rgba(250, 204, 21, ${pulsingOpacity * 0.8})`);
+        gradient.addColorStop(1, `rgba(250, 204, 21, 0)`);
+        
+        ctx.beginPath();
+        ctx.fillStyle = gradient;
+        ctx.arc(particle.x, particle.y, particle.size * 4, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Draw core of particle
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(250, 204, 21, ${particle.opacity * 0.5})`;
+        ctx.fillStyle = `rgba(250, 204, 21, ${pulsingOpacity})`;
         ctx.fill();
         
         // Update position

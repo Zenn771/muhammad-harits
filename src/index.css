@@ -88,6 +88,7 @@
   }
 }
 
+/* Enhanced grain effect with more subtle texture */
 .grain-effect {
   position: relative;
 }
@@ -98,11 +99,12 @@
   inset: 0;
   z-index: 10;
   background-image: url('/lovable-uploads/aee8a65b-b9d5-4255-949d-bb430a0cba2d.png');
-  opacity: 0.05;
+  opacity: 0.08;
   pointer-events: none;
-  mix-blend-mode: overlay;
+  mix-blend-mode: soft-light;
 }
 
+/* Enhanced spotlight effect with more pronounced glow */
 .spotlight {
   position: relative;
 }
@@ -111,9 +113,25 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center top, rgba(250, 204, 21, 0.3) 0%, transparent 50%);
+  background: radial-gradient(circle at center top, rgba(250, 204, 21, 0.3) 0%, transparent 70%);
   z-index: 0;
   pointer-events: none;
+}
+
+/* More intense spotlight effect for enhanced glow */
+.spotlight-enhanced {
+  position: relative;
+}
+
+.spotlight-enhanced::before {
+  content: "";
+  position: absolute;
+  inset: -50% -50% 0 -50%;
+  background: radial-gradient(ellipse at center top, rgba(250, 204, 21, 0.4) 0%, transparent 70%);
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.8;
+  filter: blur(40px);
 }
 
 .circle-stack {
@@ -130,4 +148,21 @@
   border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Add fade-in animation for staggered entrance */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 1s forwards;
+  opacity: 0;
 }
