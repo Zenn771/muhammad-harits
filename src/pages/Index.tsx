@@ -6,6 +6,7 @@ import ParticleEffect from '@/components/ParticleEffect';
 import StatusBadge from '@/components/StatusBadge';
 import ClientLogos from '@/components/ClientLogos';
 import BentoBox from '@/components/BentoGrid';
+import ProjectsSection from '@/components/ProjectsSection';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Briefcase, Calendar, Award, ChevronRight, GraduationCap } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -407,43 +408,8 @@ const Index = () => {
         </div>
       </section>
 
-      {/* WORKS SECTION - with vintage effect */}
-      <section id="works" className="min-h-screen w-full py-16 md:py-24 lg:py-32 px-4 md:px-8 bg-black vintage-effect">
-        <div className="max-w-5xl mx-auto relative">
-          <h2 className="text-4xl md:text-6xl font-bold mb-10 md:mb-16 text-center text-amber-100/90 vintage-text">
-            Selected Works
-          </h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-            {[1, 2, 3, 4].map((item) => (
-              <div 
-                key={item}
-                className="vintage-card group relative overflow-hidden transition-all hover:transform hover:scale-[1.02]"
-              >
-                <div className="aspect-[4/3] bg-amber-900/10 rounded-md overflow-hidden border border-amber-200/20">
-                  <div className="h-full w-full flex items-center justify-center text-amber-200/60 text-2xl font-bold">
-                    Project {item}
-                  </div>
-                </div>
-                <div className="mt-5">
-                  <h3 className="text-xl font-semibold text-amber-100/80 group-hover:text-amber-100 transition-colors">
-                    Project Title {item}
-                  </h3>
-                  <p className="mt-2 text-amber-200/50 text-sm group-hover:text-amber-200/70 transition-colors">
-                    AI & Electrical Engineering
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-          
-          <div className="mt-16 md:mt-20 text-center">
-            <Button variant="outline" className="border-amber-400/30 text-amber-200 hover:bg-amber-900/20 hover:border-amber-400 transition-all hover:scale-105 px-8 py-3 text-base font-medium">
-              View All Projects <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </div>
-        </div>
-      </section>
+      {/* WORKS SECTION - Replaced with new ProjectsSection */}
+      <ProjectsSection />
 
       {/* FAQ SECTION - with vintage effect */}
       <section id="faq" className="min-h-screen w-full py-16 md:py-24 lg:py-32 px-4 md:px-8 bg-black vintage-effect">

@@ -134,6 +134,8 @@
 /* Vintage card style */
 .vintage-card {
   position: relative;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3);
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .vintage-card::after {
@@ -145,6 +147,34 @@
   pointer-events: none;
   opacity: 0.5;
   z-index: 1;
+}
+
+/* Dark charcoal vintage effect for project cards */
+.vintage-project-card {
+  background-color: #221F26;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: transform;
+  transform-origin: center bottom;
+  perspective: 1000px;
+}
+
+.vintage-project-card:hover {
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+}
+
+/* Stacked cards effect */
+.stacked-cards-container {
+  perspective: 2000px;
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+.stacked-card {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 /* Vintage skill effect */
