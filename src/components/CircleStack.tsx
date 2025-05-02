@@ -21,6 +21,16 @@ const CircleStack: React.FC = () => {
 
   // Animate circles with more subtle motion
   useEffect(() => {
+    // Start the animation immediately on component mount
+    setAnimations(prev => 
+      prev.map((anim, i) => ({
+        scale: circleProps[i].scale,
+        rotate: circleProps[i].rotate,
+        pulse: 0,
+        opacity: 1,
+      }))
+    );
+    
     const interval = setInterval(() => {
       setAnimations(prev => 
         prev.map((anim, i) => ({

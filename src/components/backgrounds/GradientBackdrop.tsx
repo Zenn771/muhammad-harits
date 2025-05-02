@@ -20,6 +20,9 @@ const GradientBackdrop: React.FC<GradientBackdropProps> = ({
     >
       <motion.div
         className="absolute inset-0"
+        initial={{ 
+          background: 'radial-gradient(circle at 20% 20%, rgba(30, 15, 60, 0.4) 0%, rgba(0, 0, 0, 0) 70%)' 
+        }}
         animate={{
           background: [
             'radial-gradient(circle at 20% 20%, rgba(30, 15, 60, 0.4) 0%, rgba(0, 0, 0, 0) 70%)',
