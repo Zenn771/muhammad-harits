@@ -40,6 +40,24 @@ const GradientBackdrop: React.FC<GradientBackdropProps> = ({
         }}
       />
       
+      {/* NEW: Additional subtle gradient accents */}
+      <motion.div 
+        className="absolute inset-0 opacity-30"
+        animate={{
+          background: [
+            'radial-gradient(circle at 80% 30%, rgba(250, 204, 21, 0.1) 0%, rgba(0, 0, 0, 0) 50%)',
+            'radial-gradient(circle at 20% 70%, rgba(250, 204, 21, 0.1) 0%, rgba(0, 0, 0, 0) 50%)',
+            'radial-gradient(circle at 80% 30%, rgba(250, 204, 21, 0.1) 0%, rgba(0, 0, 0, 0) 50%)',
+          ]
+        }}
+        transition={{
+          duration: 20,
+          ease: "easeInOut",
+          repeat: Infinity,
+          repeatType: "reverse"
+        }}
+      />
+      
       {/* Subtle gradient overlay at the bottom */}
       <div className="absolute bottom-0 left-0 right-0 h-[40vh] bg-gradient-to-t from-amber-900/10 to-transparent" />
       

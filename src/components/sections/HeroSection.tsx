@@ -1,3 +1,4 @@
+
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -9,6 +10,7 @@ import ClientLogos from '@/components/ClientLogos';
 import TypewriterText from '@/components/animations/TypewriterText';
 import AnimatedGradientText from '@/components/animations/AnimatedGradientText';
 import FloatingCharacters from '@/components/animations/FloatingCharacters';
+import AnimatedWords from '@/components/animations/AnimatedWords';
 import GridBackground from '@/components/backgrounds/GridBackground';
 import GradientBackdrop from '@/components/backgrounds/GradientBackdrop';
 import TextureOverlay from '@/components/backgrounds/TextureOverlay';
@@ -137,6 +139,43 @@ const HeroSection: React.FC = () => {
         <CircleStack />
       </motion.div>
       
+      {/* NEW: Floating geometric shapes for visual interest */}
+      <div className="absolute inset-0 z-[1] pointer-events-none">
+        {/* Animated geometric shapes */}
+        <motion.div 
+          className="absolute w-16 h-16 rounded-full border border-amber-500/20"
+          style={{ left: '15%', top: '20%' }}
+          animate={{ 
+            scale: [1, 1.2, 1], 
+            opacity: [0.3, 0.6, 0.3],
+            rotate: [0, 90, 180, 270, 360]
+          }}
+          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+        />
+        
+        <motion.div 
+          className="absolute w-24 h-24 border border-amber-300/10"
+          style={{ right: '10%', bottom: '30%', borderRadius: '30%' }}
+          animate={{ 
+            scale: [1, 1.3, 1], 
+            opacity: [0.2, 0.4, 0.2],
+            rotate: [0, -180, -360]
+          }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        />
+        
+        <motion.div 
+          className="absolute w-12 h-12 bg-gradient-to-br from-amber-500/5 to-purple-500/5"
+          style={{ right: '25%', top: '15%', borderRadius: '20%' }}
+          animate={{ 
+            scale: [1, 1.4, 1], 
+            opacity: [0.2, 0.5, 0.2],
+            rotate: [45, 0, -45, 0, 45]
+          }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </div>
+      
       {/* Texture overlay */}
       <TextureOverlay grainOpacity={0.03} noiseOpacity={0.02} />
       
@@ -164,6 +203,23 @@ const HeroSection: React.FC = () => {
             }}
           />
 
+          {/* NEW: Animated glowing orb */}
+          <motion.div 
+            className="absolute w-64 h-64 rounded-full bg-gradient-radial from-amber-500/10 to-transparent"
+            style={{ 
+              left: '50%', 
+              top: '40%',
+              transform: 'translate(-50%, -50%)',
+              filter: 'blur(40px)',
+              zIndex: -1,
+            }}
+            animate={{ 
+              scale: [1, 1.2, 1],
+              opacity: [0.3, 0.5, 0.3],
+            }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          />
+
           {/* Enhanced vignette effect around the edges */}
           <div 
             className="fixed inset-0 pointer-events-none z-0"
@@ -186,7 +242,11 @@ const HeroSection: React.FC = () => {
           {/* Updated subtitle with professional information and rotating typewriter texts */}
           <div className="space-y-4 mb-14">
             <p className="text-xl md:text-2xl text-amber-400 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-              AI & Electrical Engineer
+              <FloatingCharacters 
+                text="AI & Electrical Engineer" 
+                highlightIndices={[0, 1, 14, 15, 16]} 
+                highlightClassName="text-amber-300" 
+              />
             </p>
             <p className="text-lg md:text-xl text-white/90 animate-fade-in" style={{ animationDelay: '0.4s' }}>
               <TypewriterText 
@@ -196,6 +256,16 @@ const HeroSection: React.FC = () => {
                 repeat={true}
               />
             </p>
+          </div>
+          
+          {/* NEW: Animated words element for added visual interest */}
+          <div className="mb-10 opacity-90">
+            <AnimatedWords 
+              text="Innovation • Creativity • Excellence" 
+              className="text-sm text-amber-300/70 tracking-wider uppercase" 
+              delay={2.5}
+              once={true}
+            />
           </div>
           
           {/* Enhanced CTA buttons with yellow to black gradient */}

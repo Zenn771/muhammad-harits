@@ -12,7 +12,7 @@ interface FloatingCharactersProps {
 const FloatingCharacters: React.FC<FloatingCharactersProps> = ({ 
   text, 
   className = "", 
-  highlightClassName = "text-accent",
+  highlightClassName = "text-amber-300",
   highlightIndices = []
 }) => {
   const characters = text.split('');
@@ -27,15 +27,23 @@ const FloatingCharacters: React.FC<FloatingCharactersProps> = ({
           return <span key={index} className="inline-block">&nbsp;</span>;
         }
         
-        // Don't add any animations or highlight classes in this component
-        // Just render the characters normally
         return (
-          <span
+          <motion.span
             key={index}
-            className="inline-block"
+            className={`inline-block ${isHighlighted ? highlightClassName : ""}`}
+            animate={{
+              y: [0, -3, 0],
+              transition: {
+                duration: 1.5 + Math.random() * 2,
+                repeat: Infinity,
+                repeatType: "reverse",
+                ease: "easeInOut",
+                delay: Math.random() * 2
+              }
+            }}
           >
             {char}
-          </span>
+          </motion.span>
         );
       })}
     </span>
