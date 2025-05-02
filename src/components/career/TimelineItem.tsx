@@ -14,6 +14,18 @@ interface TimelineItemProps {
 const TimelineItem: React.FC<TimelineItemProps> = ({ item, index, scrollY }) => {
   const isEven = index % 2 === 0;
   
+  // Render the appropriate icon based on the iconType
+  const renderIcon = () => {
+    switch(item.iconType) {
+      case "briefcase":
+        return <Briefcase className="h-5 w-5" />;
+      case "graduation-cap":
+        return <GraduationCap className="h-5 w-5" />;
+      default:
+        return <Briefcase className="h-5 w-5" />;
+    }
+  };
+  
   return (
     <motion.div 
       className={cn(
@@ -40,7 +52,7 @@ const TimelineItem: React.FC<TimelineItemProps> = ({ item, index, scrollY }) => 
               transform: `translateY(${scrollY * 0.03 * (index + 1)}px)` 
             }}
           >
-            <span className="text-accent">{item.icon}</span>
+            <span className="text-accent">{renderIcon()}</span>
           </motion.div>
         </div>
         
