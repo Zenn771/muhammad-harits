@@ -67,24 +67,24 @@
     background-size: 24px 24px;
   }
   
-  /* Grain effect texture - reducing opacity and making it more subtle */
+  /* Grain effect texture - significantly reduced opacity for softer look */
   .grain-effect {
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    opacity: 0.15; /* Reduced from 0.3 to 0.15 */
-    mix-blend-mode: soft-light; /* Changed from overlay to soft-light for subtler effect */
+    opacity: 0.08; /* Reduced from 0.15 to 0.08 */
+    mix-blend-mode: overlay; /* Changed from soft-light back to overlay for better contrast */
   }
   
-  /* Specialized grain effect for cards that need even subtler grain */
+  /* New much subtler grain effect */
   .grain-effect-subtle {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    opacity: 0.08; /* Very subtle grain */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.04; /* Very subtle grain */
     mix-blend-mode: soft-light;
   }
   
-  /* New enhanced grain textures for depth */
+  /* New enhanced grain textures for depth - also reduced opacity */
   .grain-effect-deep {
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    opacity: 0.2;
+    opacity: 0.1; /* Reduced from 0.2 to 0.1 */
     mix-blend-mode: overlay;
   }
   
