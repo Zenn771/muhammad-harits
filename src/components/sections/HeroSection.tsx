@@ -97,21 +97,17 @@ const HeroSection: React.FC = () => {
             Hi everyone, my name is <AnimatedGradientText text="Harits" />
           </h1>
           
-          {/* Updated subtitle with professional information and animated text */}
+          {/* Updated subtitle with professional information and fixed text (no animations) */}
           <div className="space-y-4 mb-14">
-            <p className="text-xl md:text-2xl text-white animate-fade-in" style={{ animationDelay: '0.2s' }}>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-sky-300 to-blue-300">
-                <FloatingCharacters 
-                  text="AI & Electrical Engineer"
-                  highlightIndices={[0, 2, 6, 17]} 
-                />
-              </span>
+            <p className="text-xl md:text-2xl text-amber-400 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+              AI & Electrical Engineer
             </p>
             <p className="text-lg md:text-xl text-white/90 animate-fade-in" style={{ animationDelay: '0.4s' }}>
               <TypewriterText 
                 text="Passionate about creating intelligent systems and innovative solutions."
                 delay={1}
                 speed={30}
+                repeat={true}
               />
             </p>
           </div>

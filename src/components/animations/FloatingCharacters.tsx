@@ -27,20 +27,15 @@ const FloatingCharacters: React.FC<FloatingCharactersProps> = ({
           return <span key={index} className="inline-block">&nbsp;</span>;
         }
         
+        // Don't add any animations or highlight classes in this component
+        // Just render the characters normally
         return (
-          <motion.span
+          <span
             key={index}
-            className={`inline-block ${isHighlighted ? highlightClassName : ''}`}
-            animate={{ y: isHighlighted ? [-2, 2, -2] : 0 }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: index * 0.05 % 0.5 // Staggered delay based on character position
-            }}
+            className="inline-block"
           >
             {char}
-          </motion.span>
+          </span>
         );
       })}
     </span>
