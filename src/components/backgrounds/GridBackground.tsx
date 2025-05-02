@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 
@@ -10,11 +11,11 @@ interface GridBackgroundProps {
 }
 
 const GridBackground: React.FC<GridBackgroundProps> = ({ 
-  color = 'rgba(250, 204, 21, 0.12)', // Increased from 0.07 to 0.12 for more visibility
+  color = 'rgba(250, 204, 21, 0.07)',
   animated = true, 
   className = '',
   spacing = 30,
-  opacity = 0.15 // Increased from 0.1 to 0.15 for more visibility
+  opacity = 0.1
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationFrameRef = useRef<number>(0);
@@ -42,15 +43,15 @@ const GridBackground: React.FC<GridBackgroundProps> = ({
       
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      // Calculate dynamic opacity if animated - enhanced animation effect
+      // Calculate dynamic opacity if animated
       const dynamicOpacity = animated 
-        ? opacity * (0.85 + 0.3 * Math.sin(phase * 0.5)) // Enhanced animation range
+        ? opacity * (0.8 + 0.2 * Math.sin(phase * 0.5))
         : opacity;
         
       const parsedColor = color.replace(/[\d.]+\)$/, `${dynamicOpacity})`);
       
       ctx.strokeStyle = parsedColor;
-      ctx.lineWidth = 0.8; // Increased from 0.5 to 0.8 for more visibility
+      ctx.lineWidth = 0.5;
       
       // Vertical lines
       for (let x = 0; x <= canvas.width; x += spacing) {

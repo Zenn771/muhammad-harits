@@ -9,7 +9,7 @@ interface GradientBackdropProps {
 
 const GradientBackdrop: React.FC<GradientBackdropProps> = ({ 
   className = '', 
-  opacity = 0.35 // Increased from 0.2 to 0.35 for more radiance
+  opacity = 0.2 
 }) => {
   return (
     <motion.div 
@@ -21,15 +21,15 @@ const GradientBackdrop: React.FC<GradientBackdropProps> = ({
       <motion.div
         className="absolute inset-0"
         initial={{ 
-          background: 'radial-gradient(circle at 20% 20%, rgba(250, 204, 21, 0.5) 0%, rgba(0, 0, 0, 0) 70%)' // Enhanced yellow light
+          background: 'radial-gradient(circle at 20% 20%, rgba(30, 15, 60, 0.4) 0%, rgba(0, 0, 0, 0) 70%)' 
         }}
         animate={{
           background: [
-            'radial-gradient(circle at 20% 20%, rgba(250, 204, 21, 0.5) 0%, rgba(0, 0, 0, 0) 70%)', // Enhanced yellow light
-            'radial-gradient(circle at 80% 20%, rgba(250, 204, 21, 0.5) 0%, rgba(0, 0, 0, 0) 70%)',
-            'radial-gradient(circle at 80% 80%, rgba(250, 204, 21, 0.5) 0%, rgba(0, 0, 0, 0) 70%)',
-            'radial-gradient(circle at 20% 80%, rgba(250, 204, 21, 0.5) 0%, rgba(0, 0, 0, 0) 70%)',
-            'radial-gradient(circle at 20% 20%, rgba(250, 204, 21, 0.5) 0%, rgba(0, 0, 0, 0) 70%)',
+            'radial-gradient(circle at 20% 20%, rgba(30, 15, 60, 0.4) 0%, rgba(0, 0, 0, 0) 70%)',
+            'radial-gradient(circle at 80% 20%, rgba(30, 15, 60, 0.4) 0%, rgba(0, 0, 0, 0) 70%)',
+            'radial-gradient(circle at 80% 80%, rgba(30, 15, 60, 0.4) 0%, rgba(0, 0, 0, 0) 70%)',
+            'radial-gradient(circle at 20% 80%, rgba(30, 15, 60, 0.4) 0%, rgba(0, 0, 0, 0) 70%)',
+            'radial-gradient(circle at 20% 20%, rgba(30, 15, 60, 0.4) 0%, rgba(0, 0, 0, 0) 70%)',
           ]
         }}
         transition={{
@@ -40,11 +40,11 @@ const GradientBackdrop: React.FC<GradientBackdropProps> = ({
         }}
       />
       
-      {/* Enhanced gradient overlay at the bottom */}
-      <div className="absolute bottom-0 left-0 right-0 h-[40vh] bg-gradient-to-t from-amber-900/20 to-transparent" />
+      {/* Subtle gradient overlay at the bottom */}
+      <div className="absolute bottom-0 left-0 right-0 h-[40vh] bg-gradient-to-t from-amber-900/10 to-transparent" />
       
-      {/* Enhanced gradient overlay at the top */}
-      <div className="absolute top-0 left-0 right-0 h-[30vh] bg-gradient-to-b from-purple-900/20 to-transparent" />
+      {/* Subtle gradient overlay at the top */}
+      <div className="absolute top-0 left-0 right-0 h-[30vh] bg-gradient-to-b from-purple-900/10 to-transparent" />
     </motion.div>
   );
 };
