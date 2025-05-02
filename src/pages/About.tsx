@@ -3,6 +3,7 @@ import React from 'react';
 import Navbar from '@/components/Navbar';
 import ParticleEffect from '@/components/ParticleEffect';
 import SectionBackground from '@/components/backgrounds/SectionBackground';
+import BentoBox from '@/components/BentoGrid';
 
 const About = () => {
   return (
@@ -16,7 +17,7 @@ const About = () => {
       </div>
       
       {/* Main content */}
-      <SectionBackground pattern="hexagon" withGrain={true}>
+      <SectionBackground pattern="hexagon" withGrain={false}>
         <div className="flex flex-col items-center justify-center pt-32 pb-20 px-6">
           <div className="max-w-3xl mx-auto relative spotlight-enhanced animate-fade-in">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-10 text-white text-center">

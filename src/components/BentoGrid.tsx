@@ -115,19 +115,23 @@ const BentoCard = ({
         rotateY,
         perspective: 1000,
         transformStyle: "preserve-3d",
-        boxShadow: isHovered ? "0 10px 30px rgba(250, 204, 21, 0.1)" : "none"
+        boxShadow: isHovered ? "0 10px 30px rgba(250, 204, 21, 0.1)" : "none",
+        position: 'relative' // Ensure position is set to relative for proper grain overlay
       }}
       whileHover={{ 
         scale: 1.02,
         transition: { duration: 0.3 }
       }}
     >
-      {/* Grain effect overlay with increased opacity on hover */}
-      <motion.div 
-        className="absolute inset-0 grain-effect pointer-events-none z-0"
-        initial={{ opacity: 0.3 }}
-        animate={{ opacity: isHovered ? 0.5 : 0.3 }}
-        transition={{ duration: 0.3 }}
+      {/* Card-specific grain texture overlay */}
+      <div 
+        className="absolute inset-0 pointer-events-none z-0"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+          opacity: isHovered ? 0.15 : 0.1,
+          mixBlendMode: 'overlay',
+          transition: 'opacity 0.3s ease',
+        }}
       />
       
       {/* Enhanced hover glow effect */}
