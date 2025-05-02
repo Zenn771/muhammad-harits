@@ -6,7 +6,7 @@ interface ParticleEffectProps {
   className?: string;
 }
 
-const ParticleEffect: React.FC<ParticleEffectProps> = ({ count = 30, className = '' }) => {
+const ParticleEffect: React.FC<ParticleEffectProps> = ({ count = 15, className = '' }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   
   useEffect(() => {
@@ -38,12 +38,12 @@ const ParticleEffect: React.FC<ParticleEffectProps> = ({ count = 30, className =
         particles.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          size: Math.random() * 4 + 1.5,  // Slightly larger particles
-          speedX: Math.random() * 0.4 - 0.2,  // Slower movement
-          speedY: Math.random() * 0.4 - 0.2,  // Slower movement
-          opacity: Math.random() * 0.5 + 0.1,
+          size: Math.random() * 5 + 2,  // Slightly larger particles
+          speedX: Math.random() * 0.05 - 0.025,  // Much slower movement
+          speedY: Math.random() * 0.05 - 0.025,  // Much slower movement
+          opacity: Math.random() * 0.4 + 0.1,
           pulse: 0,
-          pulseSpeed: Math.random() * 0.03 + 0.01  // Slower pulse
+          pulseSpeed: Math.random() * 0.01 + 0.005  // Very slow pulse
         });
       }
     };
@@ -52,28 +52,28 @@ const ParticleEffect: React.FC<ParticleEffectProps> = ({ count = 30, className =
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
       particles.forEach(particle => {
-        // Update pulse value for opacity variation
+        // Update pulse value for opacity variation - much subtler
         particle.pulse += particle.pulseSpeed;
         if (particle.pulse > Math.PI * 2) particle.pulse = 0;
         
-        // Calculate pulsing opacity
-        const pulsingOpacity = particle.opacity * (0.7 + Math.sin(particle.pulse) * 0.3);
+        // Calculate pulsing opacity - more subtle
+        const pulsingOpacity = particle.opacity * (0.9 + Math.sin(particle.pulse) * 0.1);
         
-        // Draw glow effect
+        // Draw glow effect with larger radius
         const gradient = ctx.createRadialGradient(
           particle.x, 
           particle.y, 
           0, 
           particle.x, 
           particle.y, 
-          particle.size * 5  // Enhanced glow radius
+          particle.size * 6  // Enhanced glow radius
         );
-        gradient.addColorStop(0, `rgba(250, 204, 21, ${pulsingOpacity * 0.8})`);
+        gradient.addColorStop(0, `rgba(250, 204, 21, ${pulsingOpacity * 0.6})`);
         gradient.addColorStop(1, `rgba(250, 204, 21, 0)`);
         
         ctx.beginPath();
         ctx.fillStyle = gradient;
-        ctx.arc(particle.x, particle.y, particle.size * 5, 0, Math.PI * 2);
+        ctx.arc(particle.x, particle.y, particle.size * 6, 0, Math.PI * 2);
         ctx.fill();
         
         // Draw core of particle
@@ -82,7 +82,7 @@ const ParticleEffect: React.FC<ParticleEffectProps> = ({ count = 30, className =
         ctx.fillStyle = `rgba(250, 204, 21, ${pulsingOpacity})`;
         ctx.fill();
         
-        // Update position
+        // Update position - very slow movement
         particle.x += particle.speedX;
         particle.y += particle.speedY;
         

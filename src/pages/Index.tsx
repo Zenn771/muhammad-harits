@@ -170,7 +170,7 @@ const Index = () => {
       {/* HOME SECTION with reduced particles and spotlight effect */}
       <section id="home" className="min-h-screen w-full overflow-hidden bg-black relative">
         {/* Reduced particle count */}
-        <ParticleEffect count={30} />
+        <ParticleEffect count={15} />
         
         {/* Simplified circle stack */}
         <CircleStack />
@@ -190,8 +190,8 @@ const Index = () => {
                 height: '160%',
                 top: '-30%',
                 left: '-10%',
-                transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`,
-                transition: 'transform 0.3s ease-out',
+                transform: `translate(${mousePosition.x * 0.01}px, ${mousePosition.y * 0.01}px)`, // Reduced movement speed
+                transition: 'transform 0.5s ease-out', // Smoother transition
                 opacity: 0.8,
                 zIndex: -1,
               }}
@@ -245,33 +245,7 @@ const Index = () => {
           <ClientLogos />
         </div>
         
-        {/* Reduced number of enhanced glowing stars/particles */}
-        {[...Array(8)].map((_, i) => {
-          const size = Math.random() * 6 + 2;
-          const top = Math.random() * 80 + 10;
-          const left = Math.random() * 80 + 10;
-          const opacity = Math.random() * 0.4 + 0.2;
-          const delay = i * 0.5;
-          
-          return (
-            <div
-              key={`star-${i}`}
-              className="absolute animate-pulse-slow"
-              style={{
-                width: `${size}px`,
-                height: `${size}px`,
-                top: `${top}%`,
-                left: `${left}%`,
-                opacity: opacity,
-                background: 'radial-gradient(circle, rgba(250,204,21,0.8) 0%, rgba(250,204,21,0) 70%)',
-                borderRadius: '50%',
-                filter: 'blur(1px)',
-                animationDelay: `${delay}s`,
-                boxShadow: '0 0 10px 2px rgba(250,204,21,0.3)',
-              }}
-            />
-          );
-        })}
+        {/* Removed the small glowing stars/particles */}
       </section>
 
       {/* ABOUT SECTION - Keep existing structure */}
