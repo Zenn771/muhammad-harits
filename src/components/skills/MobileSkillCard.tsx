@@ -1,7 +1,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Skill } from "@/data/skills.tsx";
+import { Skill } from "@/data/skills";
 
 interface MobileSkillCardProps {
   skill: Skill;
@@ -29,7 +29,7 @@ const MobileSkillCard: React.FC<MobileSkillCardProps> = ({ skill, index }) => {
         
         <div className="flex flex-col items-center relative z-10">
           <div className="p-2.5 rounded-full bg-gradient-to-br from-amber-500/20 to-blue-500/20 mb-3">
-            <span className="text-white">{skill.icon}</span>
+            {React.createElement(skill.icon, { className: "text-white" })}
           </div>
           
           <h4 className="text-sm font-medium text-white text-center mb-2.5 whitespace-nowrap overflow-hidden text-ellipsis w-full">{skill.name}</h4>
@@ -38,7 +38,7 @@ const MobileSkillCard: React.FC<MobileSkillCardProps> = ({ skill, index }) => {
             <motion.div
               className="h-full bg-gradient-to-r from-amber-400 to-amber-200"
               initial={{ width: 0 }}
-              whileInView={{ width: `${skill.proficiency}%` }}
+              whileInView={{ width: `${skill.level}%` }}
               transition={{ duration: 1, delay: 0.3 }}
               viewport={{ once: true }}
             />

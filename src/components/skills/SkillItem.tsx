@@ -1,6 +1,7 @@
+
 import React from "react";
 import { motion } from "framer-motion";
-import { Skill } from "@/data/skills.tsx"; // Updated import with correct extension
+import { Skill } from "@/data/skills";
 
 interface SkillItemProps {
   skill: Skill;
@@ -21,7 +22,7 @@ const SkillItem: React.FC<SkillItemProps> = ({ skill, index }) => {
       <div className="absolute inset-0 bg-gradient-to-br from-amber-500/0 to-blue-500/0 opacity-0 group-hover:bg-gradient-to-br group-hover:from-amber-500/10 group-hover:to-blue-500/10 transition-opacity duration-300"></div>
       
       <div className="p-3 rounded-full bg-gradient-to-br from-amber-500/20 to-blue-500/20 mb-3 relative z-10 skill-icon">
-        <span className="text-white">{skill.icon}</span>
+        {React.createElement(skill.icon, { className: "text-white" })}
       </div>
       
       <h4 className="text-sm font-medium text-white mb-2 relative z-10">{skill.name}</h4>
@@ -30,7 +31,7 @@ const SkillItem: React.FC<SkillItemProps> = ({ skill, index }) => {
         <motion.div
           className="h-full bg-gradient-to-r from-amber-400 to-amber-200"
           initial={{ width: 0 }}
-          whileInView={{ width: `${skill.proficiency}%` }}
+          whileInView={{ width: `${skill.level}%` }}
           transition={{ duration: 1, delay: 0.5 + index * 0.1 }}
           viewport={{ once: true }}
         />
