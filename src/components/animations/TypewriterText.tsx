@@ -74,11 +74,31 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({
     return () => clearTimeout(timeout);
   }, [isTyping, isDeleting, currentIndex, currentText, speed, repeat, isTextArray, text]);
   
+  // Add line numbers for code blocks with HTML formatting
+  const formatTextWithLineNumbers = (text: string) => {
+    if (!text.includes('\n')) return text;
+    
+    const lines = text.split('\n');
+    let result = '';
+    
+    lines.forEach((line, index) => {
+      const lineNumber = index + 1;
+      result += `<span class="code-line"><span class="code-line-number">${lineNumber}</span>${line}</span>`;
+      if (index < lines.length - 1) {
+        result += '\n';
+      }
+    });
+    
+    return result;
+  };
+  
   if (useRawHTML) {
+    const formattedText = formatTextWithLineNumbers(displayedText);
     return (
       <div 
         className={className}
-        dangerouslySetInnerHTML={{ __html: displayedText }}
+        dangerouslySetInnerHTML={{ __html: formattedText }}
+        style={{ lineHeight: '1.6' }}
       />
     );
   }

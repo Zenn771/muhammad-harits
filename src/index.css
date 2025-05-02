@@ -207,22 +207,26 @@ body {
   color: white;
 }
 
-/* VSCode-inspired terminal syntax highlighting */
+/* VSCode-inspired terminal syntax highlighting with enhanced colors */
 .code-terminal-content {
   color: #d4d4d4; /* Base text color */
   line-height: 1.5;
+  padding: 8px;
+  border-radius: 6px;
+  background-color: #1e1e1e;
 }
 
 .code-terminal-content .keyword {
   color: #C586C0; /* Purple for keywords */
+  font-weight: 500;
 }
 
 .code-terminal-content .function {
-  color: #DCDCAA; /* Yellow for function names */
+  color: #DCDCAA; /* Yellow-gold for function names */
 }
 
 .code-terminal-content .string {
-  color: #CE9178; /* Orange for strings */
+  color: #CE9178; /* Orange-brown for strings */
 }
 
 .code-terminal-content .number {
@@ -231,10 +235,12 @@ body {
 
 .code-terminal-content .comment {
   color: #6A9955; /* Green for comments */
+  font-style: italic;
 }
 
 .code-terminal-content .class {
   color: #4EC9B0; /* Teal for class names */
+  font-weight: 500;
 }
 
 .code-terminal-content .param {
@@ -245,7 +251,13 @@ body {
   color: #D4D4D4; /* Default for operators */
 }
 
-/* Add subtle pulsing glow to the terminal */
+/* Enhanced terminal styling */
+.code-terminal-content::selection,
+.code-terminal-content *::selection {
+  background-color: rgba(79, 79, 79, 0.7);
+}
+
+/* Enhance the pulsing glow to match VSCode theme */
 @keyframes terminal-glow {
   0% { box-shadow: 0 0 5px rgba(99, 102, 241, 0.2); }
   50% { box-shadow: 0 0 15px rgba(99, 102, 241, 0.3); }
@@ -254,4 +266,15 @@ body {
 
 .code-terminal-content {
   animation: terminal-glow 4s infinite;
+  transition: max-height 0.3s ease;
+}
+
+/* Add line number styling */
+.code-line-number {
+  color: #858585;
+  user-select: none;
+  display: inline-block;
+  text-align: right;
+  padding-right: 8px;
+  min-width: 40px;
 }

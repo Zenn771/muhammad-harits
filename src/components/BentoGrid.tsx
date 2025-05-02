@@ -1,4 +1,3 @@
-
 import React from 'react';
 import BentoCard from './BentoCard';
 import { bentoCardsData } from '@/data/bentoCardsData';
@@ -34,6 +33,7 @@ const BentoBox = () => {
           </BentoCard>
         </div>
         
+        {/* Keep the rest of the existing rows */}
         {/* Second Row */}
         <div className="col-span-1">
           <BentoCard
@@ -101,7 +101,7 @@ const BentoBox = () => {
           />
         </div>
         
-        {/* Fourth Row - Full Width */}
+        {/* Fourth Row */}
         <div className="col-span-1 md:col-span-3">
           <BentoCard
             title={bentoCardsData[6].title}
