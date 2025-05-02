@@ -64,6 +64,14 @@ const HeroSection: React.FC = () => {
     }
   };
 
+  // Multiple texts for the typewriter effect
+  const typewriterTexts = [
+    "Passionate about creating intelligent systems and innovative solutions.",
+    "Dedicated to solving complex problems with elegant engineering.",
+    "Focusing on the intersection of AI and electrical engineering.",
+    "Turning ambitious ideas into practical technological applications."
+  ];
+
   return (
     <section id="home" className="min-h-screen w-full overflow-hidden bg-black relative">
       {/* Reduced particle count */}
@@ -113,14 +121,14 @@ const HeroSection: React.FC = () => {
             Hi everyone, my name is <AnimatedGradientText text="Harits" />
           </h1>
           
-          {/* Updated subtitle with professional information and fixed text (no animations) */}
+          {/* Updated subtitle with professional information and rotating typewriter texts */}
           <div className="space-y-4 mb-14">
             <p className="text-xl md:text-2xl text-amber-400 animate-fade-in" style={{ animationDelay: '0.2s' }}>
               AI & Electrical Engineer
             </p>
             <p className="text-lg md:text-xl text-white/90 animate-fade-in" style={{ animationDelay: '0.4s' }}>
               <TypewriterText 
-                text="Passionate about creating intelligent systems and innovative solutions."
+                text={typewriterTexts}
                 delay={1}
                 speed={30}
                 repeat={true}

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 interface TypewriterTextProps {
-  text: string;
+  text: string | string[];
   delay?: number;
   className?: string;
   speed?: number;
@@ -23,6 +23,10 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(false);
   const [isDeletingText, setIsDeletingText] = useState(false);
+  const [textIndex, setTextIndex] = useState(0);
+  
+  // Convert single string to array for consistency
+  const textArray = Array.isArray(text) ? text : [text];
 
   useEffect(() => {
     // Delay before starting
@@ -36,17 +40,19 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({
   useEffect(() => {
     if (!isTyping) return;
 
+    const currentText = textArray[textIndex];
+
     // Typing text
-    if (!isDeletingText && currentIndex < text.length) {
+    if (!isDeletingText && currentIndex < currentText.length) {
       const timeout = setTimeout(() => {
-        setDisplayText(prev => prev + text[currentIndex]);
+        setDisplayText(prev => prev + currentText[currentIndex]);
         setCurrentIndex(prev => prev + 1);
       }, speed);
 
       return () => clearTimeout(timeout);
     } 
     // Reached the end of text
-    else if (!isDeletingText && currentIndex >= text.length && repeat) {
+    else if (!isDeletingText && currentIndex >= currentText.length && repeat) {
       // Wait before starting to delete
       const pauseTimeout = setTimeout(() => {
         setIsDeletingText(true);
@@ -62,10 +68,13 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({
 
       return () => clearTimeout(deleteTimeout);
     }
-    // Finished deleting, restart typing
+    // Finished deleting, move to next text or restart
     else if (isDeletingText && displayText.length === 0) {
       setCurrentIndex(0);
       setIsDeletingText(false);
+      
+      // Move to the next text in the array
+      setTextIndex(prevIndex => (prevIndex + 1) % textArray.length);
       
       // Small pause before typing again
       const restartTimeout = setTimeout(() => {
@@ -74,12 +83,12 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({
       
       return () => clearTimeout(restartTimeout);
     }
-  }, [currentIndex, text, isTyping, speed, isDeletingText, displayText, repeat, repeatDelay]);
+  }, [currentIndex, textArray, textIndex, isTyping, speed, isDeletingText, displayText, repeat, repeatDelay]);
 
   return (
     <span className={className}>
       {displayText}
-      {(currentIndex < text.length || isDeletingText) && (
+      {((currentIndex < textArray[textIndex]?.length) || isDeletingText) && (
         <motion.span
           initial={{ opacity: 0 }}
           animate={{ opacity: [0, 1, 0] }}
