@@ -81,28 +81,29 @@ const ProjectsSection: React.FC = () => {
     <section 
       id="works" 
       ref={sectionRef}
-      className="py-16 md:py-24 lg:py-32 overflow-hidden bg-black relative"
+      className="py-16 md:py-24 lg:py-32 overflow-hidden relative"
     >
-      {/* Enhanced Grid pattern background with more visible fading gradients */}
+      {/* White grid background */}
       <div className="absolute inset-0 z-0">
-        {/* Grid pattern - now more visible */}
+        {/* White grid pattern with higher contrast */}
         <div 
-          className="absolute inset-0 grid-background pointer-events-none"
+          className="absolute inset-0 pointer-events-none"
           style={{
+            backgroundImage: "linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px)",
             backgroundSize: '40px 40px',
             transform: `translateY(${scrollY * 0.05}px)`,
           }}
         />
         
-        {/* Enhanced top gradient fade */}
+        {/* Enhanced top gradient fade - black to transparent for smooth transition */}
         <motion.div 
-          className="absolute top-0 left-0 right-0 h-64 bg-gradient-to-b from-black via-black/90 to-transparent z-10 pointer-events-none"
+          className="absolute top-0 left-0 right-0 h-64 bg-gradient-to-b from-black via-black/80 to-transparent z-10 pointer-events-none"
           style={{ opacity: opacityGradientTop }}
         />
         
-        {/* Enhanced bottom gradient fade */}
+        {/* Enhanced bottom gradient fade - transparent to black for smooth transition */}
         <motion.div 
-          className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-black via-black/90 to-transparent z-10 pointer-events-none"
+          className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-black via-black/80 to-transparent z-10 pointer-events-none"
           style={{ opacity: opacityGradientBottom }}
         />
 

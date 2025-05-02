@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -70,6 +71,16 @@
     100% {
       transform: translate(25%, 25%);
     }
+  }
+  
+  .fade-transition {
+    transition: opacity 0.8s ease-in-out;
+  }
+  
+  .grid-background {
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px), 
+                      linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 40px 40px;
   }
 }
 
