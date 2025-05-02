@@ -10,6 +10,7 @@ import Works from "./pages/Works";
 import Faq from "./pages/Faq";
 import About from "./pages/About";
 import Career from "./pages/Career";
+import Footer from "./components/Footer";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/career" element={<Career />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
