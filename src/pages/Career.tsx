@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -99,7 +98,7 @@ const Career: React.FC = () => {
           transform: `translateY(${scrollY * 0.05}px)`,
         }}
       />
-      <div className="fixed inset-0 grain-effect opacity-20 pointer-events-none z-0"></div>
+      <div className="fixed inset-0 grain-texture opacity-20 pointer-events-none z-0"></div>
       
       {/* Content */}
       <div className="relative z-10">
@@ -183,13 +182,13 @@ const Career: React.FC = () => {
                         }}
                       >
                         <div 
-                          className="vintage-card p-6 md:p-8 rounded-xl bg-gradient-to-br border border-white/10 backdrop-blur-sm shadow-xl"
+                          className="vintage-card p-6 md:p-8 rounded-xl bg-gradient-to-br border border-white/10 backdrop-blur-sm shadow-xl relative"
                           style={{
                             backgroundImage: `linear-gradient(to bottom right, ${item.color.split(" ")[0].replace("from-", "rgba(29, 78, 216, 0.15)")}, ${item.color.split(" ")[1].replace("to-", "rgba(8, 47, 73, 0.05)")})`
                           }}
                         >
                           {/* Content */}
-                          <div className="absolute inset-0 grain-effect opacity-10 rounded-xl"></div>
+                          <div className="absolute inset-0 grain-effect-subtle rounded-xl"></div>
                           <div className="flex items-center mb-3 gap-2">
                             <div className="px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm text-xs font-medium text-white">
                               <span className="flex items-center">

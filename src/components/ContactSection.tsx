@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useForm } from "react-hook-form";
@@ -111,12 +110,12 @@ const ContactSection = () => {
           <div className="lg:col-span-2 flex">
             {/* Contact Card - Added flex-grow for full height */}
             <div className="vintage-card p-6 md:p-8 rounded-xl bg-gradient-to-br from-blue-900/20 to-purple-900/10 border border-white/10 backdrop-blur-sm w-full flex flex-col">
-              <div className="absolute inset-0 grain-effect opacity-10 rounded-xl"></div>
+              <div className="absolute inset-0 grain-effect-subtle rounded-xl"></div>
               
               {/* Alternative Contact Methods */}
-              <h3 className="text-xl font-semibold text-white mb-6">Contact Details</h3>
+              <h3 className="text-xl font-semibold text-white mb-6 relative z-10">Contact Details</h3>
               
-              <div className="space-y-5">
+              <div className="space-y-5 relative z-10">
                 <a 
                   href="mailto:contact@example.com" 
                   className="flex items-center gap-4 text-gray-300 hover:text-accent transition-colors group"
@@ -147,7 +146,7 @@ const ContactSection = () => {
               </div>
               
               {/* Push the availability section to the bottom with flex-grow */}
-              <div className="mt-8 pt-8 border-t border-white/10 flex-grow flex flex-col justify-end">
+              <div className="mt-8 pt-8 border-t border-white/10 flex-grow flex flex-col justify-end relative z-10">
                 <div className="flex items-center justify-between mb-4">
                   <h4 className="text-white font-medium">Current Availability</h4>
                   <StatusBadge status="available" />
@@ -166,12 +165,12 @@ const ContactSection = () => {
           {/* Form Column */}
           <div className="lg:col-span-3 flex">
             <div className="vintage-card p-6 md:p-8 rounded-xl bg-gradient-to-br from-amber-900/10 to-purple-900/5 border border-white/10 backdrop-blur-sm w-full flex flex-col">
-              <div className="absolute inset-0 grain-effect opacity-10 rounded-xl"></div>
+              <div className="absolute inset-0 grain-effect-subtle rounded-xl"></div>
               
-              <h3 className="text-xl font-semibold text-white mb-6">Send Me a Message</h3>
+              <h3 className="text-xl font-semibold text-white mb-6 relative z-10">Send Me a Message</h3>
               
               <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5 flex-grow flex flex-col">
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5 flex-grow flex flex-col relative z-10">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <FormField
                       control={form.control}

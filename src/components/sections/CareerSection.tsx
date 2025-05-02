@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, Briefcase, GraduationCap, ChevronRight, Circle } from 'lucide-react';
@@ -161,7 +160,7 @@ const CareerSection: React.FC = () => {
                           }}
                         >
                           {/* Content */}
-                          <div className="absolute inset-0 grain-effect opacity-10 rounded-xl"></div>
+                          <div className="absolute inset-0 grain-effect-subtle rounded-xl"></div>
                           
                           <div className="flex items-center mb-3 gap-2">
                             <div className="px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm text-xs font-medium text-white">
