@@ -3,6 +3,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import type { Skill } from '@/data/skills';
+// We'll use the MobileSkillCard component instead of SkillCard
 import MobileSkillCard from './MobileSkillCard';
 
 interface MobileSkillsCarouselProps {
@@ -78,26 +79,12 @@ const MobileSkillsCarousel: React.FC<MobileSkillsCarouselProps> = ({
   };
   
   if (category !== activeCategory) return null;
-
-  // Get the display title based on category
-  const getCategoryTitle = () => {
-    switch(category) {
-      case 'ai':
-        return 'AI & Machine Learning';
-      case 'web':
-        return 'Web Development';
-      case 'electrical':
-        return 'Electrical Engineering';
-      default:
-        return category;
-    }
-  };
   
   return (
     <div className="relative px-1 mb-10">
       <div className="flex justify-between items-center mb-6">
         <h3 className="text-xl font-semibold text-white">
-          {getCategoryTitle()}
+          {category === 'ai' ? 'AI & Machine Learning' : 'Electrical Engineering'}
         </h3>
         
         {/* Navigation buttons */}

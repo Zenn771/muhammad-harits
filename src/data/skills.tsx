@@ -1,3 +1,4 @@
+
 import React from "react";
 import {
   Code,
@@ -16,7 +17,7 @@ import {
 export interface Skill {
   name: string;
   icon: React.ReactNode;
-  category: "ai" | "electrical" | "web";
+  category: "ai" | "electrical";
   proficiency: number; // 1-100
 }
 
@@ -95,43 +96,5 @@ export const skills: Skill[] = [
     icon: <Zap className="h-6 w-6" />,
     category: "electrical",
     proficiency: 90,
-  },
-
-  // Web Development Skills
-  {
-    name: "React",
-    icon: <Code className="h-6 w-6" />,
-    category: "web",
-    proficiency: 95,
-  },
-  {
-    name: "Tailwind CSS",
-    icon: <Layers className="h-6 w-6" />,
-    category: "web",
-    proficiency: 90,
-  },
-  {
-    name: "TypeScript",
-    icon: <Code className="h-6 w-6" />,
-    category: "web",
-    proficiency: 85,
-  },
-  {
-    name: "Next.js",
-    icon: <Database className="h-6 w-6" />,
-    category: "web",
-    proficiency: 80,
-  },
-  {
-    name: "GraphQL",
-    icon: <Database className="h-6 w-6" />,
-    category: "web",
-    proficiency: 75,
-  },
-  {
-    name: "Node.js",
-    icon: <Code className="h-6 w-6" />,
-    category: "web",
-    proficiency: 85,
   },
 ];
