@@ -1,7 +1,6 @@
-
 import React from "react";
 import { motion } from "framer-motion";
-import { Skill } from "@/data/skills";
+import { Skill } from "@/data/skills.tsx"; // Updated import with correct extension
 
 interface SkillItemProps {
   skill: Skill;

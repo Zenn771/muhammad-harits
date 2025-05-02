@@ -1,6 +1,6 @@
 
 import React, { useRef } from "react";
-import { Skill } from "@/data/skills";
+import { Skill } from "@/data/skills.tsx"; // Updated import with correct extension
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import MobileSkillCard from "./MobileSkillCard";
 

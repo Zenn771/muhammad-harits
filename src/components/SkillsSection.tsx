@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
-import { skills } from "@/data/skills";
+import { skills } from "@/data/skills.tsx"; // Updated import with correct extension
 import SkillCategory from "./skills/SkillCategory";
 import MobileSkillsCarousel from "./skills/MobileSkillsCarousel";
 

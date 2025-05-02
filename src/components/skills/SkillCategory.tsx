@@ -1,7 +1,7 @@
 
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Skill } from "@/data/skills";
+import { Skill } from "@/data/skills.tsx"; // Updated import with correct extension
 import SkillItem from "./SkillItem";
 
 interface SkillCategoryProps {
