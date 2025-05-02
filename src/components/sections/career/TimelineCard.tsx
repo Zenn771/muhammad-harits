@@ -20,12 +20,14 @@ const TimelineCard: React.FC<TimelineCardProps> = ({ item, isEven }) => {
       )}
       whileHover={{ translateY: -5 }}
     >
-      <div className="vintage-card rounded-xl overflow-hidden shadow-xl">
+      <div className="vintage-card rounded-xl overflow-hidden shadow-xl relative isolate">
+        {/* Added "isolate" class and increased background opacity for light blocking */}
+        
         {/* Subtler glowing border effect */}
         <div className="absolute inset-0 rounded-xl border border-white/15 shadow-[0_0_15px_rgba(255,255,255,0.03)] -z-10"></div>
         
-        {/* Enhanced title bar */}
-        <div className="bg-gradient-to-r from-gray-800/90 to-gray-700/80 px-4 py-3 flex items-center">
+        {/* Enhanced title bar with solid background */}
+        <div className="bg-gradient-to-r from-gray-800 to-gray-700 px-4 py-3 flex items-center relative z-10">
           <div className="flex space-x-2 items-center">
             <div className="w-3 h-3 rounded-full bg-red-500/90 shadow-[0_0_5px_rgba(239,68,68,0.5)]"></div>
             <div className="w-3 h-3 rounded-full bg-yellow-500/90 shadow-[0_0_5px_rgba(250,204,21,0.5)]"></div>
@@ -36,13 +38,15 @@ const TimelineCard: React.FC<TimelineCardProps> = ({ item, isEven }) => {
           </div>
         </div>
         
-        {/* Card content with styled border and reduced grain effect */}
+        {/* Card content with styled border and solid background to block light */}
         <div 
-          className="p-6 md:p-8 bg-gradient-to-br border-t-0 border border-white/10 backdrop-blur-sm"
+          className="p-6 md:p-8 border-t-0 border border-white/10 relative z-10 backdrop-blur-md"
           style={{
-            backgroundImage: `linear-gradient(to bottom right, ${item.color.split(" ")[0].replace("from-", "rgba(29, 78, 216, 0.15)")}, ${item.color.split(" ")[1].replace("to-", "rgba(8, 47, 73, 0.05)")})`
+            background: `linear-gradient(to bottom right, ${item.color.split(" ")[0].replace("from-", "rgba(29, 78, 216, 0.85)")}, ${item.color.split(" ")[1].replace("to-", "rgba(8, 47, 73, 0.85)")})`
           }}
         >
+          {/* Added solid background with higher opacity values to block the light effect */}
+          
           {/* Content */}
           <div className="absolute inset-0 grain-effect-subtle rounded-xl"></div>
           
@@ -130,8 +134,8 @@ const TimelineCard: React.FC<TimelineCardProps> = ({ item, isEven }) => {
           </motion.div>
         </div>
         
-        {/* Reflective bottom bar */}
-        <div className="h-2 w-full bg-gradient-to-b from-gray-800/80 to-gray-900/50"></div>
+        {/* Solid reflective bottom bar to block light */}
+        <div className="h-2 w-full bg-gradient-to-b from-gray-800 to-gray-900 relative z-10"></div>
       </div>
     </motion.div>
   );
