@@ -23,15 +23,28 @@ const SkillItem: React.FC<SkillItemProps> = ({ skill, index }) => {
       {/* Interior glow effect on hover */}
       <div className="absolute inset-0 bg-gradient-to-br from-amber-500/0 to-blue-500/0 opacity-0 group-hover:bg-gradient-to-br group-hover:from-amber-500/10 group-hover:to-blue-500/10 transition-opacity duration-300"></div>
       
-      <div className="p-2 rounded-full bg-gradient-to-br from-amber-500/20 to-blue-500/20 mb-2 relative z-10 skill-icon">
-        <Icon className="text-white w-4 h-4" />
+      {/* Colored icon background with radial gradient */}
+      <div 
+        className="p-2 rounded-full relative z-10 skill-icon"
+        style={{
+          background: `radial-gradient(circle, ${skill.iconColor}30 0%, ${skill.iconColor}10 70%)`,
+          boxShadow: `0 0 10px ${skill.iconColor}20`
+        }}
+      >
+        <Icon 
+          className="w-4 h-4" 
+          style={{ color: skill.iconColor || 'white' }} 
+        />
       </div>
       
       <h4 className="text-xs font-medium text-white mb-2 relative z-10 text-center">{skill.name}</h4>
       
       <div className="w-full bg-gray-700/30 h-1 rounded-full overflow-hidden relative z-10 skill-progress-bar">
         <motion.div
-          className="h-full bg-gradient-to-r from-amber-400 to-amber-200"
+          className="h-full"
+          style={{ 
+            background: `linear-gradient(to right, ${skill.iconColor || '#f59e0b'}, ${skill.iconColor}80)` 
+          }}
           initial={{ width: 0 }}
           whileInView={{ width: `${skill.level}%` }}
           transition={{ duration: 1, delay: 0.5 + index * 0.1 }}
