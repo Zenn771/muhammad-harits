@@ -9,7 +9,7 @@ const BentoBox = () => {
     <div className="mx-auto max-w-6xl px-4">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
         {/* First Row */}
-        <div className="col-span-1 md:col-span-1 row-span-2">
+        <div className="col-span-1 md:col-span-1">
           <MacBookFrame 
             imageSrc="/placeholder.svg" 
             className="h-full"
@@ -32,34 +32,7 @@ const BentoBox = () => {
         </div>
         
         {/* Second Row */}
-        <div className="col-span-1 md:col-span-1">
-          <BentoCard
-            title={bentoCardsData[1].title}
-            description={bentoCardsData[1].description}
-            icon={React.createElement(bentoCardsData[1].icon, { 
-              className: `h-5 w-5 text-${bentoCardsData[1].gradient.split('-')[1]}-300` 
-            })}
-            gradient={bentoCardsData[1].gradient}
-            delay={bentoCardsData[1].delay}
-            sizeClasses="col-span-1 row-span-1"
-          />
-        </div>
-        
-        <div className="col-span-1 md:col-span-1">
-          <BentoCard
-            title={bentoCardsData[2].title}
-            description={bentoCardsData[2].description}
-            icon={React.createElement(bentoCardsData[2].icon, { 
-              className: `h-5 w-5 text-${bentoCardsData[2].gradient.split('-')[1]}-300` 
-            })}
-            gradient={bentoCardsData[2].gradient}
-            delay={bentoCardsData[2].delay}
-            sizeClasses="col-span-1 row-span-1"
-          />
-        </div>
-        
-        {/* Third Row */}
-        <div className="col-span-1 md:col-span-1">
+        <div className="col-span-1">
           <BentoCard
             title={bentoCardsData[3].title}
             description={bentoCardsData[3].description}
@@ -68,10 +41,37 @@ const BentoBox = () => {
             })}
             gradient={bentoCardsData[3].gradient}
             delay={bentoCardsData[3].delay}
-            sizeClasses="col-span-1 row-span-2"
+            sizeClasses="h-full"
           />
         </div>
         
+        <div className="col-span-1">
+          <BentoCard
+            title={bentoCardsData[1].title}
+            description={bentoCardsData[1].description}
+            icon={React.createElement(bentoCardsData[1].icon, { 
+              className: `h-5 w-5 text-${bentoCardsData[1].gradient.split('-')[1]}-300` 
+            })}
+            gradient={bentoCardsData[1].gradient}
+            delay={bentoCardsData[1].delay}
+            sizeClasses="h-full"
+          />
+        </div>
+        
+        <div className="col-span-1">
+          <BentoCard
+            title={bentoCardsData[2].title}
+            description={bentoCardsData[2].description}
+            icon={React.createElement(bentoCardsData[2].icon, { 
+              className: `h-5 w-5 text-${bentoCardsData[2].gradient.split('-')[1]}-300` 
+            })}
+            gradient={bentoCardsData[2].gradient}
+            delay={bentoCardsData[2].delay}
+            sizeClasses="h-full"
+          />
+        </div>
+        
+        {/* Third Row */}
         <div className="col-span-1 md:col-span-2">
           <BentoCard
             title={bentoCardsData[4].title}
@@ -85,8 +85,7 @@ const BentoBox = () => {
           />
         </div>
         
-        {/* Fourth Row */}
-        <div className="col-span-1 md:col-span-1">
+        <div className="col-span-1">
           <BentoCard
             title={bentoCardsData[5].title}
             description={bentoCardsData[5].description}
@@ -95,11 +94,11 @@ const BentoBox = () => {
             })}
             gradient={bentoCardsData[5].gradient}
             delay={bentoCardsData[5].delay}
-            sizeClasses="col-span-1 row-span-1"
+            sizeClasses="h-full"
           />
         </div>
         
-        {/* Fifth Row */}
+        {/* Fourth Row - Full Width */}
         <div className="col-span-1 md:col-span-3">
           <BentoCard
             title={bentoCardsData[6].title}
