@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import CircleStack from '@/components/CircleStack';
@@ -147,7 +146,7 @@ const Index = () => {
         <Navbar activeSection={activeSection} scrollBased={true} className={scrolled ? 'scale-95' : ''} />
       </div>
       
-      {/* HOME SECTION - Enhanced with improved spotlight effects */}
+      {/* HOME SECTION - Keep existing structure but enhance with transitions */}
       <section id="home" className="min-h-screen w-full overflow-hidden bg-black relative">
         {/* Enhanced background particles with more density */}
         <ParticleEffect count={100} />
@@ -155,33 +154,22 @@ const Index = () => {
         {/* Enhanced circle stack with more depth */}
         <CircleStack />
         
-        {/* Light beam from above - enhanced for more visibility */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2/5 h-3/5 bg-gradient-to-b from-amber-200/30 to-transparent" style={{ filter: 'blur(60px)' }}></div>
-        
-        {/* Overhead spotlight effect specific to the header text */}
-        <div className="absolute top-[30%] left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-gradient-to-b from-amber-200/40 to-transparent rounded-full" style={{ filter: 'blur(80px)', transformOrigin: 'center top' }}></div>
-        
         {/* Main content positioned in the center with enhanced spotlight effect */}
-        <div className="relative h-screen flex flex-col items-center justify-center z-10 spotlight-enhanced overhead-spotlight">
+        <div className="relative h-screen flex flex-col items-center justify-center z-10">
           <div className="text-center max-w-3xl px-6">
-            <div className="relative">
+            <div className="relative spotlight-enhanced">
               {/* Status badge with animation */}
               <div className="mb-10 flex justify-center animate-fade-in">
                 <StatusBadge status="available" />
               </div>
               
               {/* Condensed main headline with personal greeting on a single line */}
-              <div className="text-highlight relative">
-                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-8 tracking-tight animate-fade-in text-white relative">
-                  Hi everyone, my name is <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-200 animate-pulse-slow relative glow-effect">
-                    Harits
-                    <span className="absolute -inset-1 bg-amber-400/30 blur-lg -z-10 rounded-full"></span>
-                  </span>
-                </h1>
-              </div>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-8 tracking-tight animate-fade-in text-white">
+                Hi everyone, my name is <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-200 animate-pulse-slow">Harits</span>
+              </h1>
               
               {/* Updated subtitle with professional information */}
-              <div className="space-y-4 mb-14 relative">
+              <div className="space-y-4 mb-14">
                 <p className="text-xl md:text-2xl text-white animate-fade-in" style={{ animationDelay: '0.2s' }}>
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-sky-300 to-blue-300">
                     AI & Electrical Engineer
@@ -210,12 +198,12 @@ const Index = () => {
           <ClientLogos />
         </div>
         
-        {/* Enhanced glowing stars/particles with increased glow effect */}
-        {[...Array(30)].map((_, i) => {
-          const size = Math.random() * 10 + 3;
+        {/* Enhanced glowing stars/particles */}
+        {[...Array(15)].map((_, i) => {
+          const size = Math.random() * 6 + 2;
           const top = Math.random() * 80 + 10;
           const left = Math.random() * 80 + 10;
-          const opacity = Math.random() * 0.8 + 0.4;
+          const opacity = Math.random() * 0.5 + 0.2;
           const delay = i * 0.3;
           
           return (
@@ -228,11 +216,11 @@ const Index = () => {
                 top: `${top}%`,
                 left: `${left}%`,
                 opacity: opacity,
-                background: 'radial-gradient(circle, rgba(250,204,21,0.9) 0%, rgba(250,204,21,0) 70%)',
+                background: 'radial-gradient(circle, rgba(250,204,21,0.8) 0%, rgba(250,204,21,0) 70%)',
                 borderRadius: '50%',
-                filter: 'blur(2px)',
+                filter: 'blur(1px)',
                 animationDelay: `${delay}s`,
-                boxShadow: '0 0 20px 6px rgba(250,204,21,0.5)',
+                boxShadow: '0 0 10px 2px rgba(250,204,21,0.3)',
               }}
             />
           );
