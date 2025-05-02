@@ -146,10 +146,16 @@ const Index = () => {
         <Navbar activeSection={activeSection} scrollBased={true} className={scrolled ? 'scale-95' : ''} />
       </div>
       
-      {/* HOME SECTION - Keep existing structure but enhance with transitions */}
+      {/* HOME SECTION - Enhanced with lighting effects */}
       <section id="home" className="min-h-screen w-full overflow-hidden bg-black relative">
         {/* Enhanced background particles with more density */}
         <ParticleEffect count={100} />
+        
+        {/* New header spotlight effect */}
+        <div className="header-spotlight"></div>
+        
+        {/* New vignette overlay for focus */}
+        <div className="vignette-overlay"></div>
         
         {/* Enhanced circle stack with more depth */}
         <CircleStack />
