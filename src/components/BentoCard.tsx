@@ -13,6 +13,11 @@ interface BentoCardProps {
   sizeClasses?: string;
   children?: React.ReactNode;
   disableEffects?: boolean; // New prop to disable animations and 3D effects
+  quote?: {
+    text: string;
+    author: string;
+    source: string;
+  };
 }
 
 const BentoCard = ({
@@ -24,7 +29,8 @@ const BentoCard = ({
   delay = 0,
   sizeClasses = "col-span-1 row-span-1",
   children,
-  disableEffects = false // Default to having effects enabled
+  disableEffects = false, // Default to having effects enabled
+  quote
 }: BentoCardProps) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -107,6 +113,14 @@ const BentoCard = ({
           <p className="text-white/70 text-sm leading-relaxed">
             {description}
           </p>
+          
+          {/* Display quote if available */}
+          {quote && (
+            <div className="mt-4 border-l-2 border-white/20 pl-3 italic">
+              <p className="text-white/80 text-sm">"{quote.text}"</p>
+              <p className="text-white/60 text-xs mt-1">— {quote.author}, <span className="font-light">{quote.source}</span></p>
+            </div>
+          )}
           
           {/* Add the children content if provided */}
           {children && (
@@ -193,6 +207,19 @@ const BentoCard = ({
         >
           {description}
         </motion.p>
+        
+        {/* Display quote if available */}
+        {quote && (
+          <motion.div 
+            className="mt-4 border-l-2 border-white/20 pl-3 italic"
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: isVisible ? 1 : 0, x: isVisible ? 0 : -10 }}
+            transition={{ duration: 0.5, delay: delay * 0.1 + 0.2 }}
+          >
+            <p className="text-white/80 text-sm">"{quote.text}"</p>
+            <p className="text-white/60 text-xs mt-1">— {quote.author}, <span className="font-light">{quote.source}</span></p>
+          </motion.div>
+        )}
         
         {/* Add the children content if provided */}
         {children && (

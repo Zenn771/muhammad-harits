@@ -86,6 +86,7 @@ const BentoBox = () => {
             gradient={bentoCardsData[4].gradient}
             delay={bentoCardsData[4].delay}
             sizeClasses="h-full"
+            quote={bentoCardsData[4].quote}
           />
         </div>
         

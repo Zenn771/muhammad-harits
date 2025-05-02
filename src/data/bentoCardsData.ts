@@ -2,7 +2,7 @@
 import { 
   Code2, 
   Cpu, 
-  ChefHat, 
+  Book, 
   Music, 
   Zap, 
   Lightbulb,
@@ -16,6 +16,11 @@ export interface BentoCardData {
   gradient: string;
   delay: number;
   sizeClasses: string;
+  quote?: {
+    text: string;
+    author: string;
+    source: string;
+  };
 }
 
 export const bentoCardsData: BentoCardData[] = [
@@ -52,12 +57,17 @@ export const bentoCardsData: BentoCardData[] = [
     sizeClasses: "col-span-1 md:col-span-1 row-span-1 md:row-span-2"
   },
   {
-    title: "Culinary Arts",
-    description: "When not engineering systems, I explore the science of cooking. The precision and creativity required in the kitchen parallels my engineering work in surprising ways.",
-    icon: ChefHat,
-    gradient: "from-orange-900/30 to-red-900/10",
+    title: "Reading",
+    description: "I'm an avid reader with a particular interest in books about science, philosophy, history, and finance/investment. Reading helps me gain new perspectives and insights applicable to my work and life.",
+    icon: Book,
+    gradient: "from-purple-900/30 to-indigo-900/10",
     delay: 4,
-    sizeClasses: "col-span-1 md:col-span-2 row-span-1"
+    sizeClasses: "col-span-1 md:col-span-2 row-span-1",
+    quote: {
+      text: "The most important investment you can make is in yourself.",
+      author: "Warren Buffett",
+      source: "The Essays of Warren Buffett"
+    }
   },
   {
     title: "Music Appreciation",
