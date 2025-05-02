@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import ProjectCard from './ProjectCard';
 
@@ -44,38 +44,18 @@ const portfolioProjects = [
 ];
 
 const ProjectsSection: React.FC = () => {
-  const [scrollY, setScrollY] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   
-  // Enhanced scroll tracking for parallax and animations
+  // Enhanced scroll tracking for animations
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"]
   });
   
   // Parallax values for different elements
-  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const opacityGradientTop = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
   const opacityGradientBottom = useTransform(scrollYProgress, [0.7, 1], [0, 1]);
-
-  // Enhanced scroll handler with section-specific scroll tracking
-  useEffect(() => {
-    const handleScroll = () => {
-      if (sectionRef.current) {
-        const rect = sectionRef.current.getBoundingClientRect();
-        // Only count scroll when section is in view
-        if (rect.top < window.innerHeight && rect.bottom > 0) {
-          // Calculate relative scroll position within the section
-          const sectionScrollY = Math.max(0, -rect.top);
-          setScrollY(sectionScrollY);
-        }
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   return (
     <section 
@@ -85,33 +65,24 @@ const ProjectsSection: React.FC = () => {
     >
       {/* White grid background */}
       <div className="absolute inset-0 z-0">
-        {/* White grid pattern with higher contrast */}
-        <div 
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage: "linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px)",
-            backgroundSize: '40px 40px',
-            transform: `translateY(${scrollY * 0.05}px)`,
-          }}
-        />
+        {/* White grid pattern with higher contrast - now static (no scroll effect) */}
+        <div className="absolute inset-0 pointer-events-none grid-background" />
         
-        {/* Enhanced top gradient fade - black to transparent for smooth transition */}
+        {/* Enhanced top gradient fade with smoother transition */}
         <motion.div 
-          className="absolute top-0 left-0 right-0 h-64 bg-gradient-to-b from-black via-black/80 to-transparent z-10 pointer-events-none"
+          className="absolute top-0 left-0 right-0 h-80 bg-gradient-to-b from-black via-black/80 to-transparent z-10 pointer-events-none fade-transition"
           style={{ opacity: opacityGradientTop }}
         />
         
-        {/* Enhanced bottom gradient fade - transparent to black for smooth transition */}
+        {/* Enhanced bottom gradient fade with smoother transition */}
         <motion.div 
-          className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-black via-black/80 to-transparent z-10 pointer-events-none"
+          className="absolute bottom-0 left-0 right-0 h-80 bg-gradient-to-t from-black via-black/80 to-transparent z-10 pointer-events-none fade-transition"
           style={{ opacity: opacityGradientBottom }}
         />
 
         {/* Ambient glow spots with enhanced visibility */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-amber-900/20 blur-[100px] pointer-events-none" 
-          style={{ transform: `translateY(${scrollY * -0.02}px)` }}/>
-        <div className="absolute bottom-1/3 right-1/5 w-80 h-80 rounded-full bg-blue-900/20 blur-[100px] pointer-events-none"
-          style={{ transform: `translateY(${scrollY * 0.03}px)` }}/>
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-amber-900/20 blur-[100px] pointer-events-none" />
+        <div className="absolute bottom-1/3 right-1/5 w-80 h-80 rounded-full bg-blue-900/20 blur-[100px] pointer-events-none" />
       </div>
 
       <div className="container mx-auto px-6 lg:px-8 relative z-10">
@@ -167,7 +138,7 @@ const ProjectsSection: React.FC = () => {
                   key={originalIndex} 
                   project={project} 
                   index={reversedIndex}
-                  scrollY={scrollY}
+                  scrollY={0} // Pass 0 as scrollY to make elements static
                 />
               );
             })}
