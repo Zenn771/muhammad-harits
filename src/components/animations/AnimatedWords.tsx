@@ -4,56 +4,46 @@ import { motion } from 'framer-motion';
 
 interface AnimatedWordsProps {
   text: string;
-  className?: string;
-  once?: boolean;
   delay?: number;
   duration?: number;
+  className?: string;
+  once?: boolean;
 }
 
 const AnimatedWords: React.FC<AnimatedWordsProps> = ({ 
   text, 
-  className = "", 
-  once = true,
-  delay = 0,
-  duration = 0.5
+  delay = 0, 
+  duration = 0.05, 
+  className = '', 
+  once = true 
 }) => {
-  // Split text into words
+  // Split the text into words
   const words = text.split(' ');
-
-  // Animation variants
+  
+  // Animation variants for each word
   const container = {
-    hidden: { opacity: 0 },
+    hidden: {},
     visible: (i = 1) => ({
-      opacity: 1,
-      transition: { staggerChildren: 0.12, delayChildren: delay * i }
+      transition: { staggerChildren: duration, delayChildren: delay * i }
     })
   };
-
+  
   const child = {
-    hidden: {
-      opacity: 0,
-      y: 20,
-      transition: {
-        type: "spring",
-        damping: 12,
-        stiffness: 100
-      }
-    },
+    hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
         type: "spring",
         damping: 12,
-        stiffness: 100,
-        duration: duration
+        stiffness: 100
       }
     }
   };
-
+  
   return (
-    <motion.div
-      className={`inline-flex flex-wrap ${className}`}
+    <motion.p
+      className={className}
       variants={container}
       initial="hidden"
       whileInView="visible"
@@ -62,13 +52,13 @@ const AnimatedWords: React.FC<AnimatedWordsProps> = ({
       {words.map((word, index) => (
         <motion.span
           key={index}
-          className="inline-block mr-1.5"
+          className="inline-block mr-1 last:mr-0"
           variants={child}
         >
           {word}
         </motion.span>
       ))}
-    </motion.div>
+    </motion.p>
   );
 };
 

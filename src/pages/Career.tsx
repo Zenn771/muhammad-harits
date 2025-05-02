@@ -4,8 +4,8 @@ import Navbar from "@/components/Navbar";
 import { careerData } from '@/data/timelineData';
 import TimelineBackground from '@/components/career/TimelineBackground';
 import TimelineHeader from '@/components/career/TimelineHeader';
-import Timeline from '@/components/career/Timeline';
 import TimelineFooter from '@/components/career/TimelineFooter';
+import TimelineItem from '@/components/career/TimelineItem';
 
 const Career: React.FC = () => {
   const [activeSection, setActiveSection] = useState(1);
@@ -36,11 +36,27 @@ const Career: React.FC = () => {
           <TimelineHeader />
           
           {/* Timeline */}
-          <Timeline 
-            data={careerData} 
-            scrollY={scrollY} 
-            timelineRef={timelineRef}
-          />
+          <div className="relative" ref={timelineRef}>
+            {/* Vertical line */}
+            <div 
+              className="absolute left-4 sm:left-1/2 sm:-ml-0.5 w-1 bg-white/10 h-full"
+              style={{ 
+                transform: `translateY(${scrollY * 0.01}px)`,
+                boxShadow: '0 0 10px rgba(255, 255, 255, 0.1)'
+              }}
+            ></div>
+            
+            <div className="space-y-16 relative">
+              {careerData.map((item, index) => (
+                <TimelineItem 
+                  key={item.id}
+                  item={item} 
+                  index={index} 
+                  scrollY={scrollY}
+                />
+              ))}
+            </div>
+          </div>
           
           {/* Bottom section */}
           <TimelineFooter />
