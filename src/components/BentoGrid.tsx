@@ -1,3 +1,4 @@
+
 import React from 'react';
 import BentoCard from './BentoCard';
 import { bentoCardsData } from '@/data/bentoCardsData';
@@ -8,8 +9,8 @@ const BentoBox = () => {
   return (
     <div className="mx-auto max-w-6xl px-4">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-        {/* First Row */}
-        <div className="col-span-1 md:col-span-1 row-span-1">
+        {/* First Row - Fixed equal heights for cards */}
+        <div className="col-span-1 md:col-span-1 row-span-1 md:h-[340px]">
           <MacBookFrame 
             imageSrc="/placeholder.svg" 
             className="h-full"
@@ -18,7 +19,7 @@ const BentoBox = () => {
           />
         </div>
         
-        <div className="col-span-1 md:col-span-2">
+        <div className="col-span-1 md:col-span-2 md:h-[340px]">
           <BentoCard
             title={bentoCardsData[0].title}
             description={bentoCardsData[0].description}
@@ -33,9 +34,8 @@ const BentoBox = () => {
           </BentoCard>
         </div>
         
-        {/* Keep the rest of the existing rows */}
-        {/* Second Row */}
-        <div className="col-span-1">
+        {/* Second Row - Equal height cards */}
+        <div className="col-span-1 md:h-[220px]">
           <BentoCard
             title={bentoCardsData[1].title}
             description={bentoCardsData[1].description}
@@ -48,7 +48,7 @@ const BentoBox = () => {
           />
         </div>
         
-        <div className="col-span-1">
+        <div className="col-span-1 md:h-[220px]">
           <BentoCard
             title={bentoCardsData[2].title}
             description={bentoCardsData[2].description}
@@ -61,7 +61,7 @@ const BentoBox = () => {
           />
         </div>
         
-        <div className="col-span-1">
+        <div className="col-span-1 md:h-[220px]">
           <BentoCard
             title={bentoCardsData[3].title}
             description={bentoCardsData[3].description}
@@ -74,8 +74,8 @@ const BentoBox = () => {
           />
         </div>
         
-        {/* Third Row */}
-        <div className="col-span-1 md:col-span-2">
+        {/* Third Row - Equal height cards */}
+        <div className="col-span-1 md:col-span-2 md:h-[240px]">
           <BentoCard
             title={bentoCardsData[4].title}
             description={bentoCardsData[4].description}
@@ -88,7 +88,7 @@ const BentoBox = () => {
           />
         </div>
         
-        <div className="col-span-1">
+        <div className="col-span-1 md:h-[240px]">
           <BentoCard
             title={bentoCardsData[5].title}
             description={bentoCardsData[5].description}
@@ -102,7 +102,7 @@ const BentoBox = () => {
         </div>
         
         {/* Fourth Row */}
-        <div className="col-span-1 md:col-span-3">
+        <div className="col-span-1 md:col-span-3 md:h-[200px]">
           <BentoCard
             title={bentoCardsData[6].title}
             description={bentoCardsData[6].description}

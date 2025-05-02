@@ -22,44 +22,25 @@ const CodeTerminal: React.FC<CodeTerminalProps> = ({ className }) => {
   <span class="keyword">def</span> <span class="function">__init__</span>(<span class="param">self</span>):
     <span class="param">super</span>().<span class="function">__init__</span>()
     <span class="param">self</span>.conv1 = nn.<span class="class">Conv2d</span>(<span class="number">1</span>, <span class="number">32</span>, <span class="number">3</span>)
-    <span class="param">self</span>.conv2 = nn.<span class="class">Conv2d</span>(<span class="number">32</span>, <span class="number">64</span>, <span class="number">3</span>)
-    <span class="param">self</span>.fc1 = nn.<span class="class">Linear</span>(<span class="number">9216</span>, <span class="number">128</span>)
-    <span class="param">self</span>.fc2 = nn.<span class="class">Linear</span>(<span class="number">128</span>, <span class="number">10</span>)
-    
-  <span class="keyword">def</span> <span class="function">forward</span>(<span class="param">self</span>, x):
-    x = <span class="param">self</span>.conv1(x)
-    x = nn.<span class="function">relu</span>(x)
-    <span class="comment"># More operations...</span>`,
+    <span class="param">self</span>.conv2 = nn.<span class="class">Conv2d</span>(<span class="number">32</span>, <span class="number">64</span>, <span class="number">3</span>)`,
 
     `<span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf
 
-<span class="comment"># Create sequential neural network with attention</span>
+<span class="comment"># Create sequential neural network</span>
 model = tf.keras.<span class="function">Sequential</span>([
   tf.keras.layers.<span class="class">Input</span>(shape=(<span class="number">28</span>, <span class="number">28</span>, <span class="number">1</span>)),
   tf.keras.layers.<span class="class">Conv2D</span>(<span class="number">32</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), 
-                      activation=<span class="string">'relu'</span>),
-  tf.keras.layers.<span class="class">MaxPooling2D</span>(pool_size=(<span class="number">2</span>, <span class="number">2</span>)),
-  tf.keras.layers.<span class="class">Dropout</span>(<span class="number">0.25</span>),
-  tf.keras.layers.<span class="class">Flatten</span>(),
-  tf.keras.layers.<span class="class">Dense</span>(<span class="number">128</span>, activation=<span class="string">'relu'</span>),
-  tf.keras.layers.<span class="class">Dense</span>(<span class="number">10</span>, activation=<span class="string">'softmax'</span>)
-])`,
+                      activation=<span class="string">'relu'</span>)`,
 
     `<span class="keyword">from</span> sklearn <span class="keyword">import</span> ensemble
 <span class="keyword">import</span> numpy <span class="keyword">as</span> np
-<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
 
-<span class="comment"># Advanced random forest classifier</span>
-X_train = pd.<span class="function">read_csv</span>(<span class="string">'data.csv'</span>)
+<span class="comment"># Random forest classifier</span>
 model = ensemble.<span class="class">RandomForestClassifier</span>(
   n_estimators=<span class="number">100</span>,
   max_depth=<span class="number">5</span>,
-  criterion=<span class="string">'gini'</span>,
-  min_samples_split=<span class="number">2</span>,
   random_state=<span class="number">42</span>
-)
-model.<span class="function">fit</span>(X_train, y_train)
-predictions = model.<span class="function">predict</span>(X_test)`
+)`
   ];
 
   // Automatically cycle through code snippets with deletion effect
@@ -107,7 +88,7 @@ predictions = model.<span class="function">predict</span>(X_test)`
       {/* Terminal Content - With VSCode-like syntax highlighting */}
       <div 
         className={`font-mono text-xs overflow-hidden code-terminal-content transition-all duration-300`}
-        style={{ maxHeight: isExpanded ? '320px' : '180px' }}
+        style={{ maxHeight: isExpanded ? '200px' : '130px' }}
       >
         <TypewriterText
           text={codeSnippets[currentSnippetIndex]}
