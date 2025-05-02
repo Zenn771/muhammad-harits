@@ -1,180 +1,144 @@
 
-import React from 'react';
-import { 
-  Brain, 
-  Network, 
-  Camera, 
-  Microscope,
-  Database, 
-  Cpu, 
-  Zap, 
-  Layers, 
-  Settings, 
-  Code, 
-  FileCode,
-  Wind,
-  Hammer,
-  Server,
-  Workflow
-} from 'lucide-react';
+import { Activity, Brain, Chip, Code, Database, Flask, Hammer, LineChart, Layers, Radio, Network, Wrench, Cpu, Zap, Bot, Terminal } from 'lucide-react';
 
-export interface Skill {
-  id: string;
+export type Skill = {
   name: string;
-  level: number;
-  category: 'ai' | 'electrical' | 'web';
   icon: React.ElementType;
-  iconColor?: string;
-}
+  level: string;
+  category: "ai" | "web" | "electrical";
+  color: "amber" | "blue" | "green" | "purple" | "red";
+};
 
 export const skills: Skill[] = [
-  // AI Skills
+  // AI & Machine Learning Skills
   {
-    id: 'machine-learning',
-    name: 'Machine Learning',
-    level: 90,
-    category: 'ai',
+    name: "Machine Learning",
     icon: Brain,
-    iconColor: '#9b87f5'
+    level: "Expert",
+    category: "ai",
+    color: "purple"
   },
   {
-    id: 'deep-learning',
-    name: 'Deep Learning',
-    level: 85,
-    category: 'ai',
+    name: "Deep Learning",
     icon: Network,
-    iconColor: '#D946EF'
+    level: "Expert",
+    category: "ai",
+    color: "blue"
   },
   {
-    id: 'computer-vision',
-    name: 'Computer Vision',
-    level: 80,
-    category: 'ai',
-    icon: Camera,
-    iconColor: '#0EA5E9'
+    name: "Computer Vision",
+    icon: Activity,
+    level: "Advanced",
+    category: "ai",
+    color: "amber"
   },
   {
-    id: 'nlp',
-    name: 'Natural Language Processing',
-    level: 75,
-    category: 'ai',
-    icon: FileCode,
-    iconColor: '#F97316'
+    name: "NLP",
+    icon: Terminal,
+    level: "Advanced",
+    category: "ai",
+    color: "green"
   },
   {
-    id: 'reinforcement-learning',
-    name: 'Reinforcement Learning',
-    level: 65,
-    category: 'ai',
-    icon: Workflow,
-    iconColor: '#8B5CF6'
-  },
-  {
-    id: 'data-science',
-    name: 'Data Science',
-    level: 85,
-    category: 'ai',
+    name: "TensorFlow",
     icon: Database,
-    iconColor: '#33C3F0'
+    level: "Expert",
+    category: "ai",
+    color: "red"
+  },
+  {
+    name: "PyTorch",
+    icon: Flask,
+    level: "Advanced",
+    category: "ai",
+    color: "amber"
+  },
+  
+  // Web Development Skills
+  {
+    name: "React",
+    icon: Code,
+    level: "Expert",
+    category: "web",
+    color: "blue"
+  },
+  {
+    name: "JavaScript",
+    icon: Layers,
+    level: "Expert",
+    category: "web",
+    color: "amber"
+  },
+  {
+    name: "Node.js",
+    icon: Terminal,
+    level: "Advanced",
+    category: "web",
+    color: "green"
+  },
+  {
+    name: "TypeScript",
+    icon: Code,
+    level: "Advanced",
+    category: "web",
+    color: "blue"
+  },
+  {
+    name: "GraphQL",
+    icon: Database,
+    level: "Intermediate",
+    category: "web",
+    color: "purple"
+  },
+  {
+    name: "Tailwind CSS",
+    icon: Layers,
+    level: "Advanced",
+    category: "web",
+    color: "blue"
   },
   
   // Electrical Engineering Skills
   {
-    id: 'circuit-design',
-    name: 'Circuit Design',
-    level: 85,
-    category: 'electrical',
+    name: "PCB Design",
+    icon: Chip,
+    level: "Expert",
+    category: "electrical",
+    color: "green"
+  },
+  {
+    name: "Microcontrollers",
     icon: Cpu,
-    iconColor: '#ea384c'
+    level: "Expert",
+    category: "electrical",
+    color: "blue"
   },
   {
-    id: 'embedded-systems',
-    name: 'Embedded Systems',
-    level: 80,
-    category: 'electrical',
-    icon: Microscope,
-    iconColor: '#7E69AB'
-  },
-  {
-    id: 'signal-processing',
-    name: 'Signal Processing',
-    level: 75,
-    category: 'electrical',
+    name: "Circuit Design",
     icon: Zap,
-    iconColor: '#F97316'
+    level: "Advanced",
+    category: "electrical",
+    color: "amber"
   },
   {
-    id: 'power-electronics',
-    name: 'Power Electronics',
-    level: 70,
-    category: 'electrical',
-    icon: Zap,
-    iconColor: '#FEC6A1'
+    name: "Signal Processing",
+    icon: LineChart,
+    level: "Advanced",
+    category: "electrical",
+    color: "purple"
   },
   {
-    id: 'control-systems',
-    name: 'Control Systems',
-    level: 80,
-    category: 'electrical',
-    icon: Settings,
-    iconColor: '#0FA0CE'
+    name: "Embedded Systems",
+    icon: Bot,
+    level: "Expert",
+    category: "electrical",
+    color: "red"
   },
   {
-    id: 'pcb-design',
-    name: 'PCB Design',
-    level: 75,
-    category: 'electrical',
-    icon: Layers,
-    iconColor: '#6E59A5'
-  },
-  
-  // Web Programming Skills
-  {
-    id: 'react',
-    name: 'React',
-    level: 90,
-    category: 'web',
-    icon: Code,
-    iconColor: '#61DAFB'
-  },
-  {
-    id: 'tailwind',
-    name: 'Tailwind CSS',
-    level: 85,
-    category: 'web',
-    icon: Wind,
-    iconColor: '#38BDF8'
-  },
-  {
-    id: 'nextjs',
-    name: 'Next.js',
-    level: 80,
-    category: 'web',
-    icon: Server,
-    iconColor: '#000000'
-  },
-  {
-    id: 'typescript',
-    name: 'TypeScript',
-    level: 85,
-    category: 'web',
-    icon: Code,
-    iconColor: '#3178C6'
-  },
-  {
-    id: 'html-css',
-    name: 'HTML/CSS',
-    level: 95,
-    category: 'web',
-    icon: FileCode,
-    iconColor: '#E34F26'
-  },
-  {
-    id: 'nodejs',
-    name: 'Node.js',
-    level: 80,
-    category: 'web',
-    icon: Hammer,
-    iconColor: '#339933'
+    name: "Power Electronics",
+    icon: Wrench,
+    level: "Intermediate",
+    category: "electrical",
+    color: "amber"
   }
 ];

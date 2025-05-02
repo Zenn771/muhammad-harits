@@ -1,8 +1,8 @@
 
-import React, { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import React from "react";
+import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 import { Skill } from "@/data/skills";
-import SkillItem from "./SkillItem";
 
 interface SkillCategoryProps {
   title: string;
@@ -10,31 +10,78 @@ interface SkillCategoryProps {
 }
 
 const SkillCategory: React.FC<SkillCategoryProps> = ({ title, skills }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
-    <motion.div
-      ref={ref}
-      className="bg-gradient-to-b from-gray-900/30 to-gray-900/10 backdrop-blur-sm rounded-xl p-6 border border-white/5 shadow-[0_0_15px_rgba(0,0,0,0.3)] overflow-hidden relative group w-full"
-      initial={{ opacity: 0, y: 30 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-      transition={{ duration: 0.7 }}
-    >
-      {/* Dynamic background glow effect */}
-      <div className="absolute -inset-[1px] bg-gradient-to-r from-amber-500/0 via-amber-500/30 to-blue-500/0 opacity-0 group-hover:opacity-100 rounded-xl blur-sm transition-opacity duration-1000"></div>
+    <div className="vintage-card p-6 rounded-xl bg-gradient-to-br from-blue-900/10 to-purple-900/5 border border-white/10 backdrop-blur-sm">
+      <motion.h3 
+        className="text-xl font-semibold text-white mb-6"
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        viewport={{ once: true }}
+      >
+        {title}
+      </motion.h3>
       
-      {/* Interior glowing border */}
-      <div className="absolute inset-0 border border-white/5 rounded-xl"></div>
-      
-      <h3 className="text-xl md:text-2xl font-semibold text-white mb-6 text-center relative z-10">{title}</h3>
-
-      <div className="grid grid-cols-3 gap-4 relative z-10">
+      <div className="grid grid-cols-2 gap-6">
         {skills.map((skill, index) => (
-          <SkillItem key={skill.id} skill={skill} index={index} />
+          <motion.div
+            key={skill.name}
+            className="flex items-start gap-3"
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: index * 0.05 }}
+            viewport={{ once: true }}
+          >
+            <div className="relative">
+              {/* Outer glow effect */}
+              <motion.div 
+                className={cn(
+                  "absolute inset-0 rounded-full -z-10 blur-md opacity-50",
+                  skill.color === "amber" && "bg-amber-500/30",
+                  skill.color === "blue" && "bg-blue-500/30",
+                  skill.color === "green" && "bg-green-500/30",
+                  skill.color === "purple" && "bg-purple-500/30",
+                  skill.color === "red" && "bg-red-500/30"
+                )}
+                animate={{ 
+                  opacity: [0.3, 0.5, 0.3], 
+                  scale: [0.85, 1, 0.85],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  repeatType: "reverse"
+                }}
+              />
+              
+              {/* Icon background */}
+              <div className={cn(
+                "p-2 rounded-full flex items-center justify-center",
+                skill.color === "amber" && "bg-amber-500/10 border border-amber-500/20",
+                skill.color === "blue" && "bg-blue-500/10 border border-blue-500/20", 
+                skill.color === "green" && "bg-green-500/10 border border-green-500/20",
+                skill.color === "purple" && "bg-purple-500/10 border border-purple-500/20",
+                skill.color === "red" && "bg-red-500/10 border border-red-500/20"
+              )}>
+                <skill.icon className={cn(
+                  "h-5 w-5",
+                  skill.color === "amber" && "text-amber-400",
+                  skill.color === "blue" && "text-blue-400",
+                  skill.color === "green" && "text-green-400",
+                  skill.color === "purple" && "text-purple-400",
+                  skill.color === "red" && "text-red-400"
+                )} />
+              </div>
+            </div>
+            
+            <div>
+              <h4 className="text-sm font-medium text-white">{skill.name}</h4>
+              <p className="text-xs text-white/50 mt-1">{skill.level}</p>
+            </div>
+          </motion.div>
         ))}
       </div>
-    </motion.div>
+    </div>
   );
 };
 

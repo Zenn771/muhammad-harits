@@ -1,82 +1,96 @@
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Skill } from '@/data/skills';
+import React from "react";
+import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
+import { Skill } from "@/data/skills";
 
 interface MobileSkillsCarouselProps {
-  category: 'ai' | 'electrical' | 'web';
+  category: "ai" | "web" | "electrical";
   skills: Skill[];
   activeCategory: string;
 }
 
-const MobileSkillsCarousel: React.FC<MobileSkillsCarouselProps> = ({ category, skills, activeCategory }) => {
-  // Filter skills by category
-  const categorySkills = skills.filter(skill => skill.category === category);
-  
-  // Only show if this is the active category
-  if (activeCategory !== category) return null;
-  
-  // Get title based on category
-  const getCategoryTitle = () => {
-    switch (category) {
-      case 'ai': return 'AI & Machine Learning';
-      case 'electrical': return 'Electrical Engineering';
-      case 'web': return 'Web Development';
-      default: return '';
-    }
-  };
-  
-  // Get gradient based on category
-  const getCategoryGradient = () => {
-    switch (category) {
-      case 'ai': return 'from-blue-900/40 to-purple-900/20';
-      case 'electrical': return 'from-amber-900/30 to-red-900/20';
-      case 'web': return 'from-blue-900/30 to-cyan-900/20';
-      default: return '';
-    }
-  };
+const MobileSkillsCarousel: React.FC<MobileSkillsCarouselProps> = ({
+  category,
+  skills,
+  activeCategory,
+}) => {
+  const categorySkills = skills.filter((skill) => skill.category === category);
 
   return (
-    <motion.div 
-      className="w-full"
-      initial={{ opacity: 0, x: -20 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.5 }}
-      key={category}
+    <div
+      className={cn(
+        "overflow-x-auto scrollbar-none pb-10 transition-all duration-500",
+        activeCategory === category ? "block" : "hidden"
+      )}
     >
-      <div className={`overflow-x-auto pb-6`}>
-        <div className="flex gap-4 px-4 pb-1 min-w-max">
-          {categorySkills.map((skill, index) => {
-            const Icon = skill.icon;
-            return (
-              <div 
-                key={skill.id}
-                className={`w-64 flex-shrink-0 bg-gradient-to-br ${getCategoryGradient()} border border-white/10 rounded-xl p-5`}
-              >
-                <div className="flex items-center mb-3">
-                  <div className="p-2 rounded-full bg-white/10 mr-3">
-                    <Icon className="h-5 w-5 text-white/80" />
-                  </div>
-                  <h4 className="font-medium text-white">{skill.name}</h4>
-                </div>
+      <motion.div 
+        className="flex space-x-4 px-4 pt-6"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        {categorySkills.map((skill) => (
+          <motion.div
+            key={skill.name}
+            className="flex-shrink-0 w-[140px] vintage-card p-5 rounded-lg bg-gradient-to-br from-blue-900/10 to-purple-900/5 border border-white/10 backdrop-blur-sm"
+            initial={{ scale: 0.9, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            whileHover={{ y: -5 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="relative z-10 flex flex-col items-center">
+              {/* Icon container with glowing effect matching desktop version */}
+              <div className="relative mb-4">
+                {/* Outer glow effect */}
+                <motion.div 
+                  className={cn(
+                    "absolute inset-0 rounded-full -z-10 blur-md opacity-50",
+                    skill.color === "amber" && "bg-amber-500/30",
+                    skill.color === "blue" && "bg-blue-500/30",
+                    skill.color === "green" && "bg-green-500/30",
+                    skill.color === "purple" && "bg-purple-500/30",
+                    skill.color === "red" && "bg-red-500/30"
+                  )}
+                  animate={{ 
+                    opacity: [0.3, 0.5, 0.3], 
+                    scale: [0.85, 1, 0.85],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    repeatType: "reverse"
+                  }}
+                />
                 
-                <div className="w-full h-2 bg-black/30 rounded-full overflow-hidden">
-                  <div 
-                    className="h-full bg-gradient-to-r from-amber-200 to-amber-500 rounded-full"
-                    style={{ width: `${skill.level}%` }}
-                  />
-                </div>
-                
-                <div className="mt-2 flex justify-between">
-                  <span className="text-xs text-white/60">Proficiency</span>
-                  <span className="text-xs font-medium text-amber-200">{skill.level}%</span>
+                {/* Icon background */}
+                <div className={cn(
+                  "p-3 rounded-full flex items-center justify-center",
+                  skill.color === "amber" && "bg-amber-500/10 border border-amber-500/20",
+                  skill.color === "blue" && "bg-blue-500/10 border border-blue-500/20", 
+                  skill.color === "green" && "bg-green-500/10 border border-green-500/20",
+                  skill.color === "purple" && "bg-purple-500/10 border border-purple-500/20",
+                  skill.color === "red" && "bg-red-500/10 border border-red-500/20"
+                )}>
+                  {/* Icon with color matching the glow */}
+                  <skill.icon className={cn(
+                    "h-6 w-6",
+                    skill.color === "amber" && "text-amber-400",
+                    skill.color === "blue" && "text-blue-400",
+                    skill.color === "green" && "text-green-400",
+                    skill.color === "purple" && "text-purple-400",
+                    skill.color === "red" && "text-red-400"
+                  )} />
                 </div>
               </div>
-            );
-          })}
-        </div>
-      </div>
-    </motion.div>
+              
+              <h4 className="text-center text-sm font-medium text-white">{skill.name}</h4>
+              <p className="text-center text-xs text-white/50 mt-1">{skill.level}</p>
+            </div>
+          </motion.div>
+        ))}
+      </motion.div>
+    </div>
   );
 };
 
