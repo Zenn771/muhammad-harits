@@ -51,14 +51,13 @@ const MobileSkillsCarousel: React.FC<MobileSkillsCarouselProps> = ({
     const container = containerRef.current;
     const scrollAmount = container.clientWidth * 0.75; // Scroll 75% of visible width
     
-    // Use smooth scrolling with easing for better UX
     container.scrollTo({
       left: container.scrollLeft + (direction === 'left' ? -scrollAmount : scrollAmount),
       behavior: 'smooth'
     });
   };
   
-  // Touch handling for swipe gestures with passive event handling for better performance
+  // Touch handling for swipe gestures
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStartX(e.touches[0].clientX);
   };
@@ -116,13 +115,14 @@ const MobileSkillsCarousel: React.FC<MobileSkillsCarouselProps> = ({
           scrollbarWidth: 'none', 
           msOverflowStyle: 'none', 
           WebkitOverflowScrolling: 'touch',
-          willChange: 'transform' // Hardware acceleration for smoother scrolling
+          willChange: 'transform' // Hardware acceleration
         }}
         onScroll={checkScrollPosition}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        <div className="flex gap-4 pb-4 will-change-transform">
+        {/* Fix: Changed from flex layout to grid layout with fixed width columns */}
+        <div className="inline-flex gap-4 pb-4 will-change-transform" style={{ minWidth: 'max-content' }}>
           {filteredSkills.map((skill, idx) => (
             <motion.div
               key={skill.name}
@@ -132,11 +132,14 @@ const MobileSkillsCarousel: React.FC<MobileSkillsCarouselProps> = ({
               transition={{ 
                 duration: 0.4, 
                 delay: idx * 0.05,
-                ease: "easeOut" // Smoother easing function
+                ease: "easeOut"
               }}
               style={{ 
-                contain: 'content', 
-                willChange: 'transform, opacity' // Optimize for animations
+                contain: 'content',
+                willChange: 'transform, opacity',
+                flexShrink: 0, // Ensure cards don't shrink
+                flexGrow: 0, // Ensure cards don't grow
+                width: "140px" // Fixed width to prevent layout shifts
               }}
             >
               <MobileSkillCard skill={skill} index={idx} />

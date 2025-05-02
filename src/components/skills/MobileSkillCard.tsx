@@ -1,3 +1,4 @@
+
 import React from "react";
 import { motion } from "framer-motion";
 import { Skill } from "@/data/skills.tsx";
@@ -10,7 +11,7 @@ interface MobileSkillCardProps {
 const MobileSkillCard: React.FC<MobileSkillCardProps> = ({ skill, index }) => {
   return (
     <motion.div
-      className="flex-shrink-0 snap-center w-[180px] mr-4 last:mr-0"
+      className="w-full" // Use full width of parent container
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.05 * index }}
@@ -18,6 +19,10 @@ const MobileSkillCard: React.FC<MobileSkillCardProps> = ({ skill, index }) => {
     >
       <div 
         className="bento-card p-4 h-full bg-gradient-to-br from-white/5 to-white/2 backdrop-blur-sm border border-white/10 rounded-lg relative overflow-hidden"
+        style={{
+          width: "100%", // Ensure card uses full width
+          display: "block" // Ensure block display
+        }}
       >
         {/* Glowing border effect on hover */}
         <div className="absolute -inset-[0.5px] bg-gradient-to-r from-amber-500/0 via-amber-500/30 to-blue-500/0 opacity-0 group-hover:opacity-100 rounded-lg transition-opacity duration-700"></div>
