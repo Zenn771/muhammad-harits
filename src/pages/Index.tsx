@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/sections/HeroSection';
@@ -14,13 +13,14 @@ import SectionBackground from '@/components/backgrounds/SectionBackground';
 const Index = () => {
   return (
     <div className="bg-black overflow-hidden">
+      {/* Updated Navbar with scrollBased set to true */}
       <Navbar scrollBased={true} />
       
-      <main>
-        {/* Hero Section - now with enhanced backgrounds */}
+      <main className="pt-16"> {/* Add padding to prevent content from being hidden under navbar */}
+        {/* Hero Section */}
         <HeroSection />
         
-        {/* About Section - withGrain set to false explicitly */}
+        {/* About Section */}
         <SectionBackground pattern="dots" withGrain={false} className="py-16 md:py-24 lg:py-32">
           <section id="about" className="container mx-auto px-4 md:px-8">
             <div className="max-w-6xl mx-auto">
@@ -33,22 +33,12 @@ const Index = () => {
           </section>
         </SectionBackground>
         
-        {/* Career Section */}
+        {/* Keep existing code for other sections */}
         <CareerSection />
-        
-        {/* Projects Section */}
         <ProjectsSection />
-        
-        {/* Skills Section */}
         <SkillsSection />
-        
-        {/* Testimonials */}
         <TestimonialsSection />
-        
-        {/* FAQs */}
         <FAQSection />
-        
-        {/* Contact */}
         <ContactSection />
       </main>
     </div>
