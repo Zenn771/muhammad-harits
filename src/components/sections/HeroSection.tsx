@@ -8,7 +8,6 @@ import ParticleEffect from '@/components/ParticleEffect';
 import ClientLogos from '@/components/ClientLogos';
 import TypewriterText from '@/components/animations/TypewriterText';
 import AnimatedGradientText from '@/components/animations/AnimatedGradientText';
-import FloatingCharacters from '@/components/animations/FloatingCharacters';
 import AnimatedWords from '@/components/animations/AnimatedWords';
 import GridBackground from '@/components/backgrounds/GridBackground';
 import GradientBackdrop from '@/components/backgrounds/GradientBackdrop';
@@ -258,11 +257,7 @@ const HeroSection: React.FC = () => {
           {/* Updated subtitle with professional information and rotating typewriter texts */}
           <div className="space-y-4 mb-8">
             <p className="text-xl md:text-2xl text-amber-400 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-              <FloatingCharacters 
-                text="AI & Electrical Engineer" 
-                highlightIndices={[0, 1, 14, 15, 16]} 
-                highlightClassName="text-amber-300" 
-              />
+              AI & Electrical Engineer
             </p>
             <p className="text-lg md:text-xl text-white/90 animate-fade-in" style={{ animationDelay: '0.4s' }}>
               <TypewriterText 
