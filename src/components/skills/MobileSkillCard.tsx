@@ -32,7 +32,7 @@ const MobileSkillCard: React.FC<MobileSkillCardProps> = ({ skill, index }) => {
             <span className="text-white">{skill.icon}</span>
           </div>
           
-          <h4 className="text-sm font-medium text-white text-center mb-2.5">{skill.name}</h4>
+          <h4 className="text-sm font-medium text-white text-center mb-2.5 whitespace-nowrap overflow-hidden text-ellipsis w-full">{skill.name}</h4>
           
           <div className="w-full bg-gray-700/30 h-1.5 rounded-full overflow-hidden">
             <motion.div
