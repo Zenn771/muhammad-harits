@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 
 interface ParticleEffectProps {
@@ -40,10 +39,15 @@ const ParticleEffect: React.FC<ParticleEffectProps> = ({
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
     
+    let animationPhase = 0;
+    
     const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      setDimensions({ width: canvas.width, height: canvas.height });
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
+      ctx.scale(dpr, dpr);
     };
     
     const initializeParticles = () => {
@@ -82,7 +86,7 @@ const ParticleEffect: React.FC<ParticleEffectProps> = ({
     };
   }, [count]);
   
-  // Handle mouse movement for interactive effects
+  // Handle mouse movement for interactive effects - keeping the tracking but removing particle following
   useEffect(() => {
     if (!interactive) return;
     
@@ -138,22 +142,7 @@ const ParticleEffect: React.FC<ParticleEffectProps> = ({
         // Calculate pulsing opacity
         const pulsingOpacity = particle.opacity * (0.9 + Math.sin(particle.pulse) * 0.1);
         
-        // Interactive effects - particles slightly attracted to mouse
-        if (interactive && mousePosition.x && mousePosition.y) {
-          const dx = mousePosition.x - particle.x;
-          const dy = mousePosition.y - particle.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-          
-          if (distance < 200) {
-            const force = 0.5 / Math.max(distance, 50);
-            particle.speedX += dx * force * 0.01;
-            particle.speedY += dy * force * 0.01;
-          }
-          
-          // Add some drag to prevent excessive speed
-          particle.speedX *= 0.99;
-          particle.speedY *= 0.99;
-        }
+        // REMOVED: Interactive effects - particles no longer attracted to mouse
         
         // Draw enhanced glow effect
         const gradient = ctx.createRadialGradient(
