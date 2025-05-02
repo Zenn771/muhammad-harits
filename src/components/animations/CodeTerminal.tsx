@@ -44,10 +44,11 @@ model = ensemble.<span class="class">RandomForestClassifier</span>(
   ];
 
   // Automatically cycle through code snippets with deletion effect
+  // Increasing the interval from 8000 (8 seconds) to 10000 (10 seconds)
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSnippetIndex(prev => (prev + 1) % codeSnippets.length);
-    }, 8000); // Change snippet every 8 seconds
+    }, 10000); // Change snippet every 10 seconds instead of 8
     
     return () => clearInterval(interval);
   }, []);
