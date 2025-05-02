@@ -21,8 +21,8 @@ const TimelineCard: React.FC<TimelineCardProps> = ({ item, isEven }) => {
       whileHover={{ translateY: -5 }}
     >
       <div className="vintage-card rounded-xl overflow-hidden shadow-xl">
-        {/* Glowing border effect */}
-        <div className="absolute inset-0 rounded-xl border border-white/20 shadow-[0_0_15px_rgba(255,255,255,0.05)] -z-10"></div>
+        {/* Subtler glowing border effect */}
+        <div className="absolute inset-0 rounded-xl border border-white/15 shadow-[0_0_15px_rgba(255,255,255,0.03)] -z-10"></div>
         
         {/* Enhanced title bar */}
         <div className="bg-gradient-to-r from-gray-800/90 to-gray-700/80 px-4 py-3 flex items-center">
@@ -36,7 +36,7 @@ const TimelineCard: React.FC<TimelineCardProps> = ({ item, isEven }) => {
           </div>
         </div>
         
-        {/* Card content with styled border */}
+        {/* Card content with styled border and reduced grain effect */}
         <div 
           className="p-6 md:p-8 bg-gradient-to-br border-t-0 border border-white/10 backdrop-blur-sm"
           style={{
@@ -122,7 +122,7 @@ const TimelineCard: React.FC<TimelineCardProps> = ({ item, isEven }) => {
           </motion.div>
           
           <motion.div
-            className="absolute bottom-5 right-5 opacity-30 pointer-events-none"
+            className="absolute bottom-5 right-5 opacity-20 pointer-events-none"
             animate={{ rotate: 360 }}
             transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
           >

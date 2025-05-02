@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useForm } from "react-hook-form";
@@ -108,7 +109,7 @@ const ContactSection = () => {
         >
           {/* Contact Info Column */}
           <div className="lg:col-span-2 flex">
-            {/* Contact Card - Added flex-grow for full height */}
+            {/* Contact Card - Added flex-grow for full height, reduced grain effect */}
             <div className="vintage-card p-6 md:p-8 rounded-xl bg-gradient-to-br from-blue-900/20 to-purple-900/10 border border-white/10 backdrop-blur-sm w-full flex flex-col">
               <div className="absolute inset-0 grain-effect-subtle rounded-xl"></div>
               

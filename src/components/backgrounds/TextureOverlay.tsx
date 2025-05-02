@@ -10,8 +10,8 @@ interface TextureOverlayProps {
 }
 
 const TextureOverlay: React.FC<TextureOverlayProps> = ({
-  grainOpacity = 0.03,
-  noiseOpacity = 0.02,
+  grainOpacity = 0.02, // Reduced from 0.03
+  noiseOpacity = 0.01, // Reduced from 0.02
   animated = true,
   className = ''
 }) => {
@@ -38,10 +38,10 @@ const TextureOverlay: React.FC<TextureOverlayProps> = ({
       canvas.style.height = `${window.innerHeight}px`;
     };
     
-    // Generate animated noise with better performance
+    // Generate animated noise with better performance - reduced intensity
     const generateNoise = (timestamp: number) => {
-      // Only update every 100ms (10fps) for better performance
-      if (timestamp - lastUpdateTimeRef.current >= 100) {
+      // Only update every 150ms (6.67fps) for better performance and smoother appearance
+      if (timestamp - lastUpdateTimeRef.current >= 150) {
         lastUpdateTimeRef.current = timestamp;
         
         const imageData = ctx.createImageData(canvas.width, canvas.height);
@@ -49,14 +49,14 @@ const TextureOverlay: React.FC<TextureOverlayProps> = ({
         
         // Optimize by updating fewer pixels (every 2nd pixel)
         for (let i = 0; i < data.length; i += 8) {
-          // Random grayscale value
-          const value = Math.random() * 255;
+          // Random grayscale value with reduced intensity
+          const value = Math.random() * 200; // Reduced intensity
           
           // Apply the value to RGB channels
           data[i] = value;     // R
           data[i + 1] = value; // G
           data[i + 2] = value; // B
-          data[i + 3] = Math.random() * 20; // Very low alpha for subtle effect
+          data[i + 3] = Math.random() * 10; // Very low alpha for more subtle effect (reduced from 20)
         }
         
         ctx.putImageData(imageData, 0, 0);
@@ -78,7 +78,7 @@ const TextureOverlay: React.FC<TextureOverlayProps> = ({
 
   return (
     <div className={`absolute inset-0 pointer-events-none z-10 ${className}`}>
-      {/* Static grain effect with will-change for GPU acceleration */}
+      {/* Static grain effect with will-change for GPU acceleration - reduced opacity */}
       <motion.div 
         className="absolute inset-0 grain-effect"
         style={{ 
@@ -97,8 +97,8 @@ const TextureOverlay: React.FC<TextureOverlayProps> = ({
         style={{ opacity: noiseOpacity }}
       />
       
-      {/* Subtle fog/atmospheric effect */}
-      <div className="absolute inset-0 bg-gradient-radial from-transparent to-black/20 mix-blend-multiply" />
+      {/* Subtle fog/atmospheric effect - reduced intensity */}
+      <div className="absolute inset-0 bg-gradient-radial from-transparent to-black/10 mix-blend-multiply" />
     </div>
   );
 };

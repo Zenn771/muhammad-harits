@@ -134,9 +134,9 @@ const TestimonialsSection = () => {
                 className="flex-shrink-0 w-[280px] md:w-[320px] vintage-project-card rounded-xl bento-card glow-border"
               >
                 <div className="p-5 flex flex-col h-full relative">
-                  {/* Enhanced vintage texture overlay */}
-                  <div className="absolute inset-0 rounded-xl bg-[#221F26] opacity-60 mix-blend-soft-light pointer-events-none z-0"></div>
-                  <div className="absolute inset-0 grain-texture rounded-xl opacity-30"></div>
+                  {/* Subtler vintage texture overlay */}
+                  <div className="absolute inset-0 rounded-xl bg-[#221F26] opacity-50 mix-blend-soft-light pointer-events-none z-0"></div>
+                  <div className="absolute inset-0 grain-effect-subtle rounded-xl opacity-10"></div>
                   
                   <div className="flex items-center gap-3 mb-3 relative z-10">
                     <Avatar className="h-12 w-12 border-2 border-white/10">
