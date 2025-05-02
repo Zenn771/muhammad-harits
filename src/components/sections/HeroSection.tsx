@@ -15,59 +15,8 @@ import GradientBackdrop from '@/components/backgrounds/GradientBackdrop';
 import TextureOverlay from '@/components/backgrounds/TextureOverlay';
 
 const HeroSection: React.FC = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
-  const spotlightRef = useRef<HTMLDivElement>(null);
   
-  // Mouse position for parallax effect
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  
-  // Smooth spring physics for mouse movement
-  const springConfig = { damping: 25, stiffness: 100 };
-  const smoothMouseX = useSpring(mouseX, springConfig);
-  const smoothMouseY = useSpring(mouseY, springConfig);
-  
-  // Transform values for parallax layers
-  const gridX = useTransform(smoothMouseX, [-500, 500], [50, -50]);
-  const gridY = useTransform(smoothMouseY, [-500, 500], [25, -25]);
-  const particlesX = useTransform(smoothMouseX, [-500, 500], [20, -20]);
-  const particlesY = useTransform(smoothMouseY, [-500, 500], [10, -10]);
-  const circlesX = useTransform(smoothMouseX, [-500, 500], [10, -10]);
-  const circlesY = useTransform(smoothMouseY, [-500, 500], [5, -5]);
-  
-  // Handle mouse movement for spotlight and parallax effects
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      const container = containerRef.current;
-      if (!container) return;
-      
-      // Get container dimensions and position
-      const rect = container.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      
-      // Calculate mouse position relative to center
-      const relativeX = e.clientX - centerX;
-      const relativeY = e.clientY - centerY;
-      
-      // Update motion values for parallax
-      mouseX.set(relativeX);
-      mouseY.set(relativeY);
-      
-      // Update spotlight position
-      if (spotlightRef.current) {
-        const spotlightRect = spotlightRef.current.getBoundingClientRect();
-        const x = e.clientX - spotlightRect.left;
-        const y = e.clientY - spotlightRect.top;
-        setMousePosition({ x, y });
-      }
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [mouseX, mouseY]);
-
   // Animation variants for buttons
   const buttonVariants = {
     initial: { opacity: 0, y: 20 },
@@ -75,7 +24,7 @@ const HeroSection: React.FC = () => {
       opacity: 1, 
       y: 0,
       transition: { 
-        delay: 2.0 + (custom * 0.2),
+        delay: 1.0 + (custom * 0.2), // Reduced delay for faster appearance
         duration: 0.5,
         ease: "easeOut"
       }
@@ -108,51 +57,30 @@ const HeroSection: React.FC = () => {
 
   return (
     <section id="home" className="min-h-screen w-full overflow-hidden bg-black relative" ref={containerRef}>
-      {/* Background layers with parallax effect */}
-      <motion.div style={{ x: gridX, y: gridY }} className="absolute inset-0 z-0">
+      {/* Background layers with static positioning */}
+      <div className="absolute inset-0 z-0">
         <GridBackground color="rgba(250, 204, 21, 0.05)" spacing={40} />
-      </motion.div>
+      </div>
       
       {/* Gradient backdrop for depth */}
       <GradientBackdrop opacity={0.3} />
       
-      {/* Enhanced particle effect with parallax */}
-      <motion.div style={{ x: particlesX, y: particlesY }} className="absolute inset-0 z-1">
+      {/* Enhanced particle effect */}
+      <div className="absolute inset-0 z-1">
         <ParticleEffect count={25} />
-      </motion.div>
+      </div>
       
-      {/* Circle stack with parallax effect */}
-      <motion.div style={{ x: circlesX, y: circlesY }} className="absolute inset-0 z-2">
+      {/* Circle stack */}
+      <div className="absolute inset-0 z-2">
         <CircleStack />
-      </motion.div>
+      </div>
       
       {/* Texture overlay */}
       <TextureOverlay grainOpacity={0.03} noiseOpacity={0.02} />
       
-      {/* Main content with spotlight effect */}
+      {/* Main content */}
       <div className="relative h-screen flex flex-col items-center justify-center z-10">
-        <div 
-          ref={spotlightRef}
-          className="text-center max-w-3xl px-6 relative"
-        >
-          {/* Enhanced spotlight effect that follows mouse movement */}
-          <motion.div 
-            className="absolute pointer-events-none"
-            animate={{
-              background: 'radial-gradient(circle at center, rgba(250,204,21,0.15) 0%, rgba(0,0,0,0) 70%)',
-              width: '120%',
-              height: '160%',
-              top: '-30%',
-              left: '-10%',
-            }}
-            style={{
-              transform: `translate(${mousePosition.x * 0.015}px, ${mousePosition.y * 0.015}px)`,
-              transition: 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)',
-              opacity: 0.8,
-              zIndex: -1,
-            }}
-          />
-
+        <div className="text-center max-w-3xl px-6 relative">
           {/* Enhanced vignette effect around the edges */}
           <div 
             className="fixed inset-0 pointer-events-none z-0"
