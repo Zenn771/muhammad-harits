@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 
 interface TimelineBackgroundProps {
@@ -8,29 +8,30 @@ interface TimelineBackgroundProps {
 
 const TimelineBackground: React.FC<TimelineBackgroundProps> = ({ scrollY }) => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const timeoutRef = useRef<number | null>(null);
   
   // Handle mouse movement for enhanced interactivity
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       // Throttle mouse move events for better performance
-      if (!handleMouseMove.timeout) {
-        handleMouseMove.timeout = setTimeout(() => {
+      if (!timeoutRef.current) {
+        timeoutRef.current = window.setTimeout(() => {
           setMousePosition({
             x: e.clientX / window.innerWidth,
             y: e.clientY / window.innerHeight
           });
-          handleMouseMove.timeout = null;
+          timeoutRef.current = null;
         }, 50);
       }
     };
     
-    // Add type to the function to allow the timeout property
-    (handleMouseMove as any).timeout = null;
-    
     window.addEventListener('mousemove', handleMouseMove);
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
-      clearTimeout((handleMouseMove as any).timeout);
+      // Clear any remaining timeout when component unmounts
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
     };
   }, []);
   
