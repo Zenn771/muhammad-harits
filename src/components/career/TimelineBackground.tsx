@@ -11,8 +11,8 @@ const TimelineBackground: React.FC<TimelineBackgroundProps> = ({ scrollY }) => {
       <div 
         className="fixed inset-0 pointer-events-none z-0" 
         style={{
-          backgroundImage: 'radial-gradient(circle at 50% 50%, rgba(29, 78, 216, 0.15) 0%, transparent 80%)',
-          transform: `translateY(${scrollY * 0.02}px)`,
+          backgroundImage: 'radial-gradient(circle at 50% 50%, rgba(29, 78, 216, 0.10) 0%, transparent 80%)', // Reduced opacity
+          // Removed transform to prevent the background from moving with scroll
         }}
       />
       <div 
@@ -20,7 +20,7 @@ const TimelineBackground: React.FC<TimelineBackgroundProps> = ({ scrollY }) => {
         style={{
           backgroundImage: 'linear-gradient(to right, #4338ca11 1px, transparent 1px), linear-gradient(to bottom, #4338ca11 1px, transparent 1px)',
           backgroundSize: '50px 50px',
-          transform: `translateY(${scrollY * 0.05}px)`,
+          // Removed transform to prevent the background from moving with scroll
         }}
       />
       <div className="fixed inset-0 grain-texture opacity-20 pointer-events-none z-0"></div>

@@ -12,8 +12,8 @@ interface SpotlightProps {
 const EnhancedSpotlightEffect: React.FC<SpotlightProps> = ({
   className = "",
   size = 600,
-  intensity = 0.2,
-  color = "250, 204, 21" // Amber color (RGB values)
+  intensity = 0.1, // Reduced intensity
+  color = "255, 255, 255" // Changed from amber to white for a more subtle effect
 }) => {
   // Fixed positions for spotlights instead of following cursor
   const primaryPosition = { x: '50%', y: '40%' }; // Center-ish of the viewport
@@ -44,7 +44,7 @@ const EnhancedSpotlightEffect: React.FC<SpotlightProps> = ({
           top: secondaryPosition.y,
           width: size / 2,
           height: size / 2,
-          background: `radial-gradient(circle at center, rgba(${color}, ${intensity * 1.5}) 0%, rgba(0,0,0,0) 70%)`,
+          background: `radial-gradient(circle at center, rgba(${color}, ${intensity * 1.2}) 0%, rgba(0,0,0,0) 70%)`, // Reduced intensity multiplier
           transform: "translate(-50%, -50%)",
           transition: { type: 'spring', stiffness: 120, damping: 25 }
         }}
