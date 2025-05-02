@@ -19,27 +19,37 @@ const CircleStack: React.FC = () => {
     }))
   );
 
-  // Animate circles with more subtle motion
+  // Animate circles with smoother motion and more efficient updates
   useEffect(() => {
-    // No need for setTimeout or delayed initialization since we want immediate display
-    // The initial state is already set with the desired values
+    let animationFrame: number;
+    let lastUpdateTime = 0;
+    const updateInterval = 50; // milliseconds between updates (20fps instead of 60fps)
     
-    const interval = setInterval(() => {
-      setAnimations(prev => 
-        prev.map((anim, i) => ({
-          scale: circleProps[i].scale + (Math.random() * 0.02 - 0.01), // Even more subtle scale change
-          rotate: anim.rotate + (Math.random() * 0.2 - 0.1), // Even more subtle rotation
-          pulse: (anim.pulse + 0.005) % (Math.PI * 2), // Very slow pulse cycle
-          opacity: 1, // Keep opacity at 1 to ensure visibility
-        }))
-      );
-    }, 5000); // Much slower update interval
+    const animate = (timestamp: number) => {
+      // Only update if enough time has passed
+      if (timestamp - lastUpdateTime >= updateInterval) {
+        lastUpdateTime = timestamp;
+        
+        setAnimations(prev => 
+          prev.map((anim, i) => ({
+            scale: circleProps[i].scale + (Math.sin(Date.now() * 0.0001) * 0.01), // Smoother sinusoidal motion
+            rotate: anim.rotate + 0.01, // Very slow constant rotation
+            pulse: (anim.pulse + 0.0025) % (Math.PI * 2), // Very slow pulse cycle
+            opacity: 1, // Keep opacity at 1 to ensure visibility
+          }))
+        );
+      }
+      
+      animationFrame = requestAnimationFrame(animate);
+    };
     
-    return () => clearInterval(interval);
+    animationFrame = requestAnimationFrame(animate);
+    
+    return () => cancelAnimationFrame(animationFrame);
   }, []);
 
   return (
-    <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
+    <div className="absolute inset-0 flex items-center justify-center overflow-hidden will-change-transform">
       {circleProps.map((circle, idx) => {
         // Calculate pulsing for additional subtle movement
         const pulseFactor = 0.005 * Math.sin(animations[idx].pulse);
@@ -47,13 +57,13 @@ const CircleStack: React.FC = () => {
         return (
           <div
             key={idx}
-            className="absolute rounded-full border border-white/5 bg-black"
+            className="absolute rounded-full border border-white/5 bg-black will-change-transform"
             style={{
               width: circle.size,
               height: circle.size,
-              opacity: animations[idx].opacity, // Use animation opacity instead of circle.opacity
+              opacity: animations[idx].opacity,
               transform: `scale(${animations[idx].scale + pulseFactor}) rotate(${animations[idx].rotate}deg)`,
-              transition: 'transform 18s cubic-bezier(0.4, 0, 0.2, 1)', // Slower transition
+              transition: 'transform 2s cubic-bezier(0.4, 0, 0.2, 1)', // More natural easing
               borderWidth: `${circle.borderWidth}px`,
               boxShadow: idx === 0 ? '0 0 40px 5px rgba(0,0,0,0.8) inset' : 'none',
             }}
@@ -61,9 +71,9 @@ const CircleStack: React.FC = () => {
         );
       })}
 
-      {/* Central glowing orb - kept for the elegant effect */}
+      {/* Central glowing orb - optimized animation */}
       <div 
-        className="absolute rounded-full animate-pulse-slow z-10"
+        className="absolute rounded-full animate-pulse-slow z-10 will-change-transform"
         style={{
           width: '12vh',
           height: '12vh',

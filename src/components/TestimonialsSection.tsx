@@ -70,18 +70,24 @@ const TestimonialsSection = () => {
 
   // Effect to handle animation controls based on isPaused state
   useEffect(() => {
-    if (isPaused) {
-      controls.stop();
-    } else {
+    const startAnimation = () => {
       controls.start({
         x: "-100%",
         transition: {
           repeat: Infinity,
           repeatType: "loop",
-          duration: 25,
+          duration: 45, // Slower for smoother appearance
           ease: "linear"
         }
       });
+    };
+    
+    if (isPaused) {
+      controls.stop();
+    } else {
+      // Use a small delay before starting to allow for full component render
+      const timeout = setTimeout(startAnimation, 100);
+      return () => clearTimeout(timeout);
     }
   }, [isPaused, controls]);
 
@@ -110,22 +116,17 @@ const TestimonialsSection = () => {
           </motion.p>
         </div>
 
-        {/* Infinite scrolling testimonial carousel with improved animation speed and entry/exit points */}
+        {/* Infinite scrolling testimonial carousel with optimized animation */}
         <div 
           className="relative w-full overflow-hidden"
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
           ref={containerRef}
-          style={{ position: 'relative' }} // Ensure non-static position for proper scroll calculation
         >
           <motion.div 
-            className="flex gap-6"
+            className="flex gap-6 will-change-transform"
             animate={controls}
             initial={{ x: 0 }}
-            style={{ 
-              position: 'relative',
-              willChange: 'transform' // Performance optimization
-            }}
           >
             {duplicatedItems.map((testimonial, index) => (
               <div 
