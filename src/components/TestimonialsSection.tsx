@@ -61,6 +61,17 @@ const TestimonialsSection = () => {
   const [duplicatedItems, setDuplicatedItems] = useState<Testimonial[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
   const controls = useAnimationControls();
+  
+  // Animation configuration - defined once to ensure consistency
+  const animationConfig = {
+    x: "-100%",
+    transition: {
+      repeat: Infinity,
+      repeatType: "loop" as const,
+      duration: 45, // Consistent speed value
+      ease: "linear"
+    }
+  };
 
   // Create duplicated items to enable infinite scroll effect
   useEffect(() => {
@@ -70,25 +81,17 @@ const TestimonialsSection = () => {
 
   // Effect to handle animation controls based on isPaused state
   useEffect(() => {
-    const startAnimation = () => {
-      controls.start({
-        x: "-100%",
-        transition: {
-          repeat: Infinity,
-          repeatType: "loop",
-          duration: 45, // Slower for smoother appearance
-          ease: "linear"
-        }
-      });
-    };
-    
     if (isPaused) {
       controls.stop();
     } else {
-      // Use a small delay before starting to allow for full component render
-      const timeout = setTimeout(startAnimation, 100);
-      return () => clearTimeout(timeout);
+      // Start or resume animation with the consistent speed configuration
+      controls.start(animationConfig);
     }
+    
+    // Cleanup function to stop animation when component unmounts
+    return () => {
+      controls.stop();
+    };
   }, [isPaused, controls]);
 
   return (
