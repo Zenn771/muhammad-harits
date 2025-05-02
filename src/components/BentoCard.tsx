@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useAnimation, useMotionValue, useTransform } from 'framer-motion';
 import { cn } from "@/lib/utils";
@@ -10,6 +11,7 @@ interface BentoCardProps {
   gradient?: string;
   delay?: number;
   sizeClasses?: string;
+  children?: React.ReactNode;
 }
 
 const BentoCard = ({
@@ -19,7 +21,8 @@ const BentoCard = ({
   icon,
   gradient = "from-blue-800/25 to-purple-800/10",
   delay = 0,
-  sizeClasses = "col-span-1 row-span-1"
+  sizeClasses = "col-span-1 row-span-1",
+  children
 }: BentoCardProps) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -159,6 +162,18 @@ const BentoCard = ({
         >
           {description}
         </motion.p>
+        
+        {/* Add the children content if provided */}
+        {children && (
+          <motion.div
+            className="mt-4"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: isVisible ? 1 : 0, scale: isVisible ? 1 : 0.95 }}
+            transition={{ duration: 0.5, delay: delay * 0.1 + 0.3 }}
+          >
+            {children}
+          </motion.div>
+        )}
         
         <motion.div 
           className="mt-auto pt-4"

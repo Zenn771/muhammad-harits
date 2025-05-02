@@ -3,6 +3,7 @@ import React from 'react';
 import BentoCard from './BentoCard';
 import { bentoCardsData } from '@/data/bentoCardsData';
 import MacBookFrame from './MacBookFrame';
+import CodeTerminal from './animations/CodeTerminal';
 
 const BentoBox = () => {
   return (
@@ -28,7 +29,9 @@ const BentoBox = () => {
             gradient={bentoCardsData[0].gradient}
             delay={bentoCardsData[0].delay}
             sizeClasses="h-full"
-          />
+          >
+            <CodeTerminal className="mt-4" />
+          </BentoCard>
         </div>
         
         {/* Second Row */}
