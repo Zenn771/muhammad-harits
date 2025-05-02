@@ -19,7 +19,7 @@ export const SectionBackground: React.FC<SectionBackgroundProps> = ({
   pattern,
   baseColor = 'from-black to-gray-900',
   accentColor = 'rgba(250, 204, 21, 0.05)', // amber with low opacity
-  withGrain = true,
+  withGrain = false, // Changed default to false to disable grain by default
   withTransition = true,
 }) => {
   // Generate unique pattern IDs to prevent conflicts
@@ -179,7 +179,7 @@ export const SectionBackground: React.FC<SectionBackgroundProps> = ({
       {/* Pattern background */}
       {pattern !== 'none' && getPatternBackground()}
       
-      {/* Grain effect */}
+      {/* Grain effect - only applied when withGrain is true */}
       {withGrain && <div className="absolute inset-0 grain-effect pointer-events-none z-0"></div>}
       
       {/* Content with fade-in animation */}
