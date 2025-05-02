@@ -16,7 +16,7 @@ const SkillCategory: React.FC<SkillCategoryProps> = ({ title, skills }) => {
   return (
     <motion.div
       ref={ref}
-      className="bg-gradient-to-b from-gray-900/30 to-gray-900/10 backdrop-blur-sm rounded-xl p-6 border border-white/5 shadow-[0_0_15px_rgba(0,0,0,0.3)] overflow-hidden relative group"
+      className="bg-gradient-to-b from-gray-900/30 to-gray-900/10 backdrop-blur-sm rounded-xl p-6 border border-white/5 shadow-[0_0_15px_rgba(0,0,0,0.3)] overflow-hidden relative group w-full"
       initial={{ opacity: 0, y: 30 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
       transition={{ duration: 0.7 }}
@@ -29,7 +29,7 @@ const SkillCategory: React.FC<SkillCategoryProps> = ({ title, skills }) => {
       
       <h3 className="text-xl md:text-2xl font-semibold text-white mb-6 text-center relative z-10">{title}</h3>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 relative z-10">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 relative z-10">
         {skills.map((skill, index) => (
           <SkillItem key={skill.id} skill={skill} index={index} />
         ))}
