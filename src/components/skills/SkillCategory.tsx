@@ -1,7 +1,7 @@
 
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Skill } from "@/data/skills.tsx"; // Updated import with correct extension
+import { Skill } from "@/data/skills";
 import SkillItem from "./SkillItem";
 
 interface SkillCategoryProps {
@@ -31,7 +31,7 @@ const SkillCategory: React.FC<SkillCategoryProps> = ({ title, skills }) => {
 
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 relative z-10">
         {skills.map((skill, index) => (
-          <SkillItem key={skill.name} skill={skill} index={index} />
+          <SkillItem key={skill.id} skill={skill} index={index} />
         ))}
       </div>
     </motion.div>

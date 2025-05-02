@@ -9,6 +9,8 @@ interface MobileSkillCardProps {
 }
 
 const MobileSkillCard: React.FC<MobileSkillCardProps> = ({ skill, index }) => {
+  const Icon = skill.icon;
+  
   return (
     <motion.div
       className="w-full" // Use full width of parent container
@@ -29,7 +31,7 @@ const MobileSkillCard: React.FC<MobileSkillCardProps> = ({ skill, index }) => {
         
         <div className="flex flex-col items-center relative z-10">
           <div className="p-2.5 rounded-full bg-gradient-to-br from-amber-500/20 to-blue-500/20 mb-3">
-            {React.createElement(skill.icon, { className: "text-white" })}
+            <Icon className="text-white" />
           </div>
           
           <h4 className="text-sm font-medium text-white text-center mb-2.5 whitespace-nowrap overflow-hidden text-ellipsis w-full">{skill.name}</h4>

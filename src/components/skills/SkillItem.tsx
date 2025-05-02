@@ -9,6 +9,8 @@ interface SkillItemProps {
 }
 
 const SkillItem: React.FC<SkillItemProps> = ({ skill, index }) => {
+  const Icon = skill.icon;
+  
   return (
     <motion.div
       className="skill-card flex flex-col items-center bg-white/5 backdrop-blur-sm rounded-lg p-4 relative group overflow-hidden border border-white/10"
@@ -22,7 +24,7 @@ const SkillItem: React.FC<SkillItemProps> = ({ skill, index }) => {
       <div className="absolute inset-0 bg-gradient-to-br from-amber-500/0 to-blue-500/0 opacity-0 group-hover:bg-gradient-to-br group-hover:from-amber-500/10 group-hover:to-blue-500/10 transition-opacity duration-300"></div>
       
       <div className="p-3 rounded-full bg-gradient-to-br from-amber-500/20 to-blue-500/20 mb-3 relative z-10 skill-icon">
-        {React.createElement(skill.icon, { className: "text-white" })}
+        <Icon className="text-white" />
       </div>
       
       <h4 className="text-sm font-medium text-white mb-2 relative z-10">{skill.name}</h4>

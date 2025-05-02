@@ -10,7 +10,7 @@ export interface Skill {
   icon: React.ElementType;
 }
 
-export const skills = [
+export const skills: Skill[] = [
   // AI Skills
   {
     id: 'machine-learning',

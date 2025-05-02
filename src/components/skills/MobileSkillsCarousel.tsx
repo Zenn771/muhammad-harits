@@ -46,31 +46,34 @@ const MobileSkillsCarousel: React.FC<MobileSkillsCarouselProps> = ({ category, s
     >
       <div className={`overflow-x-auto pb-6`}>
         <div className="flex gap-4 px-4 pb-1 min-w-max">
-          {categorySkills.map((skill, index) => (
-            <div 
-              key={skill.id}
-              className={`w-64 flex-shrink-0 bg-gradient-to-br ${getCategoryGradient()} border border-white/10 rounded-xl p-5`}
-            >
-              <div className="flex items-center mb-3">
-                <div className="p-2 rounded-full bg-white/10 mr-3">
-                  <skill.icon className="h-5 w-5 text-white/80" />
+          {categorySkills.map((skill, index) => {
+            const Icon = skill.icon;
+            return (
+              <div 
+                key={skill.id}
+                className={`w-64 flex-shrink-0 bg-gradient-to-br ${getCategoryGradient()} border border-white/10 rounded-xl p-5`}
+              >
+                <div className="flex items-center mb-3">
+                  <div className="p-2 rounded-full bg-white/10 mr-3">
+                    <Icon className="h-5 w-5 text-white/80" />
+                  </div>
+                  <h4 className="font-medium text-white">{skill.name}</h4>
                 </div>
-                <h4 className="font-medium text-white">{skill.name}</h4>
+                
+                <div className="w-full h-2 bg-black/30 rounded-full overflow-hidden">
+                  <div 
+                    className="h-full bg-gradient-to-r from-amber-200 to-amber-500 rounded-full"
+                    style={{ width: `${skill.level}%` }}
+                  />
+                </div>
+                
+                <div className="mt-2 flex justify-between">
+                  <span className="text-xs text-white/60">Proficiency</span>
+                  <span className="text-xs font-medium text-amber-200">{skill.level}%</span>
+                </div>
               </div>
-              
-              <div className="w-full h-2 bg-black/30 rounded-full overflow-hidden">
-                <div 
-                  className="h-full bg-gradient-to-r from-amber-200 to-amber-500 rounded-full"
-                  style={{ width: `${skill.level}%` }}
-                />
-              </div>
-              
-              <div className="mt-2 flex justify-between">
-                <span className="text-xs text-white/60">Proficiency</span>
-                <span className="text-xs font-medium text-amber-200">{skill.level}%</span>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </motion.div>
