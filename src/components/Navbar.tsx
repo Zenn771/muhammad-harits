@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { cn } from "@/lib/utils";
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useLocation } from 'react-router-dom';
@@ -22,10 +22,50 @@ export const navigationItems = [
   { id: 'contact', label: 'Contact' },
 ];
 
-const Navbar: React.FC<NavbarProps> = ({ className, activeSection = 'home', scrollBased = false }) => {
+const Navbar: React.FC<NavbarProps> = ({ className, activeSection: propActiveSection, scrollBased = true }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState(propActiveSection || 'home');
   const isMobile = useIsMobile();
   const location = useLocation();
+  
+  // Effect to track active section based on scroll position
+  useEffect(() => {
+    if (!scrollBased) return;
+    
+    const handleScroll = () => {
+      // Get all section elements
+      const sections = navigationItems.map(item => {
+        return {
+          id: item.id,
+          element: document.getElementById(item.id)
+        };
+      }).filter(section => section.element);
+      
+      // Find which section is currently in view
+      const scrollPosition = window.scrollY + 100; // Offset to trigger earlier
+      
+      // Find last section that has been scrolled past its top
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = sections[i];
+        if (!section.element) continue;
+        
+        const sectionTop = section.element.offsetTop;
+        
+        if (scrollPosition >= sectionTop) {
+          setActiveSection(section.id);
+          break;
+        }
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    // Trigger once on mount to set initial active section
+    handleScroll();
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [scrollBased]);
   
   const handleScrollTo = (sectionId: string, e: React.MouseEvent) => {
     e.preventDefault();
@@ -45,6 +85,9 @@ const Navbar: React.FC<NavbarProps> = ({ className, activeSection = 'home', scro
         top: offsetPosition,
         behavior: 'smooth'
       });
+      
+      // Update active section immediately for better UI feedback
+      setActiveSection(sectionId);
       
       if (isMenuOpen) {
         setIsMenuOpen(false);
