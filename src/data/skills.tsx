@@ -1,100 +1,124 @@
 
-import React from "react";
-import {
-  Code,
-  Cpu,
-  Layers,
-  Database,
-  Eye,
-  BarChart,
-  Zap,
-  Brain,
-  CircuitBoard,
-  FlaskRound,
-  MessageSquareCode,
-} from "lucide-react";
+import React from 'react';
+import { Brain, Cpu, Zap, Layers, Code } from 'lucide-react';
 
 export interface Skill {
+  id: string;
   name: string;
-  icon: React.ReactNode;
-  category: "ai" | "electrical";
-  proficiency: number; // 1-100
+  level: number;
+  category: 'ai' | 'electrical' | 'web';
+  icon: React.ElementType;
 }
 
-export const skills: Skill[] = [
+export const skills = [
   // AI Skills
   {
-    name: "Python",
-    icon: <Code className="h-6 w-6" />,
-    category: "ai",
-    proficiency: 90,
+    id: 'machine-learning',
+    name: 'Machine Learning',
+    level: 90,
+    category: 'ai',
+    icon: Brain
   },
   {
-    name: "TensorFlow",
-    icon: <Database className="h-6 w-6" />,
-    category: "ai",
-    proficiency: 85,
+    id: 'deep-learning',
+    name: 'Deep Learning',
+    level: 85,
+    category: 'ai',
+    icon: Brain
   },
   {
-    name: "PyTorch",
-    icon: <FlaskRound className="h-6 w-6" />,
-    category: "ai",
-    proficiency: 80,
+    id: 'computer-vision',
+    name: 'Computer Vision',
+    level: 80,
+    category: 'ai',
+    icon: Brain
   },
   {
-    name: "NLP",
-    icon: <MessageSquareCode className="h-6 w-6" />,
-    category: "ai",
-    proficiency: 75,
+    id: 'nlp',
+    name: 'Natural Language Processing',
+    level: 75,
+    category: 'ai',
+    icon: Brain
   },
   {
-    name: "Computer Vision",
-    icon: <Eye className="h-6 w-6" />,
-    category: "ai",
-    proficiency: 85,
+    id: 'reinforcement-learning',
+    name: 'Reinforcement Learning',
+    level: 65,
+    category: 'ai',
+    icon: Brain
   },
-  {
-    name: "Machine Learning",
-    icon: <Brain className="h-6 w-6" />,
-    category: "ai",
-    proficiency: 90,
-  },
-
+  
   // Electrical Engineering Skills
   {
-    name: "Circuit Design",
-    icon: <CircuitBoard className="h-6 w-6" />,
-    category: "electrical",
-    proficiency: 95,
+    id: 'circuit-design',
+    name: 'Circuit Design',
+    level: 85,
+    category: 'electrical',
+    icon: Cpu
   },
   {
-    name: "PCB Layout",
-    icon: <Layers className="h-6 w-6" />,
-    category: "electrical",
-    proficiency: 85,
+    id: 'embedded-systems',
+    name: 'Embedded Systems',
+    level: 80,
+    category: 'electrical',
+    icon: Cpu
   },
   {
-    name: "Microcontrollers",
-    icon: <Cpu className="h-6 w-6" />,
-    category: "electrical",
-    proficiency: 90,
+    id: 'signal-processing',
+    name: 'Signal Processing',
+    level: 75,
+    category: 'electrical',
+    icon: Zap
   },
   {
-    name: "Instrumentation",
-    icon: <Code className="h-6 w-6" />,
-    category: "electrical",
-    proficiency: 80,
+    id: 'power-electronics',
+    name: 'Power Electronics',
+    level: 70,
+    category: 'electrical',
+    icon: Zap
   },
   {
-    name: "Signal Processing",
-    icon: <BarChart className="h-6 w-6" />,
-    category: "electrical",
-    proficiency: 85,
+    id: 'control-systems',
+    name: 'Control Systems',
+    level: 80,
+    category: 'electrical',
+    icon: Layers
+  },
+  
+  // Web Programming Skills - New Category
+  {
+    id: 'react',
+    name: 'React',
+    level: 90,
+    category: 'web',
+    icon: Code
   },
   {
-    name: "Power Systems",
-    icon: <Zap className="h-6 w-6" />,
-    category: "electrical",
-    proficiency: 90,
+    id: 'tailwind',
+    name: 'Tailwind CSS',
+    level: 85,
+    category: 'web',
+    icon: Code
   },
+  {
+    id: 'nextjs',
+    name: 'Next.js',
+    level: 80,
+    category: 'web',
+    icon: Code
+  },
+  {
+    id: 'typescript',
+    name: 'TypeScript',
+    level: 85,
+    category: 'web',
+    icon: Code
+  },
+  {
+    id: 'html-css',
+    name: 'HTML/CSS',
+    level: 95,
+    category: 'web',
+    icon: Code
+  }
 ];

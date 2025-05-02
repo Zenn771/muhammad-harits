@@ -1,160 +1,79 @@
 
-import React, { useRef, useEffect, useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import type { Skill } from '@/data/skills';
-// We'll use the MobileSkillCard component instead of SkillCard
-import MobileSkillCard from './MobileSkillCard';
+import { Skill } from '@/data/skills';
 
 interface MobileSkillsCarouselProps {
-  category: string;
+  category: 'ai' | 'electrical' | 'web';
   skills: Skill[];
   activeCategory: string;
 }
 
-const MobileSkillsCarousel: React.FC<MobileSkillsCarouselProps> = ({ 
-  category, 
-  skills,
-  activeCategory
-}) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
-  const [touchStartX, setTouchStartX] = useState(0);
+const MobileSkillsCarousel: React.FC<MobileSkillsCarouselProps> = ({ category, skills, activeCategory }) => {
+  // Filter skills by category
+  const categorySkills = skills.filter(skill => skill.category === category);
   
-  const filteredSkills = skills.filter(skill => skill.category === category);
+  // Only show if this is the active category
+  if (activeCategory !== category) return null;
   
-  const checkScrollPosition = () => {
-    if (!containerRef.current) return;
-    
-    const { scrollLeft, scrollWidth, clientWidth } = containerRef.current;
-    setCanScrollLeft(scrollLeft > 0);
-    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10); // 10px buffer
-  };
-  
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-    
-    // Use passive event listener for better scroll performance
-    container.addEventListener('scroll', checkScrollPosition, { passive: true });
-    checkScrollPosition(); // Initial check
-    
-    return () => {
-      container.removeEventListener('scroll', checkScrollPosition);
-    };
-  }, [activeCategory]);
-  
-  const handleScroll = (direction: 'left' | 'right') => {
-    if (!containerRef.current) return;
-    
-    const container = containerRef.current;
-    const scrollAmount = container.clientWidth * 0.75; // Scroll 75% of visible width
-    
-    container.scrollTo({
-      left: container.scrollLeft + (direction === 'left' ? -scrollAmount : scrollAmount),
-      behavior: 'smooth'
-    });
-  };
-  
-  // Touch handling for swipe gestures
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchStartX(e.touches[0].clientX);
-  };
-  
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    if (!containerRef.current) return;
-    
-    const touchEndX = e.changedTouches[0].clientX;
-    const deltaX = touchStartX - touchEndX;
-    
-    // Swipe threshold
-    if (Math.abs(deltaX) > 50) {
-      if (deltaX > 0 && canScrollRight) {
-        handleScroll('right');
-      } else if (deltaX < 0 && canScrollLeft) {
-        handleScroll('left');
-      }
+  // Get title based on category
+  const getCategoryTitle = () => {
+    switch (category) {
+      case 'ai': return 'AI & Machine Learning';
+      case 'electrical': return 'Electrical Engineering';
+      case 'web': return 'Web Development';
+      default: return '';
     }
   };
   
-  if (category !== activeCategory) return null;
-  
+  // Get gradient based on category
+  const getCategoryGradient = () => {
+    switch (category) {
+      case 'ai': return 'from-blue-900/40 to-purple-900/20';
+      case 'electrical': return 'from-amber-900/30 to-red-900/20';
+      case 'web': return 'from-blue-900/30 to-cyan-900/20';
+      default: return '';
+    }
+  };
+
   return (
-    <div className="relative px-1 mb-10">
-      <div className="flex justify-between items-center mb-6">
-        <h3 className="text-xl font-semibold text-white">
-          {category === 'ai' ? 'AI & Machine Learning' : 'Electrical Engineering'}
-        </h3>
-        
-        {/* Navigation buttons */}
-        <div className="flex gap-2">
-          <button
-            onClick={() => handleScroll('left')}
-            disabled={!canScrollLeft}
-            className="p-1.5 rounded-full bg-white/5 hover:bg-white/10 text-white/80 disabled:text-white/20 disabled:bg-white/5 disabled:cursor-not-allowed transition-all duration-200"
-            aria-label="Scroll left"
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </button>
-          <button
-            onClick={() => handleScroll('right')}
-            disabled={!canScrollRight}
-            className="p-1.5 rounded-full bg-white/5 hover:bg-white/10 text-white/80 disabled:text-white/20 disabled:bg-white/5 disabled:cursor-not-allowed transition-all duration-200"
-            aria-label="Scroll right"
-          >
-            <ChevronRight className="h-4 w-4" />
-          </button>
-        </div>
-      </div>
-      
-      <div 
-        ref={containerRef}
-        className="overflow-x-auto scrollbar-hide snap-x snap-mandatory"
-        style={{ 
-          scrollbarWidth: 'none', 
-          msOverflowStyle: 'none', 
-          WebkitOverflowScrolling: 'touch',
-          willChange: 'transform' // Hardware acceleration
-        }}
-        onScroll={checkScrollPosition}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-      >
-        {/* Fix: Changed from flex layout to grid layout with fixed width columns */}
-        <div className="inline-flex gap-4 pb-4 will-change-transform" style={{ minWidth: 'max-content' }}>
-          {filteredSkills.map((skill, idx) => (
-            <motion.div
-              key={skill.name}
-              className="flex-shrink-0 w-[140px] snap-start"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ 
-                duration: 0.4, 
-                delay: idx * 0.05,
-                ease: "easeOut"
-              }}
-              style={{ 
-                contain: 'content',
-                willChange: 'transform, opacity',
-                flexShrink: 0, // Ensure cards don't shrink
-                flexGrow: 0, // Ensure cards don't grow
-                width: "140px" // Fixed width to prevent layout shifts
-              }}
+    <motion.div 
+      className="w-full"
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.5 }}
+      key={category}
+    >
+      <div className={`overflow-x-auto pb-6`}>
+        <div className="flex gap-4 px-4 pb-1 min-w-max">
+          {categorySkills.map((skill, index) => (
+            <div 
+              key={skill.id}
+              className={`w-64 flex-shrink-0 bg-gradient-to-br ${getCategoryGradient()} border border-white/10 rounded-xl p-5`}
             >
-              <MobileSkillCard skill={skill} index={idx} />
-            </motion.div>
+              <div className="flex items-center mb-3">
+                <div className="p-2 rounded-full bg-white/10 mr-3">
+                  <skill.icon className="h-5 w-5 text-white/80" />
+                </div>
+                <h4 className="font-medium text-white">{skill.name}</h4>
+              </div>
+              
+              <div className="w-full h-2 bg-black/30 rounded-full overflow-hidden">
+                <div 
+                  className="h-full bg-gradient-to-r from-amber-200 to-amber-500 rounded-full"
+                  style={{ width: `${skill.level}%` }}
+                />
+              </div>
+              
+              <div className="mt-2 flex justify-between">
+                <span className="text-xs text-white/60">Proficiency</span>
+                <span className="text-xs font-medium text-amber-200">{skill.level}%</span>
+              </div>
+            </div>
           ))}
         </div>
       </div>
-      
-      {/* Scroll indicators */}
-      <div className="flex justify-center items-center mt-4 space-x-2">
-        {canScrollLeft && <div className="h-1.5 w-1.5 rounded-full bg-white/20"></div>}
-        <div className="h-1.5 w-3 rounded-full bg-white/40"></div>
-        {canScrollRight && <div className="h-1.5 w-1.5 rounded-full bg-white/20"></div>}
-      </div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -3,13 +3,13 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
-import { skills } from "@/data/skills.tsx"; // Updated import with correct extension
+import { skills } from "@/data/skills.tsx";
 import SkillCategory from "./skills/SkillCategory";
 import MobileSkillsCarousel from "./skills/MobileSkillsCarousel";
 
 const SkillsSection: React.FC = () => {
   const isMobile = useIsMobile();
-  const [activeCategory, setActiveCategory] = useState<"ai" | "electrical">("ai");
+  const [activeCategory, setActiveCategory] = useState<"ai" | "electrical" | "web">("ai");
 
   return (
     <section id="skills" className="py-16 md:py-24 lg:py-32 bg-black relative">
@@ -57,7 +57,7 @@ const SkillsSection: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             viewport={{ once: true }}
           >
-            My technical proficiencies in AI and Electrical Engineering
+            My technical proficiencies in AI, Web Development, and Electrical Engineering
           </motion.p>
         </div>
 
@@ -75,6 +75,17 @@ const SkillsSection: React.FC = () => {
                 )}
               >
                 AI & ML
+              </button>
+              <button
+                onClick={() => setActiveCategory("web")}
+                className={cn(
+                  "px-4 py-2 text-sm font-medium rounded-full transition-all",
+                  activeCategory === "web" 
+                    ? "bg-gradient-to-r from-amber-500/20 to-blue-500/20 text-white shadow-lg"
+                    : "text-white/60 hover:text-white"
+                )}
+              >
+                Web Dev
               </button>
               <button
                 onClick={() => setActiveCategory("electrical")}
@@ -102,6 +113,12 @@ const SkillsSection: React.FC = () => {
             />
 
             <MobileSkillsCarousel
+              category="web"
+              skills={skills}
+              activeCategory={activeCategory}
+            />
+
+            <MobileSkillsCarousel
               category="electrical"
               skills={skills}
               activeCategory={activeCategory}
@@ -109,11 +126,17 @@ const SkillsSection: React.FC = () => {
           </div>
         ) : (
           // Desktop grid layout
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16 max-w-6xl mx-auto">
             {/* AI Skills */}
             <SkillCategory 
               title="AI & Machine Learning" 
               skills={skills.filter(skill => skill.category === "ai")} 
+            />
+            
+            {/* Web Development Skills */}
+            <SkillCategory 
+              title="Web Development" 
+              skills={skills.filter(skill => skill.category === "web")} 
             />
             
             {/* Electrical Engineering Skills */}
