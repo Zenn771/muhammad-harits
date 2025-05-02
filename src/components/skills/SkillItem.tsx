@@ -11,6 +11,20 @@ interface SkillItemProps {
 const SkillItem: React.FC<SkillItemProps> = ({ skill, index }) => {
   const Icon = skill.icon;
   
+  // Map color to corresponding hex color
+  const getColorValue = (color: string) => {
+    switch (color) {
+      case "amber": return "#f59e0b";
+      case "blue": return "#3b82f6";
+      case "green": return "#10b981";
+      case "purple": return "#8b5cf6";
+      case "red": return "#ef4444";
+      default: return "#f59e0b";
+    }
+  };
+  
+  const colorValue = getColorValue(skill.color);
+  
   return (
     <motion.div
       className="skill-card flex flex-col items-center bg-white/5 backdrop-blur-sm rounded-lg p-3 relative group overflow-hidden border border-white/10 w-full"
@@ -27,13 +41,13 @@ const SkillItem: React.FC<SkillItemProps> = ({ skill, index }) => {
       <div 
         className="p-2 rounded-full relative z-10 skill-icon"
         style={{
-          background: `radial-gradient(circle, ${skill.iconColor}30 0%, ${skill.iconColor}10 70%)`,
-          boxShadow: `0 0 10px ${skill.iconColor}20`
+          background: `radial-gradient(circle, ${colorValue}30 0%, ${colorValue}10 70%)`,
+          boxShadow: `0 0 10px ${colorValue}20`
         }}
       >
         <Icon 
           className="w-4 h-4" 
-          style={{ color: skill.iconColor || 'white' }} 
+          style={{ color: colorValue || 'white' }} 
         />
       </div>
       
@@ -43,7 +57,7 @@ const SkillItem: React.FC<SkillItemProps> = ({ skill, index }) => {
         <motion.div
           className="h-full"
           style={{ 
-            background: `linear-gradient(to right, ${skill.iconColor || '#f59e0b'}, ${skill.iconColor}80)` 
+            background: `linear-gradient(to right, ${colorValue}, ${colorValue}80)` 
           }}
           initial={{ width: 0 }}
           whileInView={{ width: `${skill.level}%` }}

@@ -1,5 +1,5 @@
 
-import { Activity, Brain, Chip, Code, Database, Flask, Hammer, LineChart, Layers, Radio, Network, Wrench, Cpu, Zap, Bot, Terminal } from 'lucide-react';
+import { Activity, Brain, Code, Database, LineChart, Layers, Radio, Network, Wrench, Cpu, Zap, Bot, Terminal, Beaker, CircuitBoard } from 'lucide-react';
 
 export type Skill = {
   name: string;
@@ -48,7 +48,7 @@ export const skills: Skill[] = [
   },
   {
     name: "PyTorch",
-    icon: Flask,
+    icon: Beaker,
     level: "Advanced",
     category: "ai",
     color: "amber"
@@ -101,7 +101,7 @@ export const skills: Skill[] = [
   // Electrical Engineering Skills
   {
     name: "PCB Design",
-    icon: Chip,
+    icon: CircuitBoard,
     level: "Expert",
     category: "electrical",
     color: "green"
