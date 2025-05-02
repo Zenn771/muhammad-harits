@@ -22,7 +22,16 @@ const ClientLogos: React.FC = () => {
         SOFT SKILLS
       </h3>
       <div className="relative w-full overflow-hidden">
-        <div className="flex whitespace-nowrap animate-scroll-left">
+        {/* Police warning stripes background */}
+        <div 
+          className="absolute inset-0 z-0" 
+          style={{
+            background: 'repeating-linear-gradient(45deg, #FFD700, #FFD700 10px, #000000 10px, #000000 20px)',
+            opacity: 0.15
+          }}
+        />
+        
+        <div className="flex whitespace-nowrap animate-scroll-left relative z-10">
           {/* Double the skills to create seamless loop */}
           {[...softSkills, ...softSkills].map((skill, index) => (
             <div 
