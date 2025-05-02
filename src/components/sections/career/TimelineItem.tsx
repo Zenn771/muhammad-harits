@@ -12,7 +12,8 @@ interface TimelineItemProps {
 }
 
 const TimelineItem: React.FC<TimelineItemProps> = ({ item, index }) => {
-  const isEven = index % 2 === 0;
+  // Always start from left for the first item, then alternate
+  const isEven = index === 0 ? true : index % 2 === 0;
   
   return (
     <motion.div 
@@ -33,6 +34,20 @@ const TimelineItem: React.FC<TimelineItemProps> = ({ item, index }) => {
       >
         <TimelineNode item={item} isEven={isEven} />
         <TimelineCard item={item} isEven={isEven} />
+        
+        {/* Year on opposite side for larger screens */}
+        <div className={cn(
+          "hidden sm:block sm:w-1/2 relative",
+          isEven ? "sm:text-right" : "sm:text-left"
+        )}>
+          <motion.div 
+            className="absolute top-0 px-4 py-2"
+            style={{ 
+              [isEven ? 'right' : 'left']: '0',
+            }}
+            whileHover={{ scale: 1.05 }}
+          ></motion.div>
+        </div>
       </div>
     </motion.div>
   );

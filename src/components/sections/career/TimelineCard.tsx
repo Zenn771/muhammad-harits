@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, Briefcase, GraduationCap, Circle } from 'lucide-react';
+import { Calendar, Briefcase, GraduationCap } from 'lucide-react';
 import { cn } from "@/lib/utils";
 import { TimelineItem } from '@/data/timelineData';
 
@@ -11,15 +11,6 @@ interface TimelineCardProps {
 }
 
 const TimelineCard: React.FC<TimelineCardProps> = ({ item, isEven }) => {
-  const getIconComponent = () => {
-    if (item.iconType === "briefcase") {
-      return <Briefcase className="h-5 w-5" />;
-    } else if (item.iconType === "graduation-cap") {
-      return <GraduationCap className="h-5 w-5" />;
-    }
-    return <Circle className="h-5 w-5" />;
-  };
-
   return (
     <motion.div 
       className={cn(
@@ -29,14 +20,17 @@ const TimelineCard: React.FC<TimelineCardProps> = ({ item, isEven }) => {
       whileHover={{ translateY: -5 }}
     >
       <div className="vintage-card rounded-xl overflow-hidden shadow-xl">
-        {/* Macbook-like title bar */}
-        <div className="bg-gray-800 px-4 py-2 flex items-center">
+        {/* Glowing border effect */}
+        <div className="absolute inset-0 rounded-xl border border-white/20 shadow-[0_0_15px_rgba(255,255,255,0.05)] -z-10"></div>
+        
+        {/* Enhanced title bar */}
+        <div className="bg-gradient-to-r from-gray-800/90 to-gray-700/80 px-4 py-3 flex items-center">
           <div className="flex space-x-2 items-center">
-            <div className="w-3 h-3 rounded-full bg-red-500"></div>
-            <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-            <div className="w-3 h-3 rounded-full bg-green-500"></div>
+            <div className="w-3 h-3 rounded-full bg-red-500/90 shadow-[0_0_5px_rgba(239,68,68,0.5)]"></div>
+            <div className="w-3 h-3 rounded-full bg-yellow-500/90 shadow-[0_0_5px_rgba(250,204,21,0.5)]"></div>
+            <div className="w-3 h-3 rounded-full bg-green-500/90 shadow-[0_0_5px_rgba(74,222,128,0.5)]"></div>
           </div>
-          <div className="flex-grow text-center text-xs text-gray-400 font-medium">
+          <div className="flex-grow text-center text-xs text-white/80 font-medium">
             {item.year} · {item.type === "work" ? "Work Experience" : "Education"}
           </div>
         </div>
@@ -51,7 +45,12 @@ const TimelineCard: React.FC<TimelineCardProps> = ({ item, isEven }) => {
           {/* Content */}
           <div className="absolute inset-0 grain-effect-subtle rounded-xl"></div>
           
-          <div className="flex items-center mb-3 gap-2">
+          <motion.div 
+            className="flex items-center mb-4 gap-2"
+            initial={{ opacity: 0, x: isEven ? -20 : 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
             <div className="px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm text-xs font-medium text-white">
               <span className="flex items-center">
                 <Calendar className="h-3 w-3 mr-1" />
@@ -61,25 +60,54 @@ const TimelineCard: React.FC<TimelineCardProps> = ({ item, isEven }) => {
             <div className="px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm text-xs font-medium text-white">
               {item.type === "work" ? "Work" : "Education"}
             </div>
-          </div>
+          </motion.div>
           
-          <h3 className="text-xl md:text-2xl font-bold text-white mb-2">{item.role}</h3>
-          <p className="text-white/80 font-medium mb-4">{item.company}</p>
+          <motion.h3 
+            className="text-xl md:text-2xl font-bold text-white mb-2"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            {item.role}
+          </motion.h3>
           
-          <p className="text-white/70 text-sm md:text-base mb-6">
+          <motion.p 
+            className="text-white/80 font-medium mb-4"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            {item.company}
+          </motion.p>
+          
+          <motion.p 
+            className="text-white/70 text-sm md:text-base mb-6"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+          >
             {item.description}
-          </p>
+          </motion.p>
           
-          <div className="flex flex-wrap gap-2">
+          <motion.div 
+            className="flex flex-wrap gap-2"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+          >
             {item.skills.map((skill, i) => (
-              <span 
+              <motion.span 
                 key={i}
-                className="vintage-skill px-3 py-1 bg-white/5 backdrop-blur-sm rounded-full text-xs text-white/60"
+                className="vintage-skill px-3 py-1 bg-white/5 backdrop-blur-sm rounded-full text-xs text-white/60 hover:text-white hover:bg-white/10 transition-colors duration-300"
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3, delay: 0.6 + i * 0.05 }}
+                whileHover={{ scale: 1.05 }}
               >
                 {skill}
-              </span>
+              </motion.span>
             ))}
-          </div>
+          </motion.div>
           
           <motion.div
             className="absolute bottom-5 right-5 opacity-30 pointer-events-none"
@@ -90,8 +118,8 @@ const TimelineCard: React.FC<TimelineCardProps> = ({ item, isEven }) => {
           </motion.div>
         </div>
         
-        {/* Bottom bar for macbook-like design */}
-        <div className="bg-gray-800/80 h-2 w-full"></div>
+        {/* Reflective bottom bar */}
+        <div className="h-2 w-full bg-gradient-to-b from-gray-800/80 to-gray-900/50"></div>
       </div>
     </motion.div>
   );
