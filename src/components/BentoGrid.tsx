@@ -30,7 +30,7 @@ const BentoBox = () => {
             delay={bentoCardsData[0].delay}
             sizeClasses="h-full"
           >
-            <CodeTerminal className="mt-4" />
+            <CodeTerminal className="mt-3" />
           </BentoCard>
         </div>
         

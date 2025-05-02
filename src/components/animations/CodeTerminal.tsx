@@ -11,86 +11,79 @@ interface CodeTerminalProps {
 const CodeTerminal: React.FC<CodeTerminalProps> = ({ className }) => {
   const [currentSnippetIndex, setCurrentSnippetIndex] = useState(0);
   
-  // AI/ML code snippets to display in the terminal
+  // Shorter AI/ML code snippets to prevent layout distortion
   const codeSnippets = [
     `# Neural Network in Python
 import tensorflow as tf
 
 model = tf.keras.Sequential([
-  tf.keras.layers.Dense(128, activation='relu'),
+  tf.keras.layers.Dense(128, 'relu'),
   tf.keras.layers.Dropout(0.2),
-  tf.keras.layers.Dense(10, activation='softmax')
+  tf.keras.layers.Dense(10, 'softmax')
 ])`,
-    `# Machine Learning Model Training
-from sklearn.ensemble import RandomForestClassifier
+    `# Machine Learning Model
+import sklearn
+from sklearn import ensemble
 
-model = RandomForestClassifier()
-model.fit(X_train, y_train)
-predictions = model.predict(X_test)`,
-    `# Deep Learning with PyTorch
-import torch
+model = ensemble.RandomForestClassifier()
+model.fit(X_train, y_train)`,
+    `# PyTorch Deep Learning
 import torch.nn as nn
 
-class NeuralNetwork(nn.Module):
+class NeuralNet(nn.Module):
   def __init__(self):
     super().__init__()
-    self.flatten = nn.Flatten()
-    self.linear_stack = nn.Sequential(
-      nn.Linear(28*28, 512),
-      nn.ReLU(),
-      nn.Linear(512, 10)
-    )
+    self.linear = nn.Linear(784, 10)
     
   def forward(self, x):
-    x = self.flatten(x)
-    return self.linear_stack(x)`
+    return self.linear(x.view(-1, 784))`
   ];
 
-  // Automatically cycle through code snippets
+  // Automatically cycle through code snippets with deletion effect
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSnippetIndex(prev => (prev + 1) % codeSnippets.length);
-    }, 15000); // Change snippet every 15 seconds
+    }, 8000); // Change snippet every 8 seconds
     
     return () => clearInterval(interval);
   }, []);
 
   return (
     <motion.div
-      className={`bg-gray-900/90 rounded-lg p-3 border border-gray-700 shadow-lg ${className}`}
+      className={`bg-gray-900/90 rounded-lg p-2 border border-gray-700 shadow-lg ${className}`}
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.5, duration: 0.5 }}
     >
       {/* Terminal Header */}
-      <div className="flex items-center gap-2 border-b border-gray-700 pb-2 mb-2">
-        <div className="flex gap-1.5">
-          <div className="w-2.5 h-2.5 rounded-full bg-red-500"></div>
-          <div className="w-2.5 h-2.5 rounded-full bg-yellow-500"></div>
-          <div className="w-2.5 h-2.5 rounded-full bg-green-500"></div>
+      <div className="flex items-center gap-2 border-b border-gray-700 pb-1 mb-1">
+        <div className="flex gap-1">
+          <div className="w-2 h-2 rounded-full bg-red-500"></div>
+          <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
+          <div className="w-2 h-2 rounded-full bg-green-500"></div>
         </div>
-        <div className="text-xs font-mono text-gray-400 flex items-center gap-1.5">
-          <Terminal size={12} />
-          <span>ai-model-training.py</span>
+        <div className="text-xs font-mono text-gray-400 flex items-center gap-1">
+          <Terminal size={10} />
+          <span>ai-model.py</span>
         </div>
       </div>
       
-      {/* Terminal Content */}
-      <div className="font-mono text-xs md:text-sm overflow-hidden">
+      {/* Terminal Content - More compact with smaller text */}
+      <div className="font-mono text-xs overflow-hidden max-h-[100px]">
         <TypewriterText
           text={codeSnippets[currentSnippetIndex]}
           delay={0.2}
-          speed={20}
-          repeat={false}
+          speed={30}
+          repeat={true}
           className="text-green-400 whitespace-pre-wrap"
         />
       </div>
       
       {/* Terminal Prompt */}
-      <div className="mt-2 font-mono text-xs flex items-center gap-1.5">
+      <div className="mt-1 font-mono text-xs flex items-center gap-1">
         <span className="text-green-500">$</span>
         <motion.span 
-          className="h-3 w-3 bg-green-500 inline-block"
+          className="h-2 w-2 bg-green-500 inline-block"
           initial={{ opacity: 0 }}
           animate={{ opacity: [0, 1, 0] }}
           transition={{ repeat: Infinity, duration: 1 }}
