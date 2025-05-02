@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, Briefcase, GraduationCap } from 'lucide-react';
@@ -46,7 +45,7 @@ const TimelineCard: React.FC<TimelineCardProps> = ({ item, isEven }) => {
     <motion.div 
       className={cn(
         "relative flex-1 ml-12 sm:ml-0",
-        isEven ? "sm:text-right" : "sm:text-left"
+        "sm:text-left"
       )}
       variants={cardVariants}
       initial="initial"

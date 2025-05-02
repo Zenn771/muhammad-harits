@@ -37,8 +37,8 @@ const TimelineItem: React.FC<TimelineItemProps> = ({ item, index }) => {
         
         {/* Year on opposite side for larger screens */}
         <div className={cn(
-          "hidden sm:block sm:w-1/2 relative",
-          isEven ? "sm:text-right" : "sm:text-left"
+          "hidden sm:block sm:w-1/2 relative"
+          // Removed text alignment classes
         )}>
           <motion.div 
             className="absolute top-0 px-4 py-2"
