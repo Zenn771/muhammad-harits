@@ -47,7 +47,7 @@ const CircleStack: React.FC = () => {
         return (
           <div
             key={idx}
-            className="absolute rounded-full border border-white/5 bg-black grain-effect-subtle"
+            className="absolute rounded-full border border-white/5 bg-black"
             style={{
               width: circle.size,
               height: circle.size,
