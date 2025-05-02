@@ -4,6 +4,7 @@ import Navbar from '@/components/Navbar';
 import ParticleEffect from '@/components/ParticleEffect';
 import SectionBackground from '@/components/backgrounds/SectionBackground';
 import BentoBox from '@/components/BentoGrid';
+import MacBookFrame from '@/components/MacBookFrame';
 
 const About = () => {
   return (
@@ -26,15 +27,28 @@ const About = () => {
               </span>
             </h1>
             
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+              {/* Profile Photo in MacBook Frame */}
+              <div className="col-span-1 flex items-center justify-center">
+                <MacBookFrame 
+                  imageSrc="/placeholder.svg" 
+                  altText="About Me Profile Photo"
+                />
+              </div>
+              
+              {/* About Me Text */}
+              <div className="col-span-1 md:col-span-2 space-y-6 text-white/80 text-lg">
+                <p className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
+                  I am a passionate designer with over 5 years of experience creating beautiful, functional digital experiences. My work spans across various industries, helping brands establish meaningful connections with their audiences.
+                </p>
+                
+                <p className="animate-fade-in" style={{ animationDelay: '0.4s' }}>
+                  My approach combines aesthetic sensibility with user-centered design principles, ensuring that every project not only looks stunning but also delivers exceptional usability and performance.
+                </p>
+              </div>
+            </div>
+            
             <div className="space-y-8 text-white/80 text-lg">
-              <p className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
-                I am a passionate designer with over 5 years of experience creating beautiful, functional digital experiences. My work spans across various industries, helping brands establish meaningful connections with their audiences.
-              </p>
-              
-              <p className="animate-fade-in" style={{ animationDelay: '0.4s' }}>
-                My approach combines aesthetic sensibility with user-centered design principles, ensuring that every project not only looks stunning but also delivers exceptional usability and performance.
-              </p>
-              
               <div className="animate-fade-in" style={{ animationDelay: '0.6s' }}>
                 <h2 className="text-2xl font-semibold mb-4 text-white">Core Skills</h2>
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
