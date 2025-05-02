@@ -8,6 +8,8 @@ interface FloatingCharactersProps {
   highlightClassName?: string;
   highlightIndices?: number[];
   animationIntensity?: number;
+  staggerDelay?: number;
+  initiallyVisible?: boolean;
 }
 
 const FloatingCharacters: React.FC<FloatingCharactersProps> = ({ 
@@ -15,7 +17,9 @@ const FloatingCharacters: React.FC<FloatingCharactersProps> = ({
   className = "", 
   highlightClassName = "text-amber-300",
   highlightIndices = [],
-  animationIntensity = 1
+  animationIntensity = 1,
+  staggerDelay = 0.03,
+  initiallyVisible = true
 }) => {
   const characters = text.split('');
   
@@ -61,24 +65,39 @@ const FloatingCharacters: React.FC<FloatingCharactersProps> = ({
           <motion.span
             key={index}
             className={`inline-block ${isHighlighted ? highlightClassName : ""}`}
-            animate={{
-              y: animationParams.y,
+            initial={initiallyVisible ? {} : { opacity: 0, y: 10 }}
+            animate={{ 
+              opacity: 1, 
+              y: 0,
+              transition: {
+                delay: initiallyVisible ? 0 : index * staggerDelay
+              }
             }}
             transition={{
-              duration: animationParams.duration,
-              repeat: Infinity,
-              repeatType: "reverse",
-              ease: "easeInOut",
-              delay: animationParams.delay,
-              // Optimize animations by using GPU acceleration
-              willChange: "transform", 
-            }}
-            style={{ 
-              display: 'inline-block', 
-              willChange: 'transform', 
+              opacity: { duration: initiallyVisible ? 0 : 0.1 },
+              y: { duration: initiallyVisible ? 0 : 0.2 }
             }}
           >
-            {char}
+            <motion.span
+              animate={{
+                y: animationParams.y,
+              }}
+              transition={{
+                duration: animationParams.duration,
+                repeat: Infinity,
+                repeatType: "reverse",
+                ease: "easeInOut",
+                delay: animationParams.delay,
+                // Optimize animations by using GPU acceleration
+                willChange: "transform", 
+              }}
+              style={{ 
+                display: 'inline-block', 
+                willChange: 'transform', 
+              }}
+            >
+              {char}
+            </motion.span>
           </motion.span>
         );
       })}

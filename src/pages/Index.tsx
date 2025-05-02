@@ -1,4 +1,5 @@
-import React from 'react';
+
+import React, { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/sections/HeroSection';
 import BentoGrid from '@/components/BentoGrid';
@@ -9,14 +10,30 @@ import TestimonialsSection from '@/components/TestimonialsSection';
 import FAQSection from '@/components/sections/FAQSection';
 import ContactSection from '@/components/ContactSection';
 import SectionBackground from '@/components/backgrounds/SectionBackground';
+import TimelineBackground from '@/components/career/TimelineBackground';
 
 const Index = () => {
+  const [scrollY, setScrollY] = useState(0);
+  
+  // Track scroll position for parallax effects
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+  
   return (
     <div className="bg-black overflow-hidden">
+      {/* Dynamic background that responds to scroll */}
+      <TimelineBackground scrollY={scrollY} />
+      
       {/* Updated Navbar with scrollBased set to true */}
       <Navbar scrollBased={true} />
       
-      <main className="pt-16"> {/* Add padding to prevent content from being hidden under navbar */}
+      <main className="pt-16 relative z-10"> {/* Add padding to prevent content from being hidden under navbar */}
         {/* Hero Section */}
         <HeroSection />
         
