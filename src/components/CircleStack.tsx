@@ -9,7 +9,7 @@ const CircleStack: React.FC = () => {
     { size: '35vh', delay: 4, opacity: 0.05, scale: 1.1, rotate: 5, borderWidth: 2 }
   ];
 
-  // State for each circle's animation - initialize with default values
+  // State for each circle's animation - initialize with final values to show immediately
   const [animations, setAnimations] = useState(
     circleProps.map((circle) => ({
       scale: circle.scale,
@@ -21,15 +21,8 @@ const CircleStack: React.FC = () => {
 
   // Animate circles with more subtle motion
   useEffect(() => {
-    // Start the animation immediately on component mount
-    setAnimations(prev => 
-      prev.map((anim, i) => ({
-        scale: circleProps[i].scale,
-        rotate: circleProps[i].rotate,
-        pulse: 0,
-        opacity: 1,
-      }))
-    );
+    // No need for setTimeout or delayed initialization since we want immediate display
+    // The initial state is already set with the desired values
     
     const interval = setInterval(() => {
       setAnimations(prev => 

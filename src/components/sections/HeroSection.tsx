@@ -19,7 +19,7 @@ const HeroSection: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const spotlightRef = useRef<HTMLDivElement>(null);
   
-  // Mouse position for parallax effect
+  // Mouse position for parallax effect - initialized with 0 to ensure immediate display
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   
@@ -28,7 +28,7 @@ const HeroSection: React.FC = () => {
   const smoothMouseX = useSpring(mouseX, springConfig);
   const smoothMouseY = useSpring(mouseY, springConfig);
   
-  // Transform values for parallax layers
+  // Transform values for parallax layers - will use the spring values which are initialized
   const gridX = useTransform(smoothMouseX, [-500, 500], [50, -50]);
   const gridY = useTransform(smoothMouseY, [-500, 500], [25, -25]);
   const particlesX = useTransform(smoothMouseX, [-500, 500], [20, -20]);
@@ -108,21 +108,33 @@ const HeroSection: React.FC = () => {
 
   return (
     <section id="home" className="min-h-screen w-full overflow-hidden bg-black relative" ref={containerRef}>
-      {/* Background layers with parallax effect */}
-      <motion.div style={{ x: gridX, y: gridY }} className="absolute inset-0 z-0">
+      {/* Background layers with parallax effect - now with initial transforms to be visible immediately */}
+      <motion.div 
+        style={{ x: gridX, y: gridY }} 
+        initial={{ opacity: 1 }} 
+        className="absolute inset-0 z-0"
+      >
         <GridBackground color="rgba(250, 204, 21, 0.05)" spacing={40} />
       </motion.div>
       
       {/* Gradient backdrop for depth */}
       <GradientBackdrop opacity={0.3} />
       
-      {/* Enhanced particle effect with parallax */}
-      <motion.div style={{ x: particlesX, y: particlesY }} className="absolute inset-0 z-1">
+      {/* Enhanced particle effect with parallax - now with initial opacity */}
+      <motion.div 
+        style={{ x: particlesX, y: particlesY }}
+        initial={{ opacity: 1 }}
+        className="absolute inset-0 z-1"
+      >
         <ParticleEffect count={25} />
       </motion.div>
       
-      {/* Circle stack with parallax effect */}
-      <motion.div style={{ x: circlesX, y: circlesY }} className="absolute inset-0 z-2">
+      {/* Circle stack with parallax effect - now with initial opacity and transform */}
+      <motion.div 
+        style={{ x: circlesX, y: circlesY }}
+        initial={{ opacity: 1, x: 0, y: 0 }}
+        className="absolute inset-0 z-2"
+      >
         <CircleStack />
       </motion.div>
       
