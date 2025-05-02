@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import CircleStack from '@/components/CircleStack';
@@ -146,15 +147,15 @@ const Index = () => {
         <Navbar activeSection={activeSection} scrollBased={true} className={scrolled ? 'scale-95' : ''} />
       </div>
       
-      {/* HOME SECTION - Enhanced with lighting effects */}
+      {/* HOME SECTION - Enhanced with improved lighting effects */}
       <section id="home" className="min-h-screen w-full overflow-hidden bg-black relative">
         {/* Enhanced background particles with more density */}
         <ParticleEffect count={100} />
         
-        {/* New header spotlight effect */}
+        {/* Enhanced permanent header spotlight effect */}
         <div className="header-spotlight"></div>
         
-        {/* New vignette overlay for focus */}
+        {/* Improved vignette overlay for stronger focus */}
         <div className="vignette-overlay"></div>
         
         {/* Enhanced circle stack with more depth */}
@@ -163,7 +164,7 @@ const Index = () => {
         {/* Main content positioned in the center with enhanced spotlight effect */}
         <div className="relative h-screen flex flex-col items-center justify-center z-10">
           <div className="text-center max-w-3xl px-6">
-            <div className="relative spotlight-enhanced">
+            <div className="relative content-vignette">
               {/* Status badge with animation */}
               <div className="mb-10 flex justify-center animate-fade-in">
                 <StatusBadge status="available" />
