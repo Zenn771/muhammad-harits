@@ -1,6 +1,6 @@
 
 import React, { useEffect, useRef, useState } from 'react';
-import { motion, useAnimation, useMotionValue, useTransform } from 'framer-motion';
+import { motion, useAnimation } from 'framer-motion';
 import { cn } from "@/lib/utils";
 
 interface BentoCardProps {
@@ -12,6 +12,7 @@ interface BentoCardProps {
   delay?: number;
   sizeClasses?: string;
   children?: React.ReactNode;
+  disableEffects?: boolean; // New prop to disable animations and 3D effects
 }
 
 const BentoCard = ({
@@ -22,7 +23,8 @@ const BentoCard = ({
   gradient = "from-blue-800/25 to-purple-800/10",
   delay = 0,
   sizeClasses = "col-span-1 row-span-1",
-  children
+  children,
+  disableEffects = false // Default to having effects enabled
 }: BentoCardProps) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -31,12 +33,6 @@ const BentoCard = ({
   // Animation for the icon
   const iconControls = useAnimation();
   
-  // Motion values for 3D tilt effect
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const rotateX = useTransform(y, [-100, 100], [10, -10]);
-  const rotateY = useTransform(x, [-100, 100], [-10, 10]);
-
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -61,29 +57,73 @@ const BentoCard = ({
     };
   }, []);
 
-  // Handle mouse move for 3D tilt effect
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    
-    const rect = cardRef.current.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    
-    x.set(e.clientX - centerX);
-    y.set(e.clientY - centerY);
-  };
-
   // Animation sequence for icon on hover
   useEffect(() => {
-    if (isHovered) {
+    if (isHovered && !disableEffects) {
       iconControls.start({
         scale: [1, 1.2, 1],
         rotate: [0, 10, -10, 0],
         transition: { duration: 0.5 }
       });
     }
-  }, [isHovered, iconControls]);
+  }, [isHovered, iconControls, disableEffects]);
 
+  // If effects are disabled, use a div instead of motion.div for the card
+  if (disableEffects) {
+    return (
+      <div
+        ref={cardRef}
+        className={cn(
+          "group relative overflow-hidden rounded-xl bg-gradient-to-br border border-white/10 p-5 md:p-6",
+          gradient,
+          sizeClasses,
+          className
+        )}
+        style={{
+          position: 'relative'
+        }}
+      >
+        {/* Card-specific grain texture overlay */}
+        <div 
+          className="absolute inset-0 pointer-events-none z-0 grain-effect"
+          style={{
+            opacity: 0.1,
+            mixBlendMode: 'overlay',
+          }}
+        />
+        
+        <div className="flex flex-col h-full relative z-10">
+          <div className="flex items-center mb-4">
+            <div 
+              className="p-2 rounded-full bg-white/10 backdrop-blur-sm mr-3"
+            >
+              {icon}
+            </div>
+            <h3 className="text-xl font-semibold text-white/90">
+              {title}
+            </h3>
+          </div>
+          
+          <p className="text-white/70 text-sm leading-relaxed">
+            {description}
+          </p>
+          
+          {/* Add the children content if provided */}
+          {children && (
+            <div className="mt-4">
+              {children}
+            </div>
+          )}
+          
+          <div className="mt-auto pt-4">
+            <div className="h-1 w-12 bg-white/20 rounded-full" />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Original animated version with 3D effects when disableEffects is false
   return (
     <motion.div
       ref={cardRef}
@@ -96,20 +136,11 @@ const BentoCard = ({
       initial={{ opacity: 0, y: 20 }}
       animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
       transition={{ duration: 0.6, delay: delay * 0.1 }}
-      onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => {
-        setIsHovered(false);
-        x.set(0);
-        y.set(0);
-      }}
+      onMouseLeave={() => setIsHovered(false)}
       style={{
-        rotateX,
-        rotateY,
-        perspective: 1000,
-        transformStyle: "preserve-3d",
-        boxShadow: isHovered ? "0 10px 30px rgba(250, 204, 21, 0.1)" : "none",
-        position: 'relative' // Ensure position is set to relative for proper grain overlay
+        position: 'relative',
+        boxShadow: isHovered ? "0 10px 30px rgba(250, 204, 21, 0.1)" : "none"
       }}
       whileHover={{ 
         scale: 1.02,

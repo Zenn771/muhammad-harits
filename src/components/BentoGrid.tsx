@@ -29,6 +29,7 @@ const BentoBox = () => {
             gradient={bentoCardsData[0].gradient}
             delay={bentoCardsData[0].delay}
             sizeClasses="h-full"
+            disableEffects={true} // Add this prop to disable effects for this card
           >
             <CodeTerminal className="mt-3" />
           </BentoCard>
