@@ -1,4 +1,3 @@
-
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -133,7 +132,7 @@ const HeroSection: React.FC = () => {
       <motion.div 
         style={{ x: circlesX, y: circlesY }}
         initial={{ opacity: 1, x: 0, y: 0 }}
-        className="absolute inset-0 z-2"
+        className="absolute inset-0 z-[2]"
       >
         <CircleStack />
       </motion.div>

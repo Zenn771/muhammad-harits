@@ -51,7 +51,7 @@ const CircleStack: React.FC = () => {
             style={{
               width: circle.size,
               height: circle.size,
-              opacity: circle.opacity,
+              opacity: animations[idx].opacity, // Use animation opacity instead of circle.opacity
               transform: `scale(${animations[idx].scale + pulseFactor}) rotate(${animations[idx].rotate}deg)`,
               transition: 'transform 18s cubic-bezier(0.4, 0, 0.2, 1)', // Slower transition
               borderWidth: `${circle.borderWidth}px`,
