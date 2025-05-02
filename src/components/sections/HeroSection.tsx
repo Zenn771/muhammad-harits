@@ -128,7 +128,7 @@ const HeroSection: React.FC = () => {
             </p>
           </div>
           
-          {/* Enhanced CTA buttons with motion effects and proper links */}
+          {/* Enhanced CTA buttons with yellow to black gradient */}
           <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 w-full px-4 sm:px-0">
             <motion.a
               href="#contact"
@@ -139,7 +139,9 @@ const HeroSection: React.FC = () => {
               custom={0}
               className="w-full sm:w-auto"
             >
-              <Button className="bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white shadow-lg hover:shadow-blue-900/20 transition-all hover:scale-105 px-6 py-6 text-base font-medium rounded-xl w-full sm:w-auto">
+              <Button 
+                className="bg-gradient-to-b from-amber-400 to-amber-700 hover:from-amber-500 hover:to-black text-black hover:text-white font-medium shadow-lg shadow-amber-500/20 hover:shadow-amber-600/30 transition-all hover:scale-105 px-6 py-6 text-base rounded-xl w-full sm:w-auto border-0"
+              >
                 <MessageSquare className="mr-2 h-5 w-5" />
                 <span>Let's Talk</span>
               </Button>
@@ -154,7 +156,10 @@ const HeroSection: React.FC = () => {
               custom={1}
               className="w-full sm:w-auto"
             >
-              <Button variant="outline" className="bg-transparent border-2 border-white/20 hover:border-white/40 text-white hover:bg-white/5 transition-all hover:scale-105 px-6 py-6 text-base font-medium rounded-xl w-full sm:w-auto">
+              <Button 
+                variant="outline" 
+                className="bg-gradient-to-b from-amber-400/10 to-amber-900/10 hover:from-amber-400/20 hover:to-amber-900/20 border-2 border-amber-500/30 hover:border-amber-400 text-amber-300 hover:text-amber-200 transition-all hover:scale-105 px-6 py-6 text-base font-medium rounded-xl w-full sm:w-auto"
+              >
                 <FolderOpen className="mr-2 h-5 w-5" />
                 <span>View Projects</span>
               </Button>
