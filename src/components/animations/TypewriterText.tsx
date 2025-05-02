@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 
 interface TypewriterTextProps {
-  text: string;
+  text: string | string[];
   delay?: number;
   speed?: number;
   className?: string;
@@ -22,6 +22,11 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({
   const [isTyping, setIsTyping] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [textArrayIndex, setTextArrayIndex] = useState(0);
+  
+  // Determine if we're working with an array of strings or a single string
+  const isTextArray = Array.isArray(text);
+  const currentText = isTextArray ? text[textArrayIndex] : text;
   
   useEffect(() => {
     // Delay before starting
@@ -39,9 +44,9 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({
     
     if (!isDeleting) {
       // Typing effect
-      if (currentIndex < text.length) {
+      if (currentIndex < currentText.length) {
         timeout = setTimeout(() => {
-          setDisplayedText(text.substring(0, currentIndex + 1));
+          setDisplayedText(currentText.substring(0, currentIndex + 1));
           setCurrentIndex(prev => prev + 1);
         }, speed);
       } else if (repeat) {
@@ -54,17 +59,20 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({
       // Deleting effect
       if (currentIndex > 0) {
         timeout = setTimeout(() => {
-          setDisplayedText(text.substring(0, currentIndex - 1));
+          setDisplayedText(currentText.substring(0, currentIndex - 1));
           setCurrentIndex(prev => prev - 1);
         }, speed / 2); // Delete faster than typing
       } else {
-        // Complete deletion, reset
+        // Complete deletion, move to next text if array or reset
+        if (isTextArray) {
+          setTextArrayIndex(prev => (prev + 1) % text.length);
+        }
         setIsDeleting(false);
       }
     }
     
     return () => clearTimeout(timeout);
-  }, [isTyping, isDeleting, currentIndex, text, speed, repeat]);
+  }, [isTyping, isDeleting, currentIndex, currentText, speed, repeat, isTextArray, text]);
   
   if (useRawHTML) {
     return (
