@@ -47,6 +47,13 @@ export const skills: Skill[] = [
     category: 'ai',
     icon: Brain
   },
+  {
+    id: 'data-science',
+    name: 'Data Science',
+    level: 85,
+    category: 'ai',
+    icon: Brain
+  },
   
   // Electrical Engineering Skills
   {
@@ -84,8 +91,15 @@ export const skills: Skill[] = [
     category: 'electrical',
     icon: Layers
   },
+  {
+    id: 'pcb-design',
+    name: 'PCB Design',
+    level: 75,
+    category: 'electrical',
+    icon: Cpu
+  },
   
-  // Web Programming Skills - New Category
+  // Web Programming Skills
   {
     id: 'react',
     name: 'React',
@@ -118,6 +132,13 @@ export const skills: Skill[] = [
     id: 'html-css',
     name: 'HTML/CSS',
     level: 95,
+    category: 'web',
+    icon: Code
+  },
+  {
+    id: 'nodejs',
+    name: 'Node.js',
+    level: 80,
     category: 'web',
     icon: Code
   }
