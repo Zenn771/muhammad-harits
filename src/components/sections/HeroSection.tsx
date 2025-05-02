@@ -1,4 +1,3 @@
-
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -14,6 +13,11 @@ import AnimatedWords from '@/components/animations/AnimatedWords';
 import GridBackground from '@/components/backgrounds/GridBackground';
 import GradientBackdrop from '@/components/backgrounds/GradientBackdrop';
 import TextureOverlay from '@/components/backgrounds/TextureOverlay';
+import InteractiveTiltCard from '@/components/animations/InteractiveTiltCard';
+import EnhancedSpotlightEffect from '@/components/animations/EnhancedSpotlightEffect';
+import MagneticButton from '@/components/animations/MagneticButton';
+import ShootingStars from '@/components/animations/ShootingStars';
+import { Card, CardContent } from '@/components/ui/card';
 
 const HeroSection: React.FC = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -107,6 +111,12 @@ const HeroSection: React.FC = () => {
     "Turning ambitious ideas into practical technological applications."
   ];
 
+  // Card content for interactive card
+  const cardContent = {
+    title: "Innovation & Engineering",
+    description: "Exploring the frontiers of technology with a creative, solution-oriented approach."
+  };
+
   return (
     <section id="home" className="min-h-screen w-full overflow-hidden bg-black relative" ref={containerRef}>
       {/* Background layers with parallax effect - now with initial transforms to be visible immediately */}
@@ -121,7 +131,7 @@ const HeroSection: React.FC = () => {
       {/* Gradient backdrop for depth */}
       <GradientBackdrop opacity={0.3} />
       
-      {/* Enhanced particle effect with parallax - now with initial opacity */}
+      {/* Enhanced particle effect with parallax */}
       <motion.div 
         style={{ x: particlesX, y: particlesY }}
         initial={{ opacity: 1 }}
@@ -130,7 +140,10 @@ const HeroSection: React.FC = () => {
         <ParticleEffect count={25} />
       </motion.div>
       
-      {/* Circle stack with parallax effect - now with initial opacity and transform */}
+      {/* NEW: Shooting stars effect */}
+      <ShootingStars starCount={2} frequency={8000} />
+      
+      {/* Circle stack with parallax effect */}
       <motion.div 
         style={{ x: circlesX, y: circlesY }}
         initial={{ opacity: 1, x: 0, y: 0 }}
@@ -139,7 +152,10 @@ const HeroSection: React.FC = () => {
         <CircleStack />
       </motion.div>
       
-      {/* NEW: Floating geometric shapes for visual interest */}
+      {/* NEW: Enhanced spotlight effect */}
+      <EnhancedSpotlightEffect size={800} intensity={0.3} />
+      
+      {/* Floating geometric shapes - keeping existing code */}
       <div className="absolute inset-0 z-[1] pointer-events-none">
         {/* Animated geometric shapes */}
         <motion.div 
@@ -203,7 +219,7 @@ const HeroSection: React.FC = () => {
             }}
           />
 
-          {/* NEW: Animated glowing orb */}
+          {/* Animated glowing orb */}
           <motion.div 
             className="absolute w-64 h-64 rounded-full bg-gradient-radial from-amber-500/10 to-transparent"
             style={{ 
@@ -240,7 +256,7 @@ const HeroSection: React.FC = () => {
           </h1>
           
           {/* Updated subtitle with professional information and rotating typewriter texts */}
-          <div className="space-y-4 mb-14">
+          <div className="space-y-4 mb-8">
             <p className="text-xl md:text-2xl text-amber-400 animate-fade-in" style={{ animationDelay: '0.2s' }}>
               <FloatingCharacters 
                 text="AI & Electrical Engineer" 
@@ -258,8 +274,25 @@ const HeroSection: React.FC = () => {
             </p>
           </div>
           
+          {/* NEW: Interactive 3D Card */}
+          <div className="mb-10">
+            <InteractiveTiltCard 
+              className="w-full max-w-xs mx-auto bg-black/40 backdrop-blur-sm border border-amber-500/20 rounded-xl overflow-hidden shadow-xl"
+              intensity={10}
+            >
+              <Card className="bg-transparent border-0 overflow-hidden">
+                <CardContent className="p-6">
+                  <div className="text-center">
+                    <h3 className="text-xl font-semibold text-amber-300 mb-2">{cardContent.title}</h3>
+                    <p className="text-white/80 text-sm">{cardContent.description}</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </InteractiveTiltCard>
+          </div>
+          
           {/* NEW: Animated words element for added visual interest */}
-          <div className="mb-10 opacity-90">
+          <div className="mb-8 opacity-90">
             <AnimatedWords 
               text="Innovation • Creativity • Excellence" 
               className="text-sm text-amber-300/70 tracking-wider uppercase" 
@@ -268,46 +301,44 @@ const HeroSection: React.FC = () => {
             />
           </div>
           
-          {/* Enhanced CTA buttons with yellow to black gradient */}
+          {/* Enhanced CTA buttons with magnetic effect */}
           <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 w-full px-4 sm:px-0">
-            <motion.a
-              href="#contact"
-              onClick={(e) => scrollToSection('contact', e)}
+            <motion.div
               variants={buttonVariants}
               initial="initial"
               animate="animate"
               custom={0}
               className="w-full sm:w-auto"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.98 }}
             >
-              <Button 
+              <MagneticButton
                 className="bg-gradient-to-b from-amber-400 to-amber-700 hover:from-amber-500 hover:to-black text-black hover:text-white font-medium shadow-lg shadow-amber-500/20 hover:shadow-amber-600/30 transition-all px-6 py-6 text-base rounded-xl w-full sm:w-auto border-0"
+                onClick={(e: React.MouseEvent) => scrollToSection('contact', e)}
+                glint={true}
+                magneticIntensity={0.2}
               >
                 <MessageSquare className="mr-2 h-5 w-5" />
                 <span>Let's Talk</span>
-              </Button>
-            </motion.a>
+              </MagneticButton>
+            </motion.div>
             
-            <motion.a
-              href="#works"
-              onClick={(e) => scrollToSection('works', e)}
+            <motion.div
               variants={buttonVariants}
               initial="initial"
               animate="animate"
               custom={1}
               className="w-full sm:w-auto"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.98 }}
             >
-              <Button 
-                variant="outline" 
+              <MagneticButton
+                variant="outline"
                 className="bg-gradient-to-b from-amber-400/10 to-amber-900/10 hover:from-amber-400/20 hover:to-amber-900/20 border-2 border-amber-500/30 hover:border-amber-400 text-amber-300 hover:text-amber-200 transition-all px-6 py-6 text-base font-medium rounded-xl w-full sm:w-auto"
+                onClick={(e: React.MouseEvent) => scrollToSection('works', e)}
+                glint={true}
+                magneticIntensity={0.2}
               >
                 <FolderOpen className="mr-2 h-5 w-5" />
                 <span>View Projects</span>
-              </Button>
-            </motion.a>
+              </MagneticButton>
+            </motion.div>
           </div>
         </div>
       </div>
