@@ -19,7 +19,7 @@ const CircleStack: React.FC = () => {
     }))
   );
 
-  // Animate circles with more subtle motion, independent of cursor
+  // Animate circles with more subtle motion
   useEffect(() => {
     // Start the animation immediately on component mount
     setAnimations(prev => 

@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 interface ParticleEffectProps {
   count?: number;
   className?: string;
+  interactive?: boolean;
 }
 
 interface Particle {
@@ -21,9 +22,11 @@ interface Particle {
 
 const ParticleEffect: React.FC<ParticleEffectProps> = ({ 
   count = 25, 
-  className = ''
+  className = '',
+  interactive = true 
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [particles, setParticles] = useState<Particle[]>([]);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const animationRef = useRef<number>(0);
@@ -79,7 +82,22 @@ const ParticleEffect: React.FC<ParticleEffectProps> = ({
     };
   }, [count]);
   
-  // Animation loop - removed cursor interaction
+  // Handle mouse movement for interactive effects
+  useEffect(() => {
+    if (!interactive) return;
+    
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+    
+    window.addEventListener('mousemove', handleMouseMove);
+    
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, [interactive]);
+  
+  // Animation loop
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -120,14 +138,22 @@ const ParticleEffect: React.FC<ParticleEffectProps> = ({
         // Calculate pulsing opacity
         const pulsingOpacity = particle.opacity * (0.9 + Math.sin(particle.pulse) * 0.1);
         
-        // Add some randomness to particle movement for ambient motion
-        const randomFactor = 0.001;
-        particle.speedX += (Math.random() - 0.5) * randomFactor;
-        particle.speedY += (Math.random() - 0.5) * randomFactor;
-        
-        // Add some drag to prevent excessive speed
-        particle.speedX *= 0.99;
-        particle.speedY *= 0.99;
+        // Interactive effects - particles slightly attracted to mouse
+        if (interactive && mousePosition.x && mousePosition.y) {
+          const dx = mousePosition.x - particle.x;
+          const dy = mousePosition.y - particle.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          
+          if (distance < 200) {
+            const force = 0.5 / Math.max(distance, 50);
+            particle.speedX += dx * force * 0.01;
+            particle.speedY += dy * force * 0.01;
+          }
+          
+          // Add some drag to prevent excessive speed
+          particle.speedX *= 0.99;
+          particle.speedY *= 0.99;
+        }
         
         // Draw enhanced glow effect
         const gradient = ctx.createRadialGradient(
@@ -175,7 +201,7 @@ const ParticleEffect: React.FC<ParticleEffectProps> = ({
     return () => {
       cancelAnimationFrame(animationRef.current);
     };
-  }, [dimensions]);
+  }, [dimensions, mousePosition, interactive]);
   
   return (
     <canvas 
