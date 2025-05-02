@@ -29,7 +29,7 @@ const SkillsSection: React.FC = () => {
       </div>
 
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-8 md:mb-16"> {/* Reduced mobile margin from mb-12 to mb-8 */}
           <motion.p
             className="text-sm uppercase tracking-widest text-amber-200 font-medium mb-2"
             initial={{ opacity: 0, y: 20 }}
@@ -61,14 +61,14 @@ const SkillsSection: React.FC = () => {
           </motion.p>
         </div>
 
-        {/* Mobile category tabs */}
+        {/* Mobile category tabs - slightly smaller padding */}
         {isMobile && (
-          <div className="flex justify-center mb-6">
+          <div className="flex justify-center mb-4"> {/* Reduced margin from mb-6 to mb-4 */}
             <div className="inline-flex p-1 bg-white/5 backdrop-blur-sm rounded-full">
               <button
                 onClick={() => setActiveCategory("ai")}
                 className={cn(
-                  "px-4 py-2 text-sm font-medium rounded-full transition-all",
+                  "px-3 py-1.5 text-sm font-medium rounded-full transition-all", // Reduced padding from px-4 py-2 to px-3 py-1.5
                   activeCategory === "ai" 
                     ? "bg-gradient-to-r from-amber-500/20 to-blue-500/20 text-white shadow-lg"
                     : "text-white/60 hover:text-white"
@@ -79,7 +79,7 @@ const SkillsSection: React.FC = () => {
               <button
                 onClick={() => setActiveCategory("web")}
                 className={cn(
-                  "px-4 py-2 text-sm font-medium rounded-full transition-all",
+                  "px-3 py-1.5 text-sm font-medium rounded-full transition-all", // Reduced padding from px-4 py-2 to px-3 py-1.5
                   activeCategory === "web" 
                     ? "bg-gradient-to-r from-amber-500/20 to-blue-500/20 text-white shadow-lg"
                     : "text-white/60 hover:text-white"
@@ -90,7 +90,7 @@ const SkillsSection: React.FC = () => {
               <button
                 onClick={() => setActiveCategory("electrical")}
                 className={cn(
-                  "px-4 py-2 text-sm font-medium rounded-full transition-all",
+                  "px-3 py-1.5 text-sm font-medium rounded-full transition-all", // Reduced padding from px-4 py-2 to px-3 py-1.5
                   activeCategory === "electrical" 
                     ? "bg-gradient-to-r from-amber-500/20 to-blue-500/20 text-white shadow-lg"
                     : "text-white/60 hover:text-white"
