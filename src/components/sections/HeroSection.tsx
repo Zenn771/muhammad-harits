@@ -7,6 +7,9 @@ import StatusBadge from '@/components/StatusBadge';
 import CircleStack from '@/components/CircleStack';
 import ParticleEffect from '@/components/ParticleEffect';
 import ClientLogos from '@/components/ClientLogos';
+import TypewriterText from '@/components/animations/TypewriterText';
+import AnimatedGradientText from '@/components/animations/AnimatedGradientText';
+import FloatingCharacters from '@/components/animations/FloatingCharacters';
 
 const HeroSection: React.FC = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -30,6 +33,20 @@ const HeroSection: React.FC = () => {
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
+
+  // Animation variants for buttons
+  const buttonVariants = {
+    initial: { opacity: 0, y: 20 },
+    animate: (custom: number) => ({
+      opacity: 1, 
+      y: 0,
+      transition: { 
+        delay: 2.0 + (custom * 0.2),
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    })
+  };
 
   return (
     <section id="home" className="min-h-screen w-full overflow-hidden bg-black relative">
@@ -75,31 +92,60 @@ const HeroSection: React.FC = () => {
             <StatusBadge status="available" />
           </div>
           
-          {/* Condensed main headline with personal greeting on a single line */}
+          {/* Enhanced main headline with personal greeting and animated name */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-8 tracking-tight animate-fade-in text-white">
-            Hi everyone, my name is <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-200 animate-pulse-slow">Harits</span>
+            Hi everyone, my name is <AnimatedGradientText text="Harits" />
           </h1>
           
-          {/* Updated subtitle with professional information */}
+          {/* Updated subtitle with professional information and animated text */}
           <div className="space-y-4 mb-14">
             <p className="text-xl md:text-2xl text-white animate-fade-in" style={{ animationDelay: '0.2s' }}>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-sky-300 to-blue-300">
-                AI & Electrical Engineer
+                <FloatingCharacters 
+                  text="AI & Electrical Engineer"
+                  highlightIndices={[0, 2, 6, 17]} 
+                />
               </span>
             </p>
             <p className="text-lg md:text-xl text-white/90 animate-fade-in" style={{ animationDelay: '0.4s' }}>
-              Passionate about creating intelligent systems and innovative solutions.
+              <TypewriterText 
+                text="Passionate about creating intelligent systems and innovative solutions."
+                delay={1}
+                speed={30}
+              />
             </p>
           </div>
           
-          {/* Enhanced CTA buttons with improved contrast */}
-          <div className="flex flex-col sm:flex-row gap-6 justify-center animate-fade-in" style={{ animationDelay: '0.6s' }}>
-            <Button className="bg-white hover:bg-gray-100 text-gray-800 hover:text-black transition-all hover:scale-105 px-8 py-6 text-base font-medium">
-              👋 Let's talk
-            </Button>
-            <Button variant="outline" className="border-amber-400/30 text-amber-200 hover:bg-amber-900/20 hover:border-amber-400 transition-all hover:scale-105 px-8 py-6 text-base font-medium">
-              View Projects <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
+          {/* Enhanced CTA buttons with motion effects */}
+          <div className="flex flex-col sm:flex-row gap-6 justify-center">
+            <motion.div
+              variants={buttonVariants}
+              initial="initial"
+              animate="animate"
+              custom={0}
+            >
+              <Button className="bg-white hover:bg-gray-100 text-gray-800 hover:text-black transition-all hover:scale-105 px-8 py-6 text-base font-medium group">
+                <span className="relative overflow-hidden inline-block">
+                  <span className="inline-block transition-transform group-hover:-translate-y-full duration-300">👋 Let's talk</span>
+                  <span className="absolute top-0 left-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300">👋 Contact me</span>
+                </span>
+              </Button>
+            </motion.div>
+            
+            <motion.div
+              variants={buttonVariants}
+              initial="initial"
+              animate="animate"
+              custom={1}
+            >
+              <Button variant="outline" className="border-amber-400/30 text-amber-200 hover:bg-amber-900/20 hover:border-amber-400 transition-all hover:scale-105 px-8 py-6 text-base font-medium group">
+                <span className="relative overflow-hidden inline-block">
+                  <span className="inline-block transition-transform group-hover:-translate-y-full duration-300">View Projects</span>
+                  <span className="absolute top-0 left-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300">Explore Work</span>
+                </span>
+                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </motion.div>
           </div>
         </div>
       </div>

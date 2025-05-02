@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Calendar, Briefcase, GraduationCap } from 'lucide-react';
 import { cn } from "@/lib/utils";
 import { TimelineItem } from '@/data/timelineData';
+import AnimatedWords from '@/components/animations/AnimatedWords';
 
 interface TimelineCardProps {
   item: TimelineItem;
@@ -62,13 +63,24 @@ const TimelineCard: React.FC<TimelineCardProps> = ({ item, isEven }) => {
             </div>
           </motion.div>
           
+          {/* Job role with text reveal animation */}
           <motion.h3 
             className="text-xl md:text-2xl font-bold text-white mb-2"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            {item.role}
+            <span className="text-reveal-mask">
+              <motion.span 
+                className="text-reveal-child" 
+                initial={{ y: '100%' }}
+                whileInView={{ y: 0 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                viewport={{ once: true }}
+              >
+                {item.role}
+              </motion.span>
+            </span>
           </motion.h3>
           
           <motion.p 
@@ -80,14 +92,14 @@ const TimelineCard: React.FC<TimelineCardProps> = ({ item, isEven }) => {
             {item.company}
           </motion.p>
           
-          <motion.p 
-            className="text-white/70 text-sm md:text-base mb-6"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-          >
-            {item.description}
-          </motion.p>
+          {/* Description with animated words */}
+          <div className="text-white/70 text-sm md:text-base mb-6">
+            <AnimatedWords 
+              text={item.description}
+              delay={0.5}
+              duration={0.4}
+            />
+          </div>
           
           <motion.div 
             className="flex flex-wrap gap-2"
@@ -98,7 +110,7 @@ const TimelineCard: React.FC<TimelineCardProps> = ({ item, isEven }) => {
             {item.skills.map((skill, i) => (
               <motion.span 
                 key={i}
-                className="vintage-skill px-3 py-1 bg-white/5 backdrop-blur-sm rounded-full text-xs text-white/60 hover:text-white hover:bg-white/10 transition-colors duration-300"
+                className="vintage-skill px-3 py-1 bg-white/5 backdrop-blur-sm rounded-full text-xs text-white/60 hover:text-white hover:bg-white/10 transition-colors duration-300 hover-text-shine"
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.3, delay: 0.6 + i * 0.05 }}
