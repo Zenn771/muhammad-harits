@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Navbar from '@/components/Navbar';
 import CircleStack from '@/components/CircleStack';
 import ParticleEffect from '@/components/ParticleEffect';
@@ -86,6 +86,8 @@ const Index = () => {
   const [activeSection, setActiveSection] = useState('home');
   const isMobile = useIsMobile();
   const [scrollY, setScrollY] = useState(0);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const spotlightRef = useRef<HTMLDivElement>(null);
   
   // Handle scroll effect for navbar and section highlighting
   useEffect(() => {
@@ -113,6 +115,25 @@ const Index = () => {
     
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Handle mouse movement for spotlight effect
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (spotlightRef.current) {
+        // Get the bounding rectangle of the element
+        const rect = spotlightRef.current.getBoundingClientRect();
+        
+        // Calculate the mouse position relative to the element
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        setMousePosition({ x, y });
+      }
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
   // FAQs data
@@ -146,49 +167,75 @@ const Index = () => {
         <Navbar activeSection={activeSection} scrollBased={true} className={scrolled ? 'scale-95' : ''} />
       </div>
       
-      {/* HOME SECTION - Keep existing structure but enhance with transitions */}
+      {/* HOME SECTION with reduced particles and spotlight effect */}
       <section id="home" className="min-h-screen w-full overflow-hidden bg-black relative">
-        {/* Enhanced background particles with more density */}
-        <ParticleEffect count={100} />
+        {/* Reduced particle count */}
+        <ParticleEffect count={30} />
         
-        {/* Enhanced circle stack with more depth */}
+        {/* Simplified circle stack */}
         <CircleStack />
         
-        {/* Main content positioned in the center with enhanced spotlight effect */}
+        {/* Main content with spotlight effect */}
         <div className="relative h-screen flex flex-col items-center justify-center z-10">
-          <div className="text-center max-w-3xl px-6">
-            <div className="relative spotlight-enhanced">
-              {/* Status badge with animation */}
-              <div className="mb-10 flex justify-center animate-fade-in">
-                <StatusBadge status="available" />
-              </div>
-              
-              {/* Condensed main headline with personal greeting on a single line */}
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-8 tracking-tight animate-fade-in text-white">
-                Hi everyone, my name is <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-200 animate-pulse-slow">Harits</span>
-              </h1>
-              
-              {/* Updated subtitle with professional information */}
-              <div className="space-y-4 mb-14">
-                <p className="text-xl md:text-2xl text-white animate-fade-in" style={{ animationDelay: '0.2s' }}>
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-sky-300 to-blue-300">
-                    AI & Electrical Engineer
-                  </span>
-                </p>
-                <p className="text-lg md:text-xl text-white/90 animate-fade-in" style={{ animationDelay: '0.4s' }}>
-                  Passionate about creating intelligent systems and innovative solutions.
-                </p>
-              </div>
-              
-              {/* Enhanced CTA buttons with improved contrast */}
-              <div className="flex flex-col sm:flex-row gap-6 justify-center animate-fade-in" style={{ animationDelay: '0.6s' }}>
-                <Button className="bg-white hover:bg-gray-100 text-gray-800 hover:text-black transition-all hover:scale-105 px-8 py-6 text-base font-medium">
-                  👋 Let's talk
-                </Button>
-                <Button variant="outline" className="border-amber-400/30 text-amber-200 hover:bg-amber-900/20 hover:border-amber-400 transition-all hover:scale-105 px-8 py-6 text-base font-medium">
-                  View Projects <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </div>
+          <div 
+            ref={spotlightRef}
+            className="text-center max-w-3xl px-6 relative"
+          >
+            {/* Spotlight effect that follows mouse movement */}
+            <div 
+              className="absolute pointer-events-none"
+              style={{
+                background: 'radial-gradient(circle at center, rgba(250,204,21,0.15) 0%, rgba(0,0,0,0) 70%)',
+                width: '120%',
+                height: '160%',
+                top: '-30%',
+                left: '-10%',
+                transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`,
+                transition: 'transform 0.3s ease-out',
+                opacity: 0.8,
+                zIndex: -1,
+              }}
+            />
+
+            {/* Vignette effect around the edges */}
+            <div 
+              className="fixed inset-0 pointer-events-none z-0"
+              style={{
+                background: 'radial-gradient(circle at 50% 50%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.8) 100%)',
+                mixBlendMode: 'multiply',
+              }}
+            />
+            
+            {/* Status badge with animation */}
+            <div className="mb-10 flex justify-center animate-fade-in">
+              <StatusBadge status="available" />
+            </div>
+            
+            {/* Condensed main headline with personal greeting on a single line */}
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-8 tracking-tight animate-fade-in text-white">
+              Hi everyone, my name is <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-200 animate-pulse-slow">Harits</span>
+            </h1>
+            
+            {/* Updated subtitle with professional information */}
+            <div className="space-y-4 mb-14">
+              <p className="text-xl md:text-2xl text-white animate-fade-in" style={{ animationDelay: '0.2s' }}>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-sky-300 to-blue-300">
+                  AI & Electrical Engineer
+                </span>
+              </p>
+              <p className="text-lg md:text-xl text-white/90 animate-fade-in" style={{ animationDelay: '0.4s' }}>
+                Passionate about creating intelligent systems and innovative solutions.
+              </p>
+            </div>
+            
+            {/* Enhanced CTA buttons with improved contrast */}
+            <div className="flex flex-col sm:flex-row gap-6 justify-center animate-fade-in" style={{ animationDelay: '0.6s' }}>
+              <Button className="bg-white hover:bg-gray-100 text-gray-800 hover:text-black transition-all hover:scale-105 px-8 py-6 text-base font-medium">
+                👋 Let's talk
+              </Button>
+              <Button variant="outline" className="border-amber-400/30 text-amber-200 hover:bg-amber-900/20 hover:border-amber-400 transition-all hover:scale-105 px-8 py-6 text-base font-medium">
+                View Projects <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
             </div>
           </div>
         </div>
@@ -198,13 +245,13 @@ const Index = () => {
           <ClientLogos />
         </div>
         
-        {/* Enhanced glowing stars/particles */}
-        {[...Array(15)].map((_, i) => {
+        {/* Reduced number of enhanced glowing stars/particles */}
+        {[...Array(8)].map((_, i) => {
           const size = Math.random() * 6 + 2;
           const top = Math.random() * 80 + 10;
           const left = Math.random() * 80 + 10;
-          const opacity = Math.random() * 0.5 + 0.2;
-          const delay = i * 0.3;
+          const opacity = Math.random() * 0.4 + 0.2;
+          const delay = i * 0.5;
           
           return (
             <div
@@ -227,7 +274,7 @@ const Index = () => {
         })}
       </section>
 
-      {/* ABOUT SECTION - With new hexagon grid pattern */}
+      {/* ABOUT SECTION - Keep existing structure */}
       <SectionBackground pattern="hexagon" withTransition={true}>
         <section id="about" className="min-h-screen w-full py-16 md:py-24 lg:py-32 px-4 md:px-8">
           <div className="max-w-6xl mx-auto relative">

@@ -4,10 +4,9 @@ import React, { useState, useEffect } from 'react';
 const CircleStack: React.FC = () => {
   // Set up properties for the enhanced circles
   const circleProps = [
-    { size: '85vh', delay: 0, opacity: 0.04, scale: 1, rotate: 0, borderWidth: 1 },
-    { size: '65vh', delay: 2, opacity: 0.06, scale: 1.05, rotate: -8, borderWidth: 1 },
-    { size: '45vh', delay: 4, opacity: 0.09, scale: 1.1, rotate: 5, borderWidth: 2 },
-    { size: '25vh', delay: 6, opacity: 0.13, scale: 1.15, rotate: -5, borderWidth: 2 }
+    { size: '85vh', delay: 0, opacity: 0.03, scale: 1, rotate: 0, borderWidth: 1 },
+    { size: '60vh', delay: 2, opacity: 0.04, scale: 1.05, rotate: -8, borderWidth: 1 },
+    { size: '35vh', delay: 4, opacity: 0.05, scale: 1.1, rotate: 5, borderWidth: 2 }
   ];
 
   // State for each circle's animation
@@ -19,17 +18,17 @@ const CircleStack: React.FC = () => {
     }))
   );
 
-  // Animate circles with more complex motion
+  // Animate circles with more subtle motion
   useEffect(() => {
     const interval = setInterval(() => {
       setAnimations(prev => 
         prev.map((anim, i) => ({
-          scale: circleProps[i].scale + (Math.random() * 0.07 - 0.035),
-          rotate: anim.rotate + (Math.random() * 0.7 - 0.35),
-          pulse: (anim.pulse + 0.02) % (Math.PI * 2), // Cycle through 0 to 2π for sine wave
+          scale: circleProps[i].scale + (Math.random() * 0.04 - 0.02), // More subtle scale change
+          rotate: anim.rotate + (Math.random() * 0.4 - 0.2), // More subtle rotation
+          pulse: (anim.pulse + 0.01) % (Math.PI * 2), // Slower pulse cycle
         }))
       );
-    }, 2000);
+    }, 3000); // Slower update interval
     
     return () => clearInterval(interval);
   }, []);
@@ -38,7 +37,7 @@ const CircleStack: React.FC = () => {
     <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
       {circleProps.map((circle, idx) => {
         // Calculate pulsing for additional subtle movement
-        const pulseFactor = 0.02 * Math.sin(animations[idx].pulse);
+        const pulseFactor = 0.01 * Math.sin(animations[idx].pulse);
         
         return (
           <div
@@ -49,7 +48,7 @@ const CircleStack: React.FC = () => {
               height: circle.size,
               opacity: circle.opacity,
               transform: `scale(${animations[idx].scale + pulseFactor}) rotate(${animations[idx].rotate}deg)`,
-              transition: 'transform 10s cubic-bezier(0.4, 0, 0.2, 1)',
+              transition: 'transform 12s cubic-bezier(0.4, 0, 0.2, 1)',
               animationDelay: `${circle.delay}s`,
               borderWidth: `${circle.borderWidth}px`,
               boxShadow: idx === 0 ? '0 0 40px 5px rgba(0,0,0,0.8) inset' : 'none',
@@ -58,15 +57,15 @@ const CircleStack: React.FC = () => {
         );
       })}
 
-      {/* Enhanced particle dots with depth effect */}
-      {[...Array(30)].map((_, i) => {
-        const size = Math.random() * 4 + 1;
+      {/* Reduced number of particle dots */}
+      {[...Array(12)].map((_, i) => {
+        const size = Math.random() * 4 + 1.5;
         const top = Math.random() * 100;
         const left = Math.random() * 100;
         const depth = Math.random();
-        const opacity = Math.random() * 0.5;
+        const opacity = Math.random() * 0.3; // Lower opacity
         const delay = Math.random() * 5;
-        const duration = 3 + Math.random() * 4;
+        const duration = 5 + Math.random() * 4; // Slower animation
         
         return (
           <div
@@ -88,17 +87,17 @@ const CircleStack: React.FC = () => {
         );
       })}
 
-      {/* Central glowing orb */}
+      {/* Central glowing orb - slightly more prominent */}
       <div 
         className="absolute rounded-full animate-pulse-slow z-10"
         style={{
-          width: '8vh',
-          height: '8vh',
-          opacity: 0.6,
-          background: 'radial-gradient(circle, rgba(250,204,21,0.4) 0%, rgba(250,204,21,0) 70%)',
-          boxShadow: '0 0 40px 20px rgba(250,204,21,0.1)',
+          width: '10vh',
+          height: '10vh',
+          opacity: 0.5,
+          background: 'radial-gradient(circle, rgba(250,204,21,0.3) 0%, rgba(250,204,21,0) 70%)',
+          boxShadow: '0 0 40px 20px rgba(250,204,21,0.07)',
           filter: 'blur(5px)',
-          animationDuration: '4s',
+          animationDuration: '5s',
         }}
       />
     </div>

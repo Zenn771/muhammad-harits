@@ -6,7 +6,7 @@ interface ParticleEffectProps {
   className?: string;
 }
 
-const ParticleEffect: React.FC<ParticleEffectProps> = ({ count = 50, className = '' }) => {
+const ParticleEffect: React.FC<ParticleEffectProps> = ({ count = 30, className = '' }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   
   useEffect(() => {
@@ -38,12 +38,12 @@ const ParticleEffect: React.FC<ParticleEffectProps> = ({ count = 50, className =
         particles.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          size: Math.random() * 3 + 0.5,
-          speedX: Math.random() * 0.6 - 0.3,
-          speedY: Math.random() * 0.6 - 0.3,
-          opacity: Math.random() * 0.7 + 0.1,
+          size: Math.random() * 4 + 1.5,  // Slightly larger particles
+          speedX: Math.random() * 0.4 - 0.2,  // Slower movement
+          speedY: Math.random() * 0.4 - 0.2,  // Slower movement
+          opacity: Math.random() * 0.5 + 0.1,
           pulse: 0,
-          pulseSpeed: Math.random() * 0.04 + 0.02
+          pulseSpeed: Math.random() * 0.03 + 0.01  // Slower pulse
         });
       }
     };
@@ -66,14 +66,14 @@ const ParticleEffect: React.FC<ParticleEffectProps> = ({ count = 50, className =
           0, 
           particle.x, 
           particle.y, 
-          particle.size * 4
+          particle.size * 5  // Enhanced glow radius
         );
         gradient.addColorStop(0, `rgba(250, 204, 21, ${pulsingOpacity * 0.8})`);
         gradient.addColorStop(1, `rgba(250, 204, 21, 0)`);
         
         ctx.beginPath();
         ctx.fillStyle = gradient;
-        ctx.arc(particle.x, particle.y, particle.size * 4, 0, Math.PI * 2);
+        ctx.arc(particle.x, particle.y, particle.size * 5, 0, Math.PI * 2);
         ctx.fill();
         
         // Draw core of particle
