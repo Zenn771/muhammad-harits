@@ -13,7 +13,7 @@ const SkillItem: React.FC<SkillItemProps> = ({ skill, index }) => {
   
   return (
     <motion.div
-      className="skill-card flex flex-col items-center bg-white/5 backdrop-blur-sm rounded-lg p-4 relative group overflow-hidden border border-white/10 w-full"
+      className="skill-card flex flex-col items-center bg-white/5 backdrop-blur-sm rounded-lg p-5 relative group overflow-hidden border border-white/10 w-full"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.1 * index }}
@@ -27,7 +27,7 @@ const SkillItem: React.FC<SkillItemProps> = ({ skill, index }) => {
         <Icon className="text-white" />
       </div>
       
-      <h4 className="text-sm font-medium text-white mb-2 relative z-10">{skill.name}</h4>
+      <h4 className="text-sm font-medium text-white mb-2 relative z-10 text-center">{skill.name}</h4>
       
       <div className="w-full bg-gray-700/30 h-1.5 rounded-full overflow-hidden relative z-10 skill-progress-bar">
         <motion.div
