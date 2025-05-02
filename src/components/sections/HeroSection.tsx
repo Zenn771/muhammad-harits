@@ -2,7 +2,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, MessageSquare, FolderOpen } from 'lucide-react';
 import StatusBadge from '@/components/StatusBadge';
 import CircleStack from '@/components/CircleStack';
 import ParticleEffect from '@/components/ParticleEffect';
@@ -46,6 +46,22 @@ const HeroSection: React.FC = () => {
         ease: "easeOut"
       }
     })
+  };
+
+  // Function to handle smooth scrolling to sections
+  const scrollToSection = (sectionId: string, e: React.MouseEvent) => {
+    e.preventDefault();
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const navbarHeight = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
   };
 
   return (
@@ -112,43 +128,39 @@ const HeroSection: React.FC = () => {
             </p>
           </div>
           
-          {/* Enhanced CTA buttons with motion effects */}
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <motion.div
+          {/* Enhanced CTA buttons with motion effects and proper links */}
+          <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 w-full px-4 sm:px-0">
+            <motion.a
+              href="#contact"
+              onClick={(e) => scrollToSection('contact', e)}
               variants={buttonVariants}
               initial="initial"
               animate="animate"
               custom={0}
+              className="w-full sm:w-auto"
             >
-              <Button className="bg-white hover:bg-gray-100 text-gray-800 hover:text-black transition-all hover:scale-105 px-8 py-6 text-base font-medium group">
-                <span className="relative overflow-hidden inline-block">
-                  <span className="inline-block transition-transform group-hover:-translate-y-full duration-300">👋 Let's talk</span>
-                  <span className="absolute top-0 left-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300">👋 Contact me</span>
-                </span>
+              <Button className="bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white shadow-lg hover:shadow-blue-900/20 transition-all hover:scale-105 px-6 py-6 text-base font-medium rounded-xl w-full sm:w-auto">
+                <MessageSquare className="mr-2 h-5 w-5" />
+                <span>Let's Talk</span>
               </Button>
-            </motion.div>
+            </motion.a>
             
-            <motion.div
+            <motion.a
+              href="#works"
+              onClick={(e) => scrollToSection('works', e)}
               variants={buttonVariants}
               initial="initial"
               animate="animate"
               custom={1}
+              className="w-full sm:w-auto"
             >
-              <Button variant="outline" className="border-amber-400/30 text-amber-200 hover:bg-amber-900/20 hover:border-amber-400 transition-all hover:scale-105 px-8 py-6 text-base font-medium group">
-                <span className="relative overflow-hidden inline-block">
-                  <span className="inline-block transition-transform group-hover:-translate-y-full duration-300">View Projects</span>
-                  <span className="absolute top-0 left-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300">Explore Work</span>
-                </span>
-                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              <Button variant="outline" className="bg-transparent border-2 border-white/20 hover:border-white/40 text-white hover:bg-white/5 transition-all hover:scale-105 px-6 py-6 text-base font-medium rounded-xl w-full sm:w-auto">
+                <FolderOpen className="mr-2 h-5 w-5" />
+                <span>View Projects</span>
               </Button>
-            </motion.div>
+            </motion.a>
           </div>
         </div>
-      </div>
-      
-      {/* Scrolling soft skills */}
-      <div className="absolute bottom-0 left-0 right-0 pb-10 animate-fade-in" style={{ animationDelay: '0.8s' }}>
-        <ClientLogos />
       </div>
     </section>
   );
