@@ -1,9 +1,7 @@
 
-import React, { useState, useEffect } from 'react';
-import { useScroll } from "framer-motion";
+import React from 'react';
 import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/sections/HeroSection';
-import ParticleEffect from '@/components/ParticleEffect';
 import BentoGrid from '@/components/BentoGrid';
 import CareerSection from '@/components/sections/CareerSection';
 import ProjectsSection from '@/components/ProjectsSection';
@@ -14,17 +12,12 @@ import ContactSection from '@/components/ContactSection';
 import SectionBackground from '@/components/backgrounds/SectionBackground';
 
 const Index = () => {
-  const [activeSection, setActiveSection] = useState('home');
-  const { scrollY } = useScroll();
-
-  // Track active section - removed as this is now handled in the Navbar component
-  
   return (
     <div className="bg-black overflow-hidden">
       <Navbar scrollBased={true} />
       
       <main>
-        {/* Hero Section */}
+        {/* Hero Section - now with enhanced backgrounds */}
         <HeroSection />
         
         {/* About Section */}

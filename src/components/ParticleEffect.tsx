@@ -1,14 +1,38 @@
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 interface ParticleEffectProps {
   count?: number;
   className?: string;
+  interactive?: boolean;
 }
 
-const ParticleEffect: React.FC<ParticleEffectProps> = ({ count = 15, className = '' }) => {
+interface Particle {
+  x: number;
+  y: number;
+  size: number;
+  speedX: number;
+  speedY: number;
+  opacity: number;
+  pulse: number;
+  pulseSpeed: number;
+  color: string;
+  depth: number;
+}
+
+const ParticleEffect: React.FC<ParticleEffectProps> = ({ 
+  count = 25, 
+  className = '',
+  interactive = true 
+}) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [particles, setParticles] = useState<Particle[]>([]);
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const animationRef = useRef<number>(0);
+  const particlesRef = useRef<Particle[]>([]);
   
+  // Initialize and handle window resize
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -16,73 +40,146 @@ const ParticleEffect: React.FC<ParticleEffectProps> = ({ count = 15, className =
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
     
-    const particles: Array<{
-      x: number;
-      y: number;
-      size: number;
-      speedX: number;
-      speedY: number;
-      opacity: number;
-      pulse: number;
-      pulseSpeed: number;
-    }> = [];
-    
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
+      setDimensions({ width: canvas.width, height: canvas.height });
     };
     
     const initializeParticles = () => {
-      particles.length = 0;
+      const colors = [
+        'rgba(250, 204, 21, 1)', // Standard amber
+        'rgba(255, 214, 31, 1)', // Warmer amber
+        'rgba(240, 194, 21, 1)', // Slightly blue-tinted amber
+      ];
+      
+      const newParticles: Particle[] = [];
       for (let i = 0; i < count; i++) {
-        particles.push({
+        const depth = Math.random() * 0.5 + 0.5; // Depth between 0.5 and 1
+        newParticles.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          size: Math.random() * 5 + 2,  // Slightly larger particles
-          speedX: Math.random() * 0.05 - 0.025,  // Much slower movement
-          speedY: Math.random() * 0.05 - 0.025,  // Much slower movement
-          opacity: Math.random() * 0.4 + 0.1,
-          pulse: 0,
-          pulseSpeed: Math.random() * 0.01 + 0.005  // Very slow pulse
+          size: (Math.random() * 3 + 1.5) * depth, // Size adjusted by depth
+          speedX: (Math.random() * 0.08 - 0.04) * depth, // Speed adjusted by depth
+          speedY: (Math.random() * 0.08 - 0.04) * depth, // Speed adjusted by depth
+          opacity: Math.random() * 0.3 + 0.1,
+          pulse: Math.random() * Math.PI * 2,
+          pulseSpeed: Math.random() * 0.02 + 0.005,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          depth: depth
         });
       }
+      particlesRef.current = newParticles;
     };
+    
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+    initializeParticles();
+    
+    return () => {
+      window.removeEventListener('resize', resizeCanvas);
+      cancelAnimationFrame(animationRef.current);
+    };
+  }, [count]);
+  
+  // Handle mouse movement for interactive effects
+  useEffect(() => {
+    if (!interactive) return;
+    
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+    
+    window.addEventListener('mousemove', handleMouseMove);
+    
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, [interactive]);
+  
+  // Animation loop
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
     
     const drawParticles = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      particles.forEach(particle => {
-        // Update pulse value for opacity variation - much subtler
+      // Draw connections between close particles (constellation effect)
+      ctx.beginPath();
+      for (let i = 0; i < particlesRef.current.length; i++) {
+        const p1 = particlesRef.current[i];
+        
+        for (let j = i + 1; j < particlesRef.current.length; j++) {
+          const p2 = particlesRef.current[j];
+          const distance = Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
+          
+          // Only connect particles that are close enough
+          if (distance < 150) {
+            const opacity = (1 - distance / 150) * 0.1 * p1.depth * p2.depth;
+            ctx.strokeStyle = `rgba(250, 204, 21, ${opacity})`;
+            ctx.lineWidth = 0.5;
+            ctx.moveTo(p1.x, p1.y);
+            ctx.lineTo(p2.x, p2.y);
+          }
+        }
+      }
+      ctx.stroke();
+      
+      // Draw individual particles
+      particlesRef.current.forEach((particle, index) => {
+        // Update pulse value for opacity variation
         particle.pulse += particle.pulseSpeed;
         if (particle.pulse > Math.PI * 2) particle.pulse = 0;
         
-        // Calculate pulsing opacity - more subtle
+        // Calculate pulsing opacity
         const pulsingOpacity = particle.opacity * (0.9 + Math.sin(particle.pulse) * 0.1);
         
-        // Draw glow effect with larger radius
+        // Interactive effects - particles slightly attracted to mouse
+        if (interactive && mousePosition.x && mousePosition.y) {
+          const dx = mousePosition.x - particle.x;
+          const dy = mousePosition.y - particle.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          
+          if (distance < 200) {
+            const force = 0.5 / Math.max(distance, 50);
+            particle.speedX += dx * force * 0.01;
+            particle.speedY += dy * force * 0.01;
+          }
+          
+          // Add some drag to prevent excessive speed
+          particle.speedX *= 0.99;
+          particle.speedY *= 0.99;
+        }
+        
+        // Draw enhanced glow effect
         const gradient = ctx.createRadialGradient(
           particle.x, 
           particle.y, 
           0, 
           particle.x, 
           particle.y, 
-          particle.size * 6  // Enhanced glow radius
+          particle.size * 8
         );
-        gradient.addColorStop(0, `rgba(250, 204, 21, ${pulsingOpacity * 0.6})`);
-        gradient.addColorStop(1, `rgba(250, 204, 21, 0)`);
+        const baseColor = particle.color.replace('1)', `${pulsingOpacity * 0.6})`);
+        gradient.addColorStop(0, baseColor);
+        gradient.addColorStop(1, particle.color.replace('1)', '0)'));
         
         ctx.beginPath();
         ctx.fillStyle = gradient;
-        ctx.arc(particle.x, particle.y, particle.size * 6, 0, Math.PI * 2);
+        ctx.arc(particle.x, particle.y, particle.size * 8, 0, Math.PI * 2);
         ctx.fill();
         
         // Draw core of particle
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(250, 204, 21, ${pulsingOpacity})`;
+        ctx.fillStyle = particle.color.replace('1)', `${pulsingOpacity})`);
         ctx.fill();
         
-        // Update position - very slow movement
+        // Update position
         particle.x += particle.speedX;
         particle.y += particle.speedY;
         
@@ -91,20 +188,20 @@ const ParticleEffect: React.FC<ParticleEffectProps> = ({ count = 15, className =
         if (particle.x > canvas.width) particle.x = 0;
         if (particle.y < 0) particle.y = canvas.height;
         if (particle.y > canvas.height) particle.y = 0;
+        
+        // Update the reference array
+        particlesRef.current[index] = particle;
       });
       
-      requestAnimationFrame(drawParticles);
+      animationRef.current = requestAnimationFrame(drawParticles);
     };
     
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-    initializeParticles();
     drawParticles();
     
     return () => {
-      window.removeEventListener('resize', resizeCanvas);
+      cancelAnimationFrame(animationRef.current);
     };
-  }, [count]);
+  }, [dimensions, mousePosition, interactive]);
   
   return (
     <canvas 

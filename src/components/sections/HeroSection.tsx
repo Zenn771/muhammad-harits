@@ -1,6 +1,6 @@
 
 import React, { useRef, useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, MessageSquare, FolderOpen } from 'lucide-react';
 import StatusBadge from '@/components/StatusBadge';
@@ -10,29 +10,63 @@ import ClientLogos from '@/components/ClientLogos';
 import TypewriterText from '@/components/animations/TypewriterText';
 import AnimatedGradientText from '@/components/animations/AnimatedGradientText';
 import FloatingCharacters from '@/components/animations/FloatingCharacters';
+import GridBackground from '@/components/backgrounds/GridBackground';
+import GradientBackdrop from '@/components/backgrounds/GradientBackdrop';
+import TextureOverlay from '@/components/backgrounds/TextureOverlay';
 
 const HeroSection: React.FC = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const containerRef = useRef<HTMLDivElement>(null);
   const spotlightRef = useRef<HTMLDivElement>(null);
   
-  // Handle mouse movement for spotlight effect
+  // Mouse position for parallax effect
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  
+  // Smooth spring physics for mouse movement
+  const springConfig = { damping: 25, stiffness: 100 };
+  const smoothMouseX = useSpring(mouseX, springConfig);
+  const smoothMouseY = useSpring(mouseY, springConfig);
+  
+  // Transform values for parallax layers
+  const gridX = useTransform(smoothMouseX, [-500, 500], [50, -50]);
+  const gridY = useTransform(smoothMouseY, [-500, 500], [25, -25]);
+  const particlesX = useTransform(smoothMouseX, [-500, 500], [20, -20]);
+  const particlesY = useTransform(smoothMouseY, [-500, 500], [10, -10]);
+  const circlesX = useTransform(smoothMouseX, [-500, 500], [10, -10]);
+  const circlesY = useTransform(smoothMouseY, [-500, 500], [5, -5]);
+  
+  // Handle mouse movement for spotlight and parallax effects
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
+      const container = containerRef.current;
+      if (!container) return;
+      
+      // Get container dimensions and position
+      const rect = container.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      
+      // Calculate mouse position relative to center
+      const relativeX = e.clientX - centerX;
+      const relativeY = e.clientY - centerY;
+      
+      // Update motion values for parallax
+      mouseX.set(relativeX);
+      mouseY.set(relativeY);
+      
+      // Update spotlight position
       if (spotlightRef.current) {
-        // Get the bounding rectangle of the element
-        const rect = spotlightRef.current.getBoundingClientRect();
-        
-        // Calculate the mouse position relative to the element
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
+        const spotlightRect = spotlightRef.current.getBoundingClientRect();
+        const x = e.clientX - spotlightRect.left;
+        const y = e.clientY - spotlightRect.top;
         setMousePosition({ x, y });
       }
     };
 
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+  }, [mouseX, mouseY]);
 
   // Animation variants for buttons
   const buttonVariants = {
@@ -73,12 +107,27 @@ const HeroSection: React.FC = () => {
   ];
 
   return (
-    <section id="home" className="min-h-screen w-full overflow-hidden bg-black relative">
-      {/* Reduced particle count */}
-      <ParticleEffect count={15} />
+    <section id="home" className="min-h-screen w-full overflow-hidden bg-black relative" ref={containerRef}>
+      {/* Background layers with parallax effect */}
+      <motion.div style={{ x: gridX, y: gridY }} className="absolute inset-0 z-0">
+        <GridBackground color="rgba(250, 204, 21, 0.05)" spacing={40} />
+      </motion.div>
       
-      {/* Simplified circle stack */}
-      <CircleStack />
+      {/* Gradient backdrop for depth */}
+      <GradientBackdrop opacity={0.3} />
+      
+      {/* Enhanced particle effect with parallax */}
+      <motion.div style={{ x: particlesX, y: particlesY }} className="absolute inset-0 z-1">
+        <ParticleEffect count={25} />
+      </motion.div>
+      
+      {/* Circle stack with parallax effect */}
+      <motion.div style={{ x: circlesX, y: circlesY }} className="absolute inset-0 z-2">
+        <CircleStack />
+      </motion.div>
+      
+      {/* Texture overlay */}
+      <TextureOverlay grainOpacity={0.03} noiseOpacity={0.02} />
       
       {/* Main content with spotlight effect */}
       <div className="relative h-screen flex flex-col items-center justify-center z-10">
@@ -86,27 +135,29 @@ const HeroSection: React.FC = () => {
           ref={spotlightRef}
           className="text-center max-w-3xl px-6 relative"
         >
-          {/* Spotlight effect that follows mouse movement */}
-          <div 
+          {/* Enhanced spotlight effect that follows mouse movement */}
+          <motion.div 
             className="absolute pointer-events-none"
-            style={{
+            animate={{
               background: 'radial-gradient(circle at center, rgba(250,204,21,0.15) 0%, rgba(0,0,0,0) 70%)',
               width: '120%',
               height: '160%',
               top: '-30%',
               left: '-10%',
-              transform: `translate(${mousePosition.x * 0.01}px, ${mousePosition.y * 0.01}px)`, // Reduced movement speed
-              transition: 'transform 0.5s ease-out', // Smoother transition
+            }}
+            style={{
+              transform: `translate(${mousePosition.x * 0.015}px, ${mousePosition.y * 0.015}px)`,
+              transition: 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)',
               opacity: 0.8,
               zIndex: -1,
             }}
           />
 
-          {/* Vignette effect around the edges */}
+          {/* Enhanced vignette effect around the edges */}
           <div 
             className="fixed inset-0 pointer-events-none z-0"
             style={{
-              background: 'radial-gradient(circle at 50% 50%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.8) 100%)',
+              background: 'radial-gradient(ellipse at 50% 50%, rgba(0,0,0,0) 30%, rgba(0,0,0,0.8) 100%)',
               mixBlendMode: 'multiply',
             }}
           />
@@ -146,9 +197,11 @@ const HeroSection: React.FC = () => {
               animate="animate"
               custom={0}
               className="w-full sm:w-auto"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
             >
               <Button 
-                className="bg-gradient-to-b from-amber-400 to-amber-700 hover:from-amber-500 hover:to-black text-black hover:text-white font-medium shadow-lg shadow-amber-500/20 hover:shadow-amber-600/30 transition-all hover:scale-105 px-6 py-6 text-base rounded-xl w-full sm:w-auto border-0"
+                className="bg-gradient-to-b from-amber-400 to-amber-700 hover:from-amber-500 hover:to-black text-black hover:text-white font-medium shadow-lg shadow-amber-500/20 hover:shadow-amber-600/30 transition-all px-6 py-6 text-base rounded-xl w-full sm:w-auto border-0"
               >
                 <MessageSquare className="mr-2 h-5 w-5" />
                 <span>Let's Talk</span>
@@ -163,10 +216,12 @@ const HeroSection: React.FC = () => {
               animate="animate"
               custom={1}
               className="w-full sm:w-auto"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
             >
               <Button 
                 variant="outline" 
-                className="bg-gradient-to-b from-amber-400/10 to-amber-900/10 hover:from-amber-400/20 hover:to-amber-900/20 border-2 border-amber-500/30 hover:border-amber-400 text-amber-300 hover:text-amber-200 transition-all hover:scale-105 px-6 py-6 text-base font-medium rounded-xl w-full sm:w-auto"
+                className="bg-gradient-to-b from-amber-400/10 to-amber-900/10 hover:from-amber-400/20 hover:to-amber-900/20 border-2 border-amber-500/30 hover:border-amber-400 text-amber-300 hover:text-amber-200 transition-all px-6 py-6 text-base font-medium rounded-xl w-full sm:w-auto"
               >
                 <FolderOpen className="mr-2 h-5 w-5" />
                 <span>View Projects</span>
