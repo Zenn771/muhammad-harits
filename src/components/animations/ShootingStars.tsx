@@ -23,6 +23,14 @@ const ShootingStars: React.FC<ShootingStarsProps> = ({
     active: boolean;
     progress: number;
   }[]>([]);
+  const animationRef = useRef<number>(0);
+  const frequencyRef = useRef<number>(frequency);
+  const lastActivationRef = useRef<number>(Date.now());
+
+  useEffect(() => {
+    // Update frequency ref when prop changes
+    frequencyRef.current = frequency;
+  }, [frequency]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -31,7 +39,7 @@ const ShootingStars: React.FC<ShootingStarsProps> = ({
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Initialize canvas size
+    // Initialize canvas size with proper cleanup
     const resizeCanvas = () => {
       const dpr = window.devicePixelRatio || 1;
       canvas.width = window.innerWidth * dpr;
@@ -53,20 +61,27 @@ const ShootingStars: React.FC<ShootingStarsProps> = ({
       }));
     };
 
-    // Activate a random star
+    // Activate a random star with safety limit
     const activateRandomStar = () => {
-      const inactiveStars = starsRef.current.filter(star => !star.active);
-      if (inactiveStars.length > 0) {
-        const randomStar = inactiveStars[Math.floor(Math.random() * inactiveStars.length)];
-        randomStar.active = true;
-        randomStar.progress = 0;
-        randomStar.x = Math.random() * canvas.width * 1.5;
-        randomStar.y = Math.random() * canvas.height * 0.3;
+      // Count active stars to ensure we don't have too many
+      const activeStars = starsRef.current.filter(star => star.active).length;
+      
+      // Only activate a new star if we're below the limit
+      if (activeStars < Math.min(starCount, 3)) {
+        const inactiveStars = starsRef.current.filter(star => !star.active);
+        if (inactiveStars.length > 0) {
+          const randomStar = inactiveStars[Math.floor(Math.random() * inactiveStars.length)];
+          randomStar.active = true;
+          randomStar.progress = 0;
+          randomStar.x = Math.random() * canvas.width * 1.5;
+          randomStar.y = Math.random() * canvas.height * 0.3;
+        }
       }
     };
 
-    // Draw shooting stars
+    // Draw shooting stars with proper cleanup
     const drawStars = () => {
+      // Clear the entire canvas on each frame
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
       starsRef.current.forEach(star => {
@@ -109,31 +124,32 @@ const ShootingStars: React.FC<ShootingStarsProps> = ({
       });
     };
 
-    // Animation loop
-    let lastActivationTime = Date.now();
-    const animate = () => {
-      // Activate stars at random intervals
-      const now = Date.now();
-      if (now - lastActivationTime > frequency) {
+    // Animation loop with proper timing
+    const animate = (timestamp: number) => {
+      // Activate stars at controlled intervals using the ref for frequency
+      const now = timestamp;
+      if (now - lastActivationRef.current > frequencyRef.current) {
         activateRandomStar();
-        lastActivationTime = now;
-        // Randomize next activation time
-        frequency = Math.random() * 4000 + 3000;
+        lastActivationRef.current = now;
+        // Randomize next activation time within reasonable bounds
+        frequencyRef.current = Math.random() * 4000 + 3000;
       }
       
       drawStars();
-      requestAnimationFrame(animate);
+      animationRef.current = requestAnimationFrame(animate);
     };
 
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
     initStars();
-    animate();
+    animationRef.current = requestAnimationFrame(animate);
 
     return () => {
+      // Proper cleanup to prevent stacking
+      cancelAnimationFrame(animationRef.current);
       window.removeEventListener('resize', resizeCanvas);
     };
-  }, [starCount, starColor, frequency]);
+  }, [starCount, starColor]);
 
   return (
     <canvas

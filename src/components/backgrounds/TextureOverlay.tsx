@@ -18,6 +18,7 @@ const TextureOverlay: React.FC<TextureOverlayProps> = ({
   const noiseCanvasRef = useRef<HTMLCanvasElement>(null);
   const requestAnimationRef = useRef<number>(0);
   const lastUpdateTimeRef = useRef<number>(0);
+  const isVisibleRef = useRef<boolean>(true);
   
   useEffect(() => {
     if (!animated) return;
@@ -38,11 +39,14 @@ const TextureOverlay: React.FC<TextureOverlayProps> = ({
       canvas.style.height = `${window.innerHeight}px`;
     };
     
-    // Generate animated noise with better performance - reduced intensity
+    // Generate animated noise with better performance - reduced intensity and proper cleanup
     const generateNoise = (timestamp: number) => {
-      // Only update every 150ms (6.67fps) for better performance and smoother appearance
-      if (timestamp - lastUpdateTimeRef.current >= 150) {
+      // Only update when visible and at reasonable intervals
+      if (isVisibleRef.current && timestamp - lastUpdateTimeRef.current >= 150) {
         lastUpdateTimeRef.current = timestamp;
+        
+        // Clear the canvas completely before drawing new noise
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         
         const imageData = ctx.createImageData(canvas.width, canvas.height);
         const data = imageData.data;
@@ -62,9 +66,23 @@ const TextureOverlay: React.FC<TextureOverlayProps> = ({
         ctx.putImageData(imageData, 0, 0);
       }
       
-      // Continue animation loop
+      // Continue animation loop with proper reference
       requestAnimationRef.current = requestAnimationFrame(generateNoise);
     };
+    
+    // Use Intersection Observer to pause animation when not visible
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      const [entry] = entries;
+      isVisibleRef.current = entry.isIntersecting;
+    };
+    
+    const observer = new IntersectionObserver(observerCallback, {
+      threshold: 0.1
+    });
+    
+    if (canvas) {
+      observer.observe(canvas);
+    }
     
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
@@ -73,6 +91,7 @@ const TextureOverlay: React.FC<TextureOverlayProps> = ({
     return () => {
       cancelAnimationFrame(requestAnimationRef.current);
       window.removeEventListener('resize', resizeCanvas);
+      observer.disconnect();
     };
   }, [animated]);
 
@@ -90,7 +109,7 @@ const TextureOverlay: React.FC<TextureOverlayProps> = ({
         transition={{ duration: 1 }}
       />
       
-      {/* Animated noise texture */}
+      {/* Animated noise texture with better performance */}
       <canvas 
         ref={noiseCanvasRef} 
         className="absolute inset-0 mix-blend-soft-light will-change-transform" 

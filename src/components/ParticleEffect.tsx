@@ -31,8 +31,9 @@ const ParticleEffect: React.FC<ParticleEffectProps> = ({
   const animationRef = useRef<number>(0);
   const lastUpdateTimeRef = useRef<number>(0);
   const updateIntervalRef = useRef<number>(30); // ms between particle updates for smoother performance
+  const gradientCacheRef = useRef<Map<string, CanvasGradient>>(new Map());
   
-  // Initialize and handle window resize
+  // Initialize and handle window resize with better cleanup
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -45,11 +46,15 @@ const ParticleEffect: React.FC<ParticleEffectProps> = ({
       const displayWidth = window.innerWidth;
       const displayHeight = window.innerHeight;
       
+      // Resize with proper scaling
       canvas.width = displayWidth * dpr;
       canvas.height = displayHeight * dpr;
       canvas.style.width = `${displayWidth}px`;
       canvas.style.height = `${displayHeight}px`;
       ctx.scale(dpr, dpr);
+      
+      // Clear gradient cache on resize
+      gradientCacheRef.current.clear();
     };
     
     const initializeParticles = () => {
@@ -85,10 +90,11 @@ const ParticleEffect: React.FC<ParticleEffectProps> = ({
     return () => {
       window.removeEventListener('resize', resizeCanvas);
       cancelAnimationFrame(animationRef.current);
+      gradientCacheRef.current.clear();
     };
   }, [count]);
   
-  // Handle mouse movement for interactive effects
+  // Handle mouse movement for interactive effects with throttling
   useEffect(() => {
     if (!interactive) return;
     
@@ -112,7 +118,7 @@ const ParticleEffect: React.FC<ParticleEffectProps> = ({
     };
   }, [interactive]);
   
-  // Animation loop with performance optimizations
+  // Animation loop with optimized rendering and gradient caching
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -124,6 +130,35 @@ const ParticleEffect: React.FC<ParticleEffectProps> = ({
     const connectionDistance = 150;
     const updateInterval = updateIntervalRef.current;
     
+    const getOrCreateGradient = (particle: Particle, pulsingOpacity: number): CanvasGradient => {
+      // Use a cache key based on particle position and opacity
+      const key = `${Math.round(particle.x)},${Math.round(particle.y)},${pulsingOpacity.toFixed(2)}`;
+      
+      if (!gradientCacheRef.current.has(key)) {
+        const gradient = ctx.createRadialGradient(
+          particle.x, 
+          particle.y, 
+          0, 
+          particle.x, 
+          particle.y, 
+          particle.size * 8
+        );
+        const baseColor = particle.color.replace('1)', `${pulsingOpacity * 0.6})`);
+        gradient.addColorStop(0, baseColor);
+        gradient.addColorStop(1, particle.color.replace('1)', '0)'));
+        
+        // Limit cache size to prevent memory issues
+        if (gradientCacheRef.current.size > 50) {
+          const firstKey = gradientCacheRef.current.keys().next().value;
+          gradientCacheRef.current.delete(firstKey);
+        }
+        
+        gradientCacheRef.current.set(key, gradient);
+      }
+      
+      return gradientCacheRef.current.get(key) as CanvasGradient;
+    };
+    
     const drawParticles = (timestamp: number) => {
       // Throttle updates based on time for consistent motion regardless of framerate
       const shouldUpdate = timestamp - lastUpdateTimeRef.current >= updateInterval;
@@ -131,6 +166,7 @@ const ParticleEffect: React.FC<ParticleEffectProps> = ({
       if (shouldUpdate) {
         lastUpdateTimeRef.current = timestamp;
         
+        // Clear the entire canvas at the beginning of each update
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         
         // Pre-compute connections to avoid redundant calculations
@@ -152,48 +188,39 @@ const ParticleEffect: React.FC<ParticleEffectProps> = ({
           if (particle.y < 0) particle.y = canvas.height;
           if (particle.y > canvas.height) particle.y = 0;
           
-          // Precompute connections
-          for (let j = index + 1; j < particles.length; j++) {
-            const p2 = particles[j];
-            const distance = Math.sqrt(Math.pow(particle.x - p2.x, 2) + Math.pow(particle.y - p2.y, 2));
-            
-            if (distance < connectionDistance) {
-              const opacity = (1 - distance / connectionDistance) * 0.1 * particle.depth * p2.depth;
-              connections.push({p1: index, p2: j, opacity});
+          // Precompute connections with limited total connections for performance
+          if (connections.length < 100) { // Limit total connections
+            for (let j = index + 1; j < particles.length; j++) {
+              const p2 = particles[j];
+              const distance = Math.sqrt(Math.pow(particle.x - p2.x, 2) + Math.pow(particle.y - p2.y, 2));
+              
+              if (distance < connectionDistance) {
+                const opacity = (1 - distance / connectionDistance) * 0.1 * particle.depth * p2.depth;
+                connections.push({p1: index, p2: j, opacity});
+              }
             }
           }
         });
         
         // Draw connections
         if (connections.length > 0) {
-          ctx.beginPath();
           connections.forEach(({p1, p2, opacity}) => {
+            ctx.beginPath();
             ctx.strokeStyle = `rgba(250, 204, 21, ${opacity})`;
             ctx.lineWidth = 0.5;
             ctx.moveTo(particles[p1].x, particles[p1].y);
             ctx.lineTo(particles[p2].x, particles[p2].y);
+            ctx.stroke();
           });
-          ctx.stroke();
         }
         
-        // Draw individual particles
+        // Draw individual particles using cached gradients when possible
         particles.forEach(particle => {
           const pulsingOpacity = particle.opacity * (0.9 + Math.sin(particle.pulse) * 0.1);
           
           // Draw enhanced glow effect - optimization: only draw if visible
           if (pulsingOpacity > 0.01) {
-            // Use cached gradient for better performance (skipping this for now as it's complex to implement)
-            const gradient = ctx.createRadialGradient(
-              particle.x, 
-              particle.y, 
-              0, 
-              particle.x, 
-              particle.y, 
-              particle.size * 8
-            );
-            const baseColor = particle.color.replace('1)', `${pulsingOpacity * 0.6})`);
-            gradient.addColorStop(0, baseColor);
-            gradient.addColorStop(1, particle.color.replace('1)', '0)'));
+            const gradient = getOrCreateGradient(particle, pulsingOpacity);
             
             ctx.beginPath();
             ctx.fillStyle = gradient;
@@ -212,10 +239,12 @@ const ParticleEffect: React.FC<ParticleEffectProps> = ({
       animationRef.current = requestAnimationFrame(drawParticles);
     };
     
+    // Start animation and ensure proper cleanup
     animationRef.current = requestAnimationFrame(drawParticles);
     
     return () => {
       cancelAnimationFrame(animationRef.current);
+      gradientCacheRef.current.clear();
     };
   }, []);
   

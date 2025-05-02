@@ -14,6 +14,7 @@ import TimelineBackground from '@/components/career/TimelineBackground';
 
 const Index = () => {
   const [scrollY, setScrollY] = useState(0);
+  const [mounted, setMounted] = useState(false);
   
   // Track scroll position for parallax effects
   useEffect(() => {
@@ -25,17 +26,23 @@ const Index = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
   
+  // Use a mounting effect to ensure proper component initialization
+  useEffect(() => {
+    setMounted(true);
+    return () => setMounted(false);
+  }, []);
+  
   return (
     <div className="bg-black overflow-hidden">
       {/* Dynamic background that responds to scroll */}
-      <TimelineBackground scrollY={scrollY} />
+      {mounted && <TimelineBackground scrollY={scrollY} />}
       
       {/* Updated Navbar with scrollBased set to true */}
       <Navbar scrollBased={true} />
       
       <main className="pt-16 relative z-10"> {/* Add padding to prevent content from being hidden under navbar */}
         {/* Hero Section */}
-        <HeroSection />
+        {mounted && <HeroSection />}
         
         {/* About Section */}
         <SectionBackground pattern="dots" withGrain={false} className="py-16 md:py-24 lg:py-32">
