@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useAnimation, useMotionValue, useTransform } from 'framer-motion';
 import { cn } from "@/lib/utils";
@@ -114,11 +113,10 @@ const BentoCard = ({
         transition: { duration: 0.3 }
       }}
     >
-      {/* Card-specific grain texture overlay */}
+      {/* Card-specific grain texture overlay - now always active */}
       <div 
-        className="absolute inset-0 pointer-events-none z-0"
+        className="absolute inset-0 pointer-events-none z-0 grain-effect"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
           opacity: isHovered ? 0.15 : 0.1,
           mixBlendMode: 'overlay',
           transition: 'opacity 0.3s ease',
@@ -169,7 +167,7 @@ const BentoCard = ({
           transition={{ duration: 0.5, delay: 0.2 }}
         >
           <motion.div 
-            className="h-1 w-12 bg-white/20 rounded-full"
+            className="h-1 w-1 w-12 bg-white/20 rounded-full"
             animate={{ 
               width: isHovered ? 40 : 12, 
               backgroundColor: isHovered ? "rgba(250, 204, 21, 0.4)" : "rgba(255, 255, 255, 0.2)" 
