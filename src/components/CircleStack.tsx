@@ -9,12 +9,13 @@ const CircleStack: React.FC = () => {
     { size: '35vh', delay: 4, opacity: 0.05, scale: 1.1, rotate: 5, borderWidth: 2 }
   ];
 
-  // State for each circle's animation
+  // State for each circle's animation - initialize with default values
   const [animations, setAnimations] = useState(
     circleProps.map((circle) => ({
       scale: circle.scale,
       rotate: circle.rotate,
       pulse: 0,
+      opacity: 1, // Ensure full opacity from the start
     }))
   );
 
@@ -26,6 +27,7 @@ const CircleStack: React.FC = () => {
           scale: circleProps[i].scale + (Math.random() * 0.02 - 0.01), // Even more subtle scale change
           rotate: anim.rotate + (Math.random() * 0.2 - 0.1), // Even more subtle rotation
           pulse: (anim.pulse + 0.005) % (Math.PI * 2), // Very slow pulse cycle
+          opacity: 1, // Keep opacity at 1 to ensure visibility
         }))
       );
     }, 5000); // Much slower update interval
@@ -49,7 +51,6 @@ const CircleStack: React.FC = () => {
               opacity: circle.opacity,
               transform: `scale(${animations[idx].scale + pulseFactor}) rotate(${animations[idx].rotate}deg)`,
               transition: 'transform 18s cubic-bezier(0.4, 0, 0.2, 1)', // Slower transition
-              animationDelay: `${circle.delay}s`,
               borderWidth: `${circle.borderWidth}px`,
               boxShadow: idx === 0 ? '0 0 40px 5px rgba(0,0,0,0.8) inset' : 'none',
             }}

@@ -14,7 +14,7 @@ const GradientBackdrop: React.FC<GradientBackdropProps> = ({
   return (
     <motion.div 
       className={`absolute inset-0 z-0 pointer-events-none ${className}`}
-      initial={{ opacity: 0 }}
+      initial={{ opacity: opacity }} // Start with the desired opacity immediately
       animate={{ opacity: opacity }}
       transition={{ duration: 1.5 }}
     >
