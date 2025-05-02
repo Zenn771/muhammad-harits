@@ -1,7 +1,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
-import { motion } from 'framer-motion';
+import { motion, useAnimationControls } from 'framer-motion';
 
 type Testimonial = {
   id: number;
@@ -60,12 +60,30 @@ const TestimonialsSection = () => {
   const [isPaused, setIsPaused] = useState(false);
   const [duplicatedItems, setDuplicatedItems] = useState<Testimonial[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
+  const controls = useAnimationControls();
 
   // Create duplicated items to enable infinite scroll effect
   useEffect(() => {
     // Duplicate the testimonials to create seamless infinite scroll
     setDuplicatedItems([...testimonials, ...testimonials, ...testimonials]);
   }, []);
+
+  // Effect to handle animation controls based on isPaused state
+  useEffect(() => {
+    if (isPaused) {
+      controls.stop();
+    } else {
+      controls.start({
+        x: "-100%",
+        transition: {
+          repeat: Infinity,
+          repeatType: "loop",
+          duration: 25,
+          ease: "linear"
+        }
+      });
+    }
+  }, [isPaused, controls]);
 
   return (
     <section id="testimonials" className="w-full py-12 md:py-16 bg-black vintage-effect overflow-hidden">
@@ -98,19 +116,12 @@ const TestimonialsSection = () => {
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
           ref={containerRef}
+          style={{ position: 'relative' }} // Ensure non-static position for proper scroll calculation
         >
           <motion.div 
             className="flex gap-6"
-            animate={{ x: isPaused ? "0%" : "-100%" }}
-            transition={{
-              x: {
-                repeat: Infinity,
-                repeatType: "loop",
-                duration: 25, // Increased animation speed (was 40)
-                ease: "linear",
-                pause: isPaused
-              }
-            }}
+            animate={controls}
+            initial={{ x: 0 }}
             style={{ 
               position: 'relative',
               willChange: 'transform' // Performance optimization
