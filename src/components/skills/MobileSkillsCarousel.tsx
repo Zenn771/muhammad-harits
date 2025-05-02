@@ -1,9 +1,10 @@
 
 import React, { useRef, useEffect, useState } from 'react';
-import SkillCard from './SkillCard';
 import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import type { Skill } from '@/data/skills';
+// We'll use the MobileSkillCard component instead of SkillCard
+import MobileSkillCard from './MobileSkillCard';
 
 interface MobileSkillsCarouselProps {
   category: string;
@@ -35,7 +36,8 @@ const MobileSkillsCarousel: React.FC<MobileSkillsCarouselProps> = ({
     const container = containerRef.current;
     if (!container) return;
     
-    container.addEventListener('scroll', checkScrollPosition);
+    // Use passive event listener for better scroll performance
+    container.addEventListener('scroll', checkScrollPosition, { passive: true });
     checkScrollPosition(); // Initial check
     
     return () => {
@@ -56,7 +58,7 @@ const MobileSkillsCarousel: React.FC<MobileSkillsCarouselProps> = ({
     });
   };
   
-  // Touch handling for swipe gestures
+  // Touch handling for swipe gestures with passive event handling for better performance
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStartX(e.touches[0].clientX);
   };
@@ -110,7 +112,12 @@ const MobileSkillsCarousel: React.FC<MobileSkillsCarouselProps> = ({
       <div 
         ref={containerRef}
         className="overflow-x-auto scrollbar-hide snap-x snap-mandatory"
-        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}
+        style={{ 
+          scrollbarWidth: 'none', 
+          msOverflowStyle: 'none', 
+          WebkitOverflowScrolling: 'touch',
+          willChange: 'transform' // Hardware acceleration for smoother scrolling
+        }}
         onScroll={checkScrollPosition}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
@@ -122,10 +129,17 @@ const MobileSkillsCarousel: React.FC<MobileSkillsCarouselProps> = ({
               className="flex-shrink-0 w-[140px] snap-start"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.4, delay: idx * 0.05 }}
-              style={{ contain: 'content' }}
+              transition={{ 
+                duration: 0.4, 
+                delay: idx * 0.05,
+                ease: "easeOut" // Smoother easing function
+              }}
+              style={{ 
+                contain: 'content', 
+                willChange: 'transform, opacity' // Optimize for animations
+              }}
             >
-              <SkillCard skill={skill} />
+              <MobileSkillCard skill={skill} index={idx} />
             </motion.div>
           ))}
         </div>
