@@ -61,14 +61,23 @@ const HeroSection: React.FC = () => {
             A specialist in <span className="text-accent font-medium">Artificial Intelligence</span>, <span className="text-accent font-medium">Web Development</span>, and <span className="text-accent font-medium">Electrical Engineering</span>
           </motion.p>
           
-          {/* CTA Buttons - Fixed issue with disappearing buttons */}
+          {/* CTA Buttons - With fixed positioning for mobile */}
           <motion.div
-            className="flex flex-col sm:flex-row gap-4 mt-4"
+            className="flex flex-col sm:flex-row gap-4 mt-4 relative"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            <ScrollLink to="contact" smooth={true} duration={500} offset={-100} className="inline-block">
+            <ScrollLink 
+              to="contact" 
+              smooth={true} 
+              duration={500} 
+              offset={-100} 
+              className="inline-block"
+              onClick={(e) => {
+                // Prevent default only if needed, but allow the scroll to happen
+              }}
+            >
               <Button 
                 size="lg" 
                 className="text-white bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 border-none px-8 py-6 h-auto text-base transition-all hover:scale-[1.02]"
@@ -78,7 +87,10 @@ const HeroSection: React.FC = () => {
               </Button>
             </ScrollLink>
             
-            <Link to="/works" className="inline-block">
+            <Link 
+              to="/works" 
+              className="inline-block"
+            >
               <Button 
                 size="lg" 
                 variant="outline" 
