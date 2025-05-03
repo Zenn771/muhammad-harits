@@ -20,8 +20,8 @@ const About = () => {
       {/* Main content */}
       <SectionBackground pattern="hexagon" withGrain={false}>
         <div className="flex flex-col items-center justify-center pt-32 pb-20 px-6">
-          <div className="max-w-4xl mx-auto relative spotlight-enhanced animate-fade-in">
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-12 text-white text-center">
+          <div className="max-w-3xl mx-auto relative spotlight-enhanced animate-fade-in">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-10 text-white text-center">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-accent to-white">
                 About Me
               </span>
@@ -39,42 +39,42 @@ const About = () => {
               {/* About Me Text */}
               <div className="col-span-1 md:col-span-2 space-y-6 text-white/80 text-lg">
                 <p className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
-                  I am a passionate engineer with expertise in AI, machine learning, and electrical systems. My work combines cutting-edge technology with practical applications, helping organizations solve complex technical challenges.
+                  I am a passionate designer with over 5 years of experience creating beautiful, functional digital experiences. My work spans across various industries, helping brands establish meaningful connections with their audiences.
                 </p>
                 
                 <p className="animate-fade-in" style={{ animationDelay: '0.4s' }}>
-                  My approach brings together technical knowledge with innovative thinking, ensuring that every project not only performs exceptionally but also pushes boundaries in what technology can accomplish.
+                  My approach combines aesthetic sensibility with user-centered design principles, ensuring that every project not only looks stunning but also delivers exceptional usability and performance.
                 </p>
               </div>
             </div>
             
             <div className="space-y-8 text-white/80 text-lg">
               <div className="animate-fade-in" style={{ animationDelay: '0.6s' }}>
-                <h2 className="text-3xl font-semibold mb-6 text-white">Core Expertise</h2>
-                <ul className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <li className="flex items-center p-3 bg-white/5 rounded-lg border border-white/10">
+                <h2 className="text-2xl font-semibold mb-4 text-white">Core Skills</h2>
+                <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <li className="flex items-center">
                     <span className="w-2 h-2 rounded-full bg-accent mr-3"></span>
-                    Machine Learning
+                    Brand Identity Design
                   </li>
-                  <li className="flex items-center p-3 bg-white/5 rounded-lg border border-white/10">
+                  <li className="flex items-center">
                     <span className="w-2 h-2 rounded-full bg-accent mr-3"></span>
-                    Electrical Engineering
+                    User Experience (UX)
                   </li>
-                  <li className="flex items-center p-3 bg-white/5 rounded-lg border border-white/10">
+                  <li className="flex items-center">
                     <span className="w-2 h-2 rounded-full bg-accent mr-3"></span>
-                    Software Development
+                    User Interface (UI) Design
                   </li>
-                  <li className="flex items-center p-3 bg-white/5 rounded-lg border border-white/10">
+                  <li className="flex items-center">
                     <span className="w-2 h-2 rounded-full bg-accent mr-3"></span>
-                    System Optimization
+                    Interactive Prototyping
                   </li>
-                  <li className="flex items-center p-3 bg-white/5 rounded-lg border border-white/10">
+                  <li className="flex items-center">
                     <span className="w-2 h-2 rounded-full bg-accent mr-3"></span>
-                    Data Analysis
+                    Design Systems
                   </li>
-                  <li className="flex items-center p-3 bg-white/5 rounded-lg border border-white/10">
+                  <li className="flex items-center">
                     <span className="w-2 h-2 rounded-full bg-accent mr-3"></span>
-                    Research & Development
+                    Motion Design
                   </li>
                 </ul>
               </div>
@@ -84,22 +84,22 @@ const About = () => {
       </SectionBackground>
       
       {/* Bento Grid Section */}
-      <div className="py-20 px-4 bg-gradient-to-b from-dark/80 to-black">
-        <div className="max-w-4xl mx-auto text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
+      <div className="py-16 px-4">
+        <div className="max-w-3xl mx-auto text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-accent to-white">
-              Interests & Skills
+              My Interests & Skills
             </span>
           </h2>
-          <p className="text-white/80 max-w-2xl mx-auto text-lg">
+          <p className="text-white/80 max-w-2xl mx-auto">
             Beyond my professional expertise, I cultivate a diverse range of interests and continuously develop new skills across multiple domains.
           </p>
         </div>
         <BentoBox />
       </div>
       
-      {/* Add enhanced glow effects */}
-      {[...Array(10)].map((_, i) => {
+      {/* Add random glows/stars */}
+      {[...Array(8)].map((_, i) => {
         const size = Math.random() * 6 + 2;
         const top = Math.random() * 80 + 10;
         const left = Math.random() * 80 + 10;
@@ -120,7 +120,6 @@ const About = () => {
               filter: 'blur(1px)',
               animationDelay: `${i * 0.5}s`,
               boxShadow: '0 0 10px 2px rgba(250,204,21,0.3)',
-              zIndex: 1
             }}
           />
         );

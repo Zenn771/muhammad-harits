@@ -6,7 +6,7 @@ import {
   Music, 
   Zap, 
   Lightbulb,
-  Github
+  Rocket
 } from 'lucide-react';
 
 export interface BentoCardData {
@@ -78,10 +78,10 @@ export const bentoCardsData: BentoCardData[] = [
     sizeClasses: "col-span-1 row-span-1"
   },
   {
-    title: "GitHub Contributions",
-    description: "A visual representation of my commitment to open-source projects and continuous development. Each contribution represents a step toward building better software.",
-    icon: Github,
-    gradient: "from-gray-700/40 to-gray-800/20",
+    title: "Future Tech",
+    description: "Exploring emerging technologies and envisioning how they'll shape our future. I'm particularly interested in sustainable tech solutions and their real-world applications.",
+    icon: Rocket,
+    gradient: "from-cyan-800/40 to-blue-900/20",
     delay: 6,
     sizeClasses: "col-span-1 md:col-span-3 row-span-1"
   }
