@@ -6,7 +6,7 @@ import AnimatedWords from './animations/AnimatedWords';
 import AnimatedGradientText from './animations/AnimatedGradientText';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, MessageSquare } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { Link as ScrollLink } from 'react-scroll';
 import ParticleEffect from './ParticleEffect';
 import CircleStack from './CircleStack';
@@ -78,7 +78,7 @@ const HeroSection: React.FC = () => {
               </Button>
             </ScrollLink>
             
-            <Link href="/works" className="inline-block">
+            <Link to="/works" className="inline-block">
               <Button 
                 size="lg" 
                 variant="outline" 
