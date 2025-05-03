@@ -4,6 +4,7 @@ import BentoCard from './BentoCard';
 import { bentoCardsData } from '@/data/bentoCardsData';
 import MacBookFrame from './MacBookFrame';
 import CodeTerminal from './animations/CodeTerminal';
+import GitHubContributions from './GitHubContributions';
 
 const BentoBox = () => {
   // Function to extract color from gradient string
@@ -125,7 +126,9 @@ const BentoBox = () => {
             gradient={bentoCardsData[6].gradient}
             delay={bentoCardsData[6].delay}
             sizeClasses="h-full"
-          />
+          >
+            <GitHubContributions className="mt-4" />
+          </BentoCard>
         </div>
       </div>
     </div>
