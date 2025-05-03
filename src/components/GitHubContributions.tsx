@@ -19,7 +19,7 @@ const ContributionBox: React.FC<ContributionBoxProps> = ({ filled, intensity, de
   
   return (
     <motion.div 
-      className={`w-3 h-3 md:w-4 md:h-4 rounded-sm ${color} transition-colors duration-300 hover:opacity-80`}
+      className={`w-3 h-3 md:w-3 md:h-3 rounded-sm ${color} transition-colors duration-300 hover:opacity-80`}
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.3, delay: delay * 0.01 }}
@@ -37,7 +37,7 @@ const GitHubContributions: React.FC<GitHubContributionsProps> = ({ className }) 
   // Generate a semi-random pattern for contributions
   // This will create a pattern with some clusters of activity
   const generateContributions = () => {
-    const weeks = 15;
+    const weeks = 26; // Extended to more weeks for a more horizontal display
     const daysPerWeek = 7;
     const contributions = [];
     let counter = 0;
@@ -97,7 +97,7 @@ const GitHubContributions: React.FC<GitHubContributionsProps> = ({ className }) 
         <span className="mr-2">Contribution activity</span>
         <div className="flex-1 h-px bg-gray-700/50"></div>
       </div>
-      <div className="flex flex-wrap gap-1 justify-center">
+      <div className="flex gap-1 overflow-x-auto pb-2 justify-center md:justify-start">
         {contributionData.map((week, weekIndex) => (
           <div key={`week-${weekIndex}`} className="flex flex-col gap-1">
             {week.map((day, dayIndex) => (
