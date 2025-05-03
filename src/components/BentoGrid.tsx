@@ -20,9 +20,9 @@ const BentoBox = () => {
 
   return (
     <div className="mx-auto max-w-6xl px-4">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-        {/* First Row - Fixed equal heights for cards */}
-        <div className="col-span-1 md:col-span-1 row-span-1 md:h-[340px]">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        {/* Profile Photo */}
+        <div className="col-span-1 md:row-span-2">
           <MacBookFrame 
             imageSrc="/placeholder.svg" 
             className="h-full"
@@ -31,7 +31,8 @@ const BentoBox = () => {
           />
         </div>
         
-        <div className="col-span-1 md:col-span-2 md:h-[340px]">
+        {/* AI & Machine Learning - Larger card with animation */}
+        <div className="col-span-1 md:col-span-3 md:row-span-1">
           <BentoCard
             title={bentoCardsData[0].title}
             description={bentoCardsData[0].description}
@@ -41,14 +42,14 @@ const BentoBox = () => {
             gradient={bentoCardsData[0].gradient}
             delay={bentoCardsData[0].delay}
             sizeClasses="h-full"
-            disableEffects={true} // Add this prop to disable effects for this card
+            disableEffects={false}
           >
             <CodeTerminal className="mt-3" />
           </BentoCard>
         </div>
         
-        {/* Second Row - Equal height cards */}
-        <div className="col-span-1 md:h-[220px]">
+        {/* Electrical Engineering */}
+        <div className="col-span-1">
           <BentoCard
             title={bentoCardsData[1].title}
             description={bentoCardsData[1].description}
@@ -61,7 +62,8 @@ const BentoBox = () => {
           />
         </div>
         
-        <div className="col-span-1 md:h-[220px]">
+        {/* Innovation */}
+        <div className="col-span-1">
           <BentoCard
             title={bentoCardsData[2].title}
             description={bentoCardsData[2].description}
@@ -74,7 +76,8 @@ const BentoBox = () => {
           />
         </div>
         
-        <div className="col-span-1 md:h-[220px]">
+        {/* Programming */}
+        <div className="col-span-1">
           <BentoCard
             title={bentoCardsData[3].title}
             description={bentoCardsData[3].description}
@@ -87,8 +90,8 @@ const BentoBox = () => {
           />
         </div>
         
-        {/* Third Row - Equal height cards */}
-        <div className="col-span-1 md:col-span-2 md:h-[240px]">
+        {/* Reading with Quote */}
+        <div className="col-span-1 md:col-span-2">
           <BentoCard
             title={bentoCardsData[4].title}
             description={bentoCardsData[4].description}
@@ -102,7 +105,8 @@ const BentoBox = () => {
           />
         </div>
         
-        <div className="col-span-1 md:h-[240px]">
+        {/* Music Appreciation */}
+        <div className="col-span-1 md:col-span-2">
           <BentoCard
             title={bentoCardsData[5].title}
             description={bentoCardsData[5].description}
@@ -115,8 +119,8 @@ const BentoBox = () => {
           />
         </div>
         
-        {/* Fourth Row */}
-        <div className="col-span-1 md:col-span-3 md:h-[200px]">
+        {/* GitHub Contributions - Full width */}
+        <div className="col-span-1 md:col-span-4">
           <BentoCard
             title={bentoCardsData[6].title}
             description={bentoCardsData[6].description}
@@ -127,7 +131,7 @@ const BentoBox = () => {
             delay={bentoCardsData[6].delay}
             sizeClasses="h-full"
           >
-            <GitHubContributions className="mt-4" />
+            <GitHubContributions className="mt-6" />
           </BentoCard>
         </div>
       </div>
