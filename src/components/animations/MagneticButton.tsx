@@ -1,185 +1,95 @@
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef, useState, ReactNode } from 'react';
 import { motion } from 'framer-motion';
-import { Button, ButtonProps } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
-interface MagneticButtonProps extends ButtonProps {
-  children: React.ReactNode;
-  magneticIntensity?: number;
+interface MagneticButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  children: ReactNode;
+  className?: string;
   glint?: boolean;
-  energyTrail?: boolean;
-  pulseOnHover?: boolean;
+  variant?: 'default' | 'outline';
+  magneticIntensity?: number;
 }
 
 const MagneticButton: React.FC<MagneticButtonProps> = ({
   children,
+  className = '',
+  glint = false,
+  variant = 'default',
   magneticIntensity = 0.3,
-  glint = true,
-  energyTrail = true,
-  pulseOnHover = true,
-  className,
   ...props
 }) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [glintPosition, setGlintPosition] = useState(-100);
-  const [isHovering, setIsHovering] = useState(false);
-  const [trailParticles, setTrailParticles] = useState<{ x: number, y: number, size: number, opacity: number }[]>([]);
-  const [clickEffect, setClickEffect] = useState(false);
+  const [glintPosition, setGlintPosition] = useState({ x: 0, y: 0 });
 
-  // Handle mouse movement for magnetic effect
-  const handleMouseMove = (e: MouseEvent) => {
-    if (!buttonRef.current || !isHovering) return;
+  const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (!buttonRef.current) return;
     
-    const { left, top, width, height } = buttonRef.current.getBoundingClientRect();
-    const centerX = left + width / 2;
-    const centerY = top + height / 2;
+    const rect = buttonRef.current.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
     
-    // Calculate the distance from the mouse to the center of the button
+    // Calculate distance from center
     const distanceX = e.clientX - centerX;
     const distanceY = e.clientY - centerY;
     
-    // Calculate the magnetic pull (stronger when closer to the center)
-    const magneticPullX = distanceX * magneticIntensity;
-    const magneticPullY = distanceY * magneticIntensity;
+    // Apply magnetic effect with intensity factor
+    setPosition({
+      x: distanceX * magneticIntensity,
+      y: distanceY * magneticIntensity
+    });
     
-    setPosition({ x: magneticPullX, y: magneticPullY });
-    
-    // Add energy trail particles on hover
-    if (energyTrail && isHovering && Math.random() > 0.8) {
-      const relativeX = (e.clientX - left) / width;
-      const relativeY = (e.clientY - top) / height;
-      
-      setTrailParticles(prev => [...prev, {
-        x: relativeX * 100,
-        y: relativeY * 100,
-        size: Math.random() * 4 + 2,
-        opacity: Math.random() * 0.6 + 0.2
-      }].slice(-10)); // Keep only the last 10 particles for performance
-    }
-  };
-  
-  const handleMouseEnter = () => {
-    setIsHovering(true);
-    
-    // Trigger glint effect on hover
+    // Update glint position if enabled
     if (glint) {
-      setGlintPosition(-100);
-      setTimeout(() => {
-        setGlintPosition(200);
-      }, 10);
+      const glintX = ((e.clientX - rect.left) / rect.width) * 100;
+      const glintY = ((e.clientY - rect.top) / rect.height) * 100;
+      setGlintPosition({ x: glintX, y: glintY });
     }
-    
-    // Reset trail particles
-    setTrailParticles([]);
-  };
-  
-  const handleMouseLeave = () => {
-    setIsHovering(false);
-    setPosition({ x: 0, y: 0 });
-    
-    // Fade out trail particles
-    setTimeout(() => {
-      setTrailParticles([]);
-    }, 500);
-  };
-  
-  const handleClick = () => {
-    // Show click effect
-    setClickEffect(true);
-    setTimeout(() => setClickEffect(false), 500);
   };
 
-  // Set up event listeners
-  useEffect(() => {
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, [isHovering, magneticIntensity]);
-  
-  // Clean up trail particles regularly
-  useEffect(() => {
-    if (!energyTrail) return;
-    
-    const cleanup = setInterval(() => {
-      setTrailParticles(prev => {
-        if (prev.length > 0 && !isHovering) {
-          return prev.slice(1); // Remove oldest particle
-        }
-        return prev;
-      });
-    }, 300);
-    
-    return () => clearInterval(cleanup);
-  }, [energyTrail, isHovering]);
+  const handleMouseLeave = () => {
+    // Reset position on mouse leave
+    setPosition({ x: 0, y: 0 });
+  };
 
   return (
-    <motion.div
+    <motion.button
+      ref={buttonRef}
+      className={cn(
+        "relative overflow-hidden",
+        className
+      )}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
       animate={{
         x: position.x,
-        y: position.y,
-        scale: clickEffect ? 0.95 : (pulseOnHover && isHovering ? [1, 1.02, 1] : 1)
+        y: position.y
       }}
       transition={{
-        type: 'spring',
+        type: "spring",
         stiffness: 150,
         damping: 15,
-        mass: 0.1,
-        scale: { duration: 0.4, repeat: pulseOnHover && isHovering ? Infinity : 0, repeatType: "reverse" }
+        mass: 0.1
       }}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      className="relative inline-block"
+      {...props}
     >
-      <Button
-        ref={buttonRef}
-        className={cn("relative overflow-hidden", className)}
-        onClick={handleClick}
-        {...props}
-      >
+      {/* Glint effect */}
+      {glint && (
+        <div
+          className="absolute inset-0 pointer-events-none opacity-70"
+          style={{
+            background: `radial-gradient(circle at ${glintPosition.x}% ${glintPosition.y}%, rgba(255,255,255,0.2) 0%, transparent 50%)`,
+            zIndex: 0
+          }}
+        />
+      )}
+      
+      {/* Button content */}
+      <div className="relative z-10 flex items-center justify-center">
         {children}
-        
-        {/* Glint effect */}
-        {glint && isHovering && (
-          <motion.div
-            className="absolute inset-0 pointer-events-none"
-            initial={{ x: "-100%" }}
-            animate={{ x: "200%" }}
-            transition={{ duration: 0.8, ease: "easeInOut" }}
-          >
-            <div className="w-12 h-full rotate-12 bg-gradient-to-r from-transparent via-white/30 to-transparent transform translate-x-0" />
-          </motion.div>
-        )}
-        
-        {/* Energy trail particles */}
-        {energyTrail && trailParticles.map((particle, index) => (
-          <motion.div
-            key={`particle-${index}-${particle.x}-${particle.y}`}
-            className="absolute pointer-events-none rounded-full bg-amber-300"
-            initial={{ opacity: particle.opacity, width: particle.size, height: particle.size }}
-            animate={{ opacity: 0, scale: 0.2 }}
-            transition={{ duration: 0.8 }}
-            style={{ 
-              left: `${particle.x}%`, 
-              top: `${particle.y}%`,
-              filter: 'blur(1px)'
-            }}
-          />
-        ))}
-        
-        {/* Click ripple effect */}
-        {clickEffect && (
-          <motion.div
-            className="absolute inset-0 pointer-events-none rounded-xl bg-amber-300/20"
-            initial={{ opacity: 0.8, scale: 0.8 }}
-            animate={{ opacity: 0, scale: 1.5 }}
-            transition={{ duration: 0.5 }}
-          />
-        )}
-      </Button>
-    </motion.div>
+      </div>
+    </motion.button>
   );
 };
 

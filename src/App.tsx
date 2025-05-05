@@ -11,6 +11,8 @@ import Faq from "./pages/Faq";
 import About from "./pages/About";
 import Career from "./pages/Career";
 import Footer from "./components/Footer";
+import ScrollToTopButton from "./components/ScrollToTopButton";
+import ScrollProgressIndicator from "./components/ScrollProgressIndicator";
 
 const queryClient = new QueryClient();
 
@@ -19,6 +21,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      <ScrollProgressIndicator />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
@@ -29,6 +32,7 @@ const App = () => (
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />
+        <ScrollToTopButton />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
