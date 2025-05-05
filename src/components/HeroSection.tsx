@@ -10,7 +10,6 @@ import { Link } from 'react-router-dom';
 import { Link as ScrollLink } from 'react-scroll';
 import ParticleEffect from './ParticleEffect';
 import CircleStack from './CircleStack';
-import MagneticButton from './animations/MagneticButton';
 
 const HeroSection: React.FC = () => {
   const isMobile = useIsMobile();
@@ -79,29 +78,27 @@ const HeroSection: React.FC = () => {
                 // Prevent default only if needed, but allow the scroll to happen
               }}
             >
-              <MagneticButton 
-                className="bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white border-none px-8 py-6 h-auto text-base transition-all hover:scale-[1.02] rounded-lg"
-                glint={true}
-                magneticIntensity={0.2}
+              <Button 
+                size="lg" 
+                className="text-white bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 border-none px-8 py-6 h-auto text-base transition-all hover:scale-[1.02]"
               >
-                <MessageSquare className="mr-2 h-5 w-5" />
-                <span>Let's Talk</span>
-              </MagneticButton>
+                Let's Talk
+                <MessageSquare className="ml-2 h-5 w-5" />
+              </Button>
             </ScrollLink>
             
             <Link 
               to="/works" 
               className="inline-block"
             >
-              <MagneticButton 
+              <Button 
+                size="lg" 
                 variant="outline" 
-                className="border border-white/20 hover:bg-white/10 text-white px-8 py-6 h-auto text-base transition-all hover:scale-[1.02] rounded-lg"
-                glint={true}
-                magneticIntensity={0.2}
+                className="text-white border-white/20 hover:bg-white/10 px-8 py-6 h-auto text-base transition-all hover:scale-[1.02]"
               >
-                <ArrowRight className="mr-2 h-5 w-5" />
-                <span>View Projects</span>
-              </MagneticButton>
+                View Projects
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
             </Link>
           </motion.div>
         </motion.div>

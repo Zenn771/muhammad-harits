@@ -49,80 +49,7 @@
   }
 }
 
-/* Enhanced animations and transitions */
-.animate-in {
-  animation-duration: 500ms;
-  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
-  animation-fill-mode: both;
-}
-
-.fade-in {
-  animation-name: fadeIn;
-}
-
-.slide-in-from-top {
-  animation-name: slideInFromTop;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideInFromTop {
-  from { transform: translateY(-10px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-/* New card hover effects */
-.card-hover {
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.card-hover:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3);
-}
-
-/* Enhanced glass morphism */
-.glass-morphism {
-  backdrop-filter: blur(8px);
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
-}
-
-/* Enhanced text shadow for better legibility */
-.text-shadow {
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-/* Enhanced focus outline for accessibility */
-*:focus-visible {
-  outline: 2px solid rgba(250, 204, 21, 0.5);
-  outline-offset: 2px;
-}
-
-/* Custom scrollbar for better UX */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.1);
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(250, 204, 21, 0.3);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(250, 204, 21, 0.5);
-}
-
-/* Keep existing styling classes */
+/* Additional custom classes */
 .vintage-text {
   position: relative;
 }
@@ -179,9 +106,9 @@
 
 /* Added and improved animations */
 .animate-in {
-  animation-duration: 500ms;
-  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
-  animation-fill-mode: both;
+  animation-duration: 300ms;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  animation-fill-mode: forwards;
 }
 
 .fade-in {
@@ -350,69 +277,4 @@ body {
   text-align: right;
   padding-right: 8px;
   min-width: 40px;
-}
-
-/* New section transition effect */
-.section-transition {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.section-transition.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Enhanced hover links */
-.hover-link {
-  position: relative;
-}
-
-.hover-link::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(to right, #facc15, #60a5fa);
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 0.3s ease;
-}
-
-.hover-link:hover::after {
-  transform: scaleX(1);
-  transform-origin: left;
-}
-
-/* Staggered animation for list items */
-.stagger-item {
-  opacity: 0;
-}
-
-.stagger-item.is-visible {
-  animation: fadeInUp 0.6s forwards;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Button press effect */
-.btn-press {
-  transform: translateY(0);
-  transition: transform 0.1s ease;
-}
-
-.btn-press:active {
-  transform: translateY(2px);
 }
