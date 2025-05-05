@@ -3,12 +3,15 @@ import React, { useRef, useState, ReactNode } from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
-interface MagneticButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface MagneticButtonProps {
   children: ReactNode;
   className?: string;
   glint?: boolean;
   variant?: 'default' | 'outline';
   magneticIntensity?: number;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  disabled?: boolean;
+  type?: "button" | "submit" | "reset";
 }
 
 const MagneticButton: React.FC<MagneticButtonProps> = ({
@@ -17,7 +20,10 @@ const MagneticButton: React.FC<MagneticButtonProps> = ({
   glint = false,
   variant = 'default',
   magneticIntensity = 0.3,
-  ...props
+  onClick,
+  disabled,
+  type = "button",
+  ...otherProps
 }) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -62,6 +68,9 @@ const MagneticButton: React.FC<MagneticButtonProps> = ({
       )}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      onClick={onClick}
+      disabled={disabled}
+      type={type}
       animate={{
         x: position.x,
         y: position.y
@@ -72,7 +81,6 @@ const MagneticButton: React.FC<MagneticButtonProps> = ({
         damping: 15,
         mass: 0.1
       }}
-      {...props}
     >
       {/* Glint effect */}
       {glint && (
