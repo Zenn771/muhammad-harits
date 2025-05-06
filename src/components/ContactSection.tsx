@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Mail, Linkedin, Clock } from 'lucide-react';
+import { Mail, Linkedin, Clock, Check, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -23,6 +23,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import StatusBadge from '@/components/StatusBadge';
 import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
@@ -39,6 +40,7 @@ type FormValues = z.infer<typeof formSchema>;
 
 const ContactSection = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   
   // Initialize the form with react-hook-form and zod validation
   const form = useForm<FormValues>({
@@ -54,6 +56,7 @@ const ContactSection = () => {
   // Handle form submission
   const onSubmit = async (data: FormValues) => {
     setIsSubmitting(true);
+    setSubmitStatus('idle');
     
     try {
       // Call the Supabase Edge Function to send the email
@@ -65,16 +68,37 @@ const ContactSection = () => {
         throw new Error(error.message || 'Failed to send message');
       }
 
-      // Show success toast
-      toast.success("Message sent successfully! I'll get back to you soon.");
+      // Show enhanced success toast with icon
+      toast.success("Message sent successfully!", {
+        description: "I'll get back to you as soon as possible.",
+        icon: <Check className="h-5 w-5 text-green-500" />,
+        duration: 5000,
+      });
+      
+      // Update submit status for UI feedback
+      setSubmitStatus('success');
       
       // Reset the form
       form.reset();
     } catch (error) {
       console.error("Error submitting form:", error);
-      toast.error("Failed to send message. Please try again.");
+      
+      // Show enhanced error toast with icon
+      toast.error("Failed to send message", {
+        description: "Please try again or contact me directly via email.",
+        icon: <AlertTriangle className="h-5 w-5 text-red-500" />,
+        duration: 7000,
+      });
+      
+      // Update submit status for UI feedback
+      setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
+      
+      // Reset status after a delay
+      setTimeout(() => {
+        setSubmitStatus('idle');
+      }, 5000);
     }
   };
 
@@ -102,6 +126,41 @@ const ContactSection = () => {
             Interested in working together? I'd love to hear from you.
           </motion.p>
         </div>
+
+        {/* Status Alerts */}
+        {submitStatus === 'success' && (
+          <motion.div 
+            className="mb-8"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+          >
+            <Alert className="border-green-500/30 bg-green-500/10 text-green-200">
+              <Check className="h-5 w-5 text-green-500" />
+              <AlertTitle className="text-green-300">Message Sent Successfully!</AlertTitle>
+              <AlertDescription className="text-green-200/80">
+                Thank you for reaching out. I'll get back to you as soon as possible.
+              </AlertDescription>
+            </Alert>
+          </motion.div>
+        )}
+        
+        {submitStatus === 'error' && (
+          <motion.div 
+            className="mb-8"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+          >
+            <Alert className="border-red-500/30 bg-red-500/10 text-red-200">
+              <AlertTriangle className="h-5 w-5 text-red-500" />
+              <AlertTitle className="text-red-300">Failed to Send Message</AlertTitle>
+              <AlertDescription className="text-red-200/80">
+                There was an error sending your message. Please try again or contact me directly via email.
+              </AlertDescription>
+            </Alert>
+          </motion.div>
+        )}
 
         <motion.div 
           className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12"
@@ -263,9 +322,34 @@ const ContactSection = () => {
                     <Button 
                       type="submit" 
                       disabled={isSubmitting}
-                      className="bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white border-none w-full sm:w-auto px-8 py-2 h-auto text-base transition-all hover:scale-[1.02]"
+                      className={`relative overflow-hidden transition-all duration-300 ${
+                        isSubmitting 
+                          ? 'bg-blue-700 text-white' 
+                          : submitStatus === 'success'
+                            ? 'bg-green-600 hover:bg-green-700 text-white'
+                            : submitStatus === 'error'
+                              ? 'bg-red-600 hover:bg-red-700 text-white'
+                              : 'bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white'
+                      } border-none w-full sm:w-auto px-8 py-2 h-auto text-base hover:scale-[1.02]`}
                     >
-                      {isSubmitting ? "Sending..." : "Send Message"}
+                      {isSubmitting ? (
+                        <>
+                          <span className="animate-pulse">Sending...</span>
+                          <span className="absolute inset-0 w-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full animate-shimmer"></span>
+                        </>
+                      ) : submitStatus === 'success' ? (
+                        <span className="flex items-center">
+                          <Check className="mr-2 h-5 w-5" />
+                          Sent Successfully
+                        </span>
+                      ) : submitStatus === 'error' ? (
+                        <span className="flex items-center">
+                          <AlertTriangle className="mr-2 h-5 w-5" />
+                          Try Again
+                        </span>
+                      ) : (
+                        "Send Message"
+                      )}
                     </Button>
                   </div>
                 </form>
