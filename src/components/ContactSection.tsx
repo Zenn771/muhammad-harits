@@ -25,6 +25,7 @@ import {
 } from '@/components/ui/select';
 import StatusBadge from '@/components/StatusBadge';
 import { toast } from 'sonner';
+import { supabase } from '@/integrations/supabase/client';
 
 // Define the form schema with zod for validation
 const formSchema = z.object({
@@ -55,13 +56,15 @@ const ContactSection = () => {
     setIsSubmitting(true);
     
     try {
-      // Here we would normally add the API call to Resend
-      // For now, we'll just simulate a successful submission
-      console.log("Form submitted:", data);
-      
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
+      // Call the Supabase Edge Function to send the email
+      const { data: responseData, error } = await supabase.functions.invoke('send-contact-email', {
+        body: data,
+      });
+
+      if (error) {
+        throw new Error(error.message || 'Failed to send message');
+      }
+
       // Show success toast
       toast.success("Message sent successfully! I'll get back to you soon.");
       
@@ -118,7 +121,7 @@ const ContactSection = () => {
               
               <div className="space-y-5 relative z-10">
                 <a 
-                  href="mailto:contact@example.com" 
+                  href="mailto:haritsnaufal479@gmail.com" 
                   className="flex items-center gap-4 text-gray-300 hover:text-accent transition-colors group"
                 >
                   <div className="p-3 rounded-full bg-blue-900/20 border border-blue-400/20 group-hover:border-blue-400/40 transition-all">
@@ -126,7 +129,7 @@ const ContactSection = () => {
                   </div>
                   <div>
                     <p className="text-sm text-white/60">Email</p>
-                    <p className="text-white">contact@example.com</p>
+                    <p className="text-white">haritsnaufal479@gmail.com</p>
                   </div>
                 </a>
                 
