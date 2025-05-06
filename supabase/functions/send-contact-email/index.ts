@@ -4,7 +4,7 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { Resend } from "npm:resend@2.0.0";
 
 // Initialize Resend with your API key
-const resendApiKey = Deno.env.get("RESEND_API_KEY");
+const resendApiKey = Deno.env.get("RESEND_API_KEY") || "re_9vounBPm_3BR1xTMaiiCrLwutmUQcRQCe";
 const resend = new Resend(resendApiKey);
 const targetEmail = "haritsnaufal479@gmail.com";
 
