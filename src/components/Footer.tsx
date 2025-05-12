@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Instagram, Linkedin, Mail } from 'lucide-react';
+import { Instagram, Linkedin, Mail, Github } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
@@ -11,19 +11,25 @@ const Footer = () => {
     {
       name: 'Instagram',
       icon: Instagram,
-      href: 'https://instagram.com',
+      href: 'https://www.instagram.com/haritszenn_',
       color: 'hover:text-pink-400'
     },
     {
       name: 'LinkedIn',
       icon: Linkedin,
-      href: 'https://linkedin.com',
+      href: 'https://www.linkedin.com/in/muhammad-harits7',
       color: 'hover:text-blue-500'
     },
     {
       name: 'Email',
       icon: Mail,
-      href: 'mailto:contact@example.com',
+      href: 'mailto:haritsnaufal479@gmail.com',
+      color: 'hover:text-amber-400'
+    },
+    {
+      name: 'Github',
+      icon: Github,
+      href: 'https://github.com/Zenn711',
       color: 'hover:text-amber-400'
     }
   ];

@@ -1,12 +1,9 @@
-
 import { 
   Code2, 
   Cpu, 
   Book, 
-  Music, 
   Zap, 
-  Lightbulb,
-  Rocket
+  Sprout
 } from 'lucide-react';
 
 export interface BentoCardData {
@@ -25,64 +22,48 @@ export interface BentoCardData {
 
 export const bentoCardsData: BentoCardData[] = [
   {
-    title: "AI & Machine Learning",
-    description: "Passionate about developing intelligent systems and neural networks, constantly exploring the boundaries of what AI can achieve in solving complex real-world problems.",
+    title: "I Build Smart Systems",
+    description: "I focus on building intelligent systems, particularly in model training and NLP, to solve real-world problems through automation and decision-making.",
     icon: Cpu,
     gradient: "from-violet-900/40 to-indigo-900/20",
     delay: 0,
     sizeClasses: "col-span-1 md:col-span-2 row-span-1"
   },
   {
-    title: "Electrical Engineering",
-    description: "Designing and optimizing electrical systems with precision and innovation. I love working with hardware components and creating integrated solutions.",
+    title: "I Spark Physical Solutions",
+    description: "I’m passionate about hands-on work with microcontrollers, sensors, schematics, and PCB design to create functional systems that interact with the physical world.",
     icon: Zap,
     gradient: "from-amber-800/40 to-orange-700/20",
     delay: 1,
     sizeClasses: "col-span-1 md:col-span-1 row-span-1"
   },
   {
-    title: "Innovation",
-    description: "Always seeking creative solutions to complex problems. I believe in thinking outside the box and challenging conventional approaches.",
-    icon: Lightbulb,
-    gradient: "from-yellow-700/40 to-amber-800/20",
-    delay: 2,
-    sizeClasses: "col-span-1 row-span-1"
-  },
-  {
-    title: "Programming",
-    description: "From embedded systems to high-level applications, I enjoy the creative process of coding and bringing ideas to life through software development and algorithm optimization.",
+    title: "I Create with Code",
+    description: "Coding is how I bring ideas to life, whether for automation, data processing, or interactive systems.",
     icon: Code2,
     gradient: "from-emerald-800/40 to-green-900/20",
-    delay: 3,
-    sizeClasses: "col-span-1 md:col-span-1 row-span-1 md:row-span-2"
+    delay: 2,
+    sizeClasses: "col-span-1 md:col-span-1 row-span-1"
   },
   {
-    title: "Reading",
-    description: "I'm an avid reader with a particular interest in books about science, philosophy, history, and finance/investment. Reading helps me gain new perspectives and insights applicable to my work and life.",
+    title: "I Find Inspiration in Books",
+    description: "Books inspire me, especially Man’s Search for Meaning by Viktor E. Frankl, which deepened my understanding of purpose and perseverance.",
     icon: Book,
     gradient: "from-purple-800/40 to-fuchsia-900/20",
-    delay: 4,
-    sizeClasses: "col-span-1 md:col-span-2 row-span-1",
+    delay: 3,
+    sizeClasses: "col-span-1 md:col-span-3 row-span-1",
     quote: {
       text: "The most important investment you can make is in yourself.",
       author: "Warren Buffett",
-      source: "The Essays of Warren Buffett"
+      source: "The Essays of WarrenBuffett"
     }
   },
   {
-    title: "Music Appreciation",
-    description: "A lifelong love for diverse musical genres helps me maintain creative balance. I find parallels between musical patterns and engineering systems.",
-    icon: Music,
-    gradient: "from-rose-800/40 to-pink-900/20",
-    delay: 5,
-    sizeClasses: "col-span-1 row-span-1"
-  },
-  {
-    title: "Future Tech",
-    description: "Exploring emerging technologies and envisioning how they'll shape our future. I'm particularly interested in sustainable tech solutions and their real-world applications.",
-    icon: Rocket,
+    title: "I Want to Change the World",
+    description: "I aspire to build technology that makes a difference. From AI-driven tools for education to sustainable engineering solutions, my goal is to create projects that solve real problems and improve lives.",
+    icon: Sprout,
     gradient: "from-cyan-800/40 to-blue-900/20",
-    delay: 6,
-    sizeClasses: "col-span-1 md:col-span-3 row-span-1"
+    delay: 4,
+    sizeClasses: "col-span-1 md:col-span-1 row-span-1"
   }
 ];

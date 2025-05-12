@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, Briefcase, GraduationCap } from "lucide-react";
@@ -91,6 +90,7 @@ const TimelineItem: React.FC<TimelineItemProps> = ({ item, index, scrollY }) => 
             <h3 className="text-xl md:text-2xl font-bold text-white mb-2">{item.role}</h3>
             <p className="text-white/80 font-medium mb-4">{item.company}</p>
             
+            {/* Simple paragraph instead of animated text */}
             <p className="text-white/70 text-sm md:text-base mb-6">
               {item.description}
             </p>

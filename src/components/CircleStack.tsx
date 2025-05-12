@@ -1,21 +1,44 @@
-
 import React, { useState, useEffect } from 'react';
 
 const CircleStack: React.FC = () => {
-  // Set up properties for the enhanced circles
+  // Set up properties for the enhanced circles, with linear-gradient for fade effect
   const circleProps = [
-    { size: '85vh', delay: 0, opacity: 0.03, scale: 1, rotate: 0, borderWidth: 1 },
-    { size: '60vh', delay: 2, opacity: 0.04, scale: 1.05, rotate: -8, borderWidth: 1 },
-    { size: '35vh', delay: 4, opacity: 0.05, scale: 1.1, rotate: 5, borderWidth: 2 }
+    { 
+      size: '95vh', 
+      delay: 0, 
+      opacity: 0.7, 
+      scale: 1, 
+      rotate: 0, 
+      borderWidth: 1, 
+      background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0))' // Fade hitam ke transparan
+    },
+    { 
+      size: '70vh', 
+      delay: 2, 
+      opacity: 0.3, 
+      scale: 1.05, 
+      rotate: -8, 
+      borderWidth: 1, 
+      background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0))' // Fade hitam ke transparan
+    },
+    { 
+      size: '45vh', 
+      delay: 4, 
+      opacity: 0.1, 
+      scale: 1.1, 
+      rotate: 5, 
+      borderWidth: 2, 
+      background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0))' // Fade hitam ke transparan
+    }
   ];
 
-  // State for each circle's animation - initialize with final values to show immediately
+  // State for each circle's animation - initialize with values from circleProps
   const [animations, setAnimations] = useState(
     circleProps.map((circle) => ({
       scale: circle.scale,
       rotate: circle.rotate,
       pulse: 0,
-      opacity: 1, // Ensure full opacity from the start
+      opacity: circle.opacity,
     }))
   );
 
@@ -32,10 +55,10 @@ const CircleStack: React.FC = () => {
         
         setAnimations(prev => 
           prev.map((anim, i) => ({
-            scale: circleProps[i].scale + (Math.sin(Date.now() * 0.0001) * 0.01), // Smoother sinusoidal motion
-            rotate: anim.rotate + 0.01, // Very slow constant rotation
-            pulse: (anim.pulse + 0.0025) % (Math.PI * 2), // Very slow pulse cycle
-            opacity: 1, // Keep opacity at 1 to ensure visibility
+            scale: circleProps[i].scale + (Math.sin(Date.now() * 0.0001) * 0.01),
+            rotate: anim.rotate + 0.01,
+            pulse: (anim.pulse + 0.0025) % (Math.PI * 2),
+            opacity: circleProps[i].opacity,
           }))
         );
       }
@@ -63,8 +86,9 @@ const CircleStack: React.FC = () => {
               height: circle.size,
               opacity: animations[idx].opacity,
               transform: `scale(${animations[idx].scale + pulseFactor}) rotate(${animations[idx].rotate}deg)`,
-              transition: 'transform 2s cubic-bezier(0.4, 0, 0.2, 1)', // More natural easing
+              transition: 'transform 2s cubic-bezier(0.4, 0, 0.2, 1)',
               borderWidth: `${circle.borderWidth}px`,
+              background: circle.background, // Apply gradient background
               boxShadow: idx === 0 ? '0 0 40px 5px rgba(0,0,0,0.8) inset' : 'none',
             }}
           />
@@ -81,7 +105,7 @@ const CircleStack: React.FC = () => {
           background: 'radial-gradient(circle, rgba(250,204,21,0.25) 0%, rgba(250,204,21,0) 75%)',
           boxShadow: '0 0 50px 25px rgba(250,204,21,0.06)',
           filter: 'blur(8px)',
-          animationDuration: '8s', // Slower animation
+          animationDuration: '8s',
         }}
       />
     </div>

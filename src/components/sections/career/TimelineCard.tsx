@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import { Calendar, Briefcase, GraduationCap } from 'lucide-react';
 import { cn } from "@/lib/utils";
 import { TimelineItem } from '@/data/timelineData';
-import AnimatedWords from '@/components/animations/AnimatedWords';
 
 interface TimelineCardProps {
   item: TimelineItem;
@@ -117,7 +116,7 @@ const TimelineCard: React.FC<TimelineCardProps> = ({ item, isEven }) => {
             </div>
           </motion.div>
           
-          {/* Role title with text reveal animation */}
+          {/* Role title with simple display instead of text reveal animation */}
           <motion.h3 
             id={`timeline-item-${item.id}-title`}
             className="text-xl md:text-2xl font-bold text-white mb-2"
@@ -127,17 +126,7 @@ const TimelineCard: React.FC<TimelineCardProps> = ({ item, isEven }) => {
             viewport={{ once: true, margin: "-50px" }}
             custom={1}
           >
-            <span className="text-reveal-mask">
-              <motion.span 
-                className="text-reveal-child" 
-                initial={{ y: '100%' }}
-                whileInView={{ y: 0 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-                viewport={{ once: true }}
-              >
-                {item.role}
-              </motion.span>
-            </span>
+            {item.role}
           </motion.h3>
           
           {/* Company with enhanced styling */}
@@ -152,14 +141,17 @@ const TimelineCard: React.FC<TimelineCardProps> = ({ item, isEven }) => {
             {item.company}
           </motion.p>
           
-          {/* Description with improved animated words */}
-          <div className="text-white/75 text-sm md:text-base mb-6 leading-relaxed">
-            <AnimatedWords 
-              text={item.description}
-              delay={0.5}
-              duration={0.3}
-            />
-          </div>
+          {/* Description with standard text instead of animated words */}
+          <motion.p
+            className="text-white/75 text-sm md:text-base mb-6 leading-relaxed"
+            variants={contentVariants}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true, margin: "-50px" }}
+            custom={3}
+          >
+            {item.description}
+          </motion.p>
           
           {/* Skills with enhanced visual style and staggered animation */}
           <motion.div 
@@ -173,7 +165,7 @@ const TimelineCard: React.FC<TimelineCardProps> = ({ item, isEven }) => {
             {item.skills.map((skill, i) => (
               <motion.span 
                 key={i}
-                className="vintage-skill px-3 py-1.5 bg-white/8 backdrop-blur-sm rounded-full text-xs font-medium text-white/70 border border-white/10 shadow-inner shadow-white/5 transition-all duration-300 hover:text-white hover:bg-white/15 hover:shadow-white/10 hover-text-shine"
+                className="vintage-skill px-3 py-1.5 bg-white/8 backdrop-blur-sm rounded-full text-xs font-medium text-white/70 border border-white/10 shadow-inner shadow-white/5 transition-all duration-300 hover:text-white hover:bg-white/15 hover:shadow-white/10 hover:text-shine"
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.3, delay: 0.6 + i * 0.05 }}

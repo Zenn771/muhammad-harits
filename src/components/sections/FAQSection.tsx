@@ -9,27 +9,32 @@ import {
 
 // FAQs data
 const faqItems = [
-  {
-    question: "What services do you offer?",
-    answer: "I offer a range of AI and electrical engineering services including system design, intelligent automation solutions, neural network development, and electrical system integration."
-  },
-  {
-    question: "How does your design process work?",
-    answer: "My design process typically follows these steps: requirements gathering, system architecture design, prototyping, implementation, testing, and deployment. Throughout each phase, I maintain open communication to ensure your vision is achieved."
-  },
-  {
-    question: "What is your typical timeline for projects?",
-    answer: "Project timelines vary depending on scope and complexity. A simple automation project might take 2-3 weeks, while a comprehensive AI system could take 6-8 weeks. During our initial consultation, I'll provide a more accurate timeline based on your specific needs."
-  },
-  {
-    question: "Do you offer ongoing support after project completion?",
-    answer: "Yes, I offer post-project support packages to ensure your systems continue to function optimally as your needs evolve. This can include regular maintenance, updates, and expansion of capabilities as needed."
-  },
-  {
-    question: "How do you handle revisions to designs?",
-    answer: "My project quotes include up to three rounds of revisions to ensure your complete satisfaction. Additional revision rounds can be arranged at an hourly rate if needed."
-  }
-];
+    {
+      question: "What is your area of expertise?",
+      answer:
+        "I'm currently studying Instrumentation and Control Engineering at Universitas Gadjah Mada, with strong interests in AI, IoT, embedded systems, and robotics. I often work on projects that involve computer vision, smart automation, and real-time data systems."
+    },
+    {
+      question: "What kind of projects have you worked on?",
+      answer:
+        "I've developed several impactful projects including an AI-based sign language translator, smart waste management system, and a home automation system with voice control. I enjoy combining hardware and software to solve real-world problems."
+    },
+    {
+      question: "Do you have experience working with teams or in organizations?",
+      answer:
+        "Yes! I've been actively involved in student organizations, volunteering, and event coordination. These experiences taught me how to collaborate, lead, and communicate effectively in both technical and non-technical teams."
+    },
+    {
+      question: "What tools and technologies are you familiar with?",
+      answer:
+        "I work with Python (TensorFlow, OpenCV, PyTorch), microcontrollers (Arduino, ESP32), and development tools like Node-RED, MQTT, and Flutter. I also have experience in data science, circuit simulation, and web development using React & Next.js."
+    },
+    {
+      question: "Are you open for collaborations or freelance work?",
+      answer:
+        "Definitely! I'm always excited to collaborate on innovative tech projects, especially those involving AI, automation, or sustainability. Feel free to reach out if you have something in mind!"
+    }
+  ];
 
 const FAQSection: React.FC = () => {
   return (

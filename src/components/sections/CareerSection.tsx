@@ -29,7 +29,7 @@ const CareerSection: React.FC = () => {
       <div className="max-w-7xl mx-auto relative">
         <SectionTitle 
           title="Career Timeline" 
-          subtitle="A journey through my professional experiences and academic achievements" 
+          subtitle="A timeline of my academic and career development" 
         />
         
         {/* Timeline */}

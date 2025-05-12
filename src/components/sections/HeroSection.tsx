@@ -104,16 +104,16 @@ const HeroSection: React.FC = () => {
 
   // Multiple texts for the typewriter effect
   const typewriterTexts = [
-    "Passionate about creating intelligent systems and innovative solutions.",
-    "Dedicated to solving complex problems with elegant engineering.",
-    "Focusing on the intersection of AI and electrical engineering.",
-    "Turning ambitious ideas into practical technological applications."
+    "Bridging artificial intelligence with real-world applications",
+    "Developing adaptive solutions for complex systems",
+    "Integrating AI into control and instrumentation systems",
+    "Passionate about creating intelligent systems and innovative solutions."
   ];
 
   // Card content for interactive card
   const cardContent = {
     title: "Innovation & Engineering",
-    description: "Exploring the frontiers of technology with a creative, solution-oriented approach."
+    description: "Exploring the frontiers of technology with curiosity, creativity, and a hands-on mindset"
   };
 
   return (
@@ -250,14 +250,14 @@ const HeroSection: React.FC = () => {
           </div>
           
           {/* Enhanced main headline with personal greeting and animated name */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-8 tracking-tight animate-fade-in text-white">
-            Hi everyone, my name is <AnimatedGradientText text="Harits" />
+          <h1 className="text-4xl sm:text-3xl md:text-4xl lg:text-6xl font-bold mb-8 tracking-tight animate-fade-in text-white">
+            Hi everyone, I’m <AnimatedGradientText text="Harits "/> 👋
           </h1>
           
           {/* Updated subtitle with professional information and rotating typewriter texts */}
           <div className="space-y-4 mb-8">
             <p className="text-xl md:text-2xl text-amber-400 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-              AI & Electrical Engineer
+              Passionate Learner in AI & Electrical
             </p>
             <p className="text-lg md:text-xl text-white/90 animate-fade-in" style={{ animationDelay: '0.4s' }}>
               <TypewriterText 
@@ -289,7 +289,7 @@ const HeroSection: React.FC = () => {
           {/* NEW: Animated words element for added visual interest */}
           <div className="mb-8 opacity-90">
             <AnimatedWords 
-              text="Innovation • Creativity • Excellence" 
+              text="Innovation • Creativity • Growth" 
               className="text-sm text-amber-300/70 tracking-wider uppercase" 
               delay={2.5}
               once={true}

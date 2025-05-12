@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ChevronRight } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 
 const TimelineFooter: React.FC = () => {
   return (
@@ -17,7 +17,7 @@ const TimelineFooter: React.FC = () => {
         className="flex items-center justify-center gap-2 text-accent hover:text-white transition-colors duration-300"
       >
         <span>View My Projects</span>
-        <ChevronRight className="h-4 w-4" />
+        <ChevronDown className="h-4 w-4" />
       </a>
     </motion.div>
   );

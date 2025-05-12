@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { motion, useAnimationControls } from 'framer-motion';
@@ -16,43 +15,43 @@ type Testimonial = {
 const testimonials: Testimonial[] = [
   {
     id: 1,
-    name: "Alice Chen",
-    position: "Senior AI Researcher",
-    text: "Harits is one of the most creative engineers I've worked with. His ability to blend AI concepts with electrical engineering principles resulted in groundbreaking solutions for our team.",
-    avatar: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=150&h=150&fit=crop&q=80",
-    initials: "AC"
-  },
-  {
-    id: 2,
-    name: "Michael Rodriguez",
-    position: "Project Lead, Innovate Systems",
-    text: "Working alongside Harits was an incredible experience. His technical expertise and problem-solving skills consistently helped us deliver complex projects ahead of schedule.",
-    avatar: "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?w=150&h=150&fit=crop&q=80",
+    name: "Muhammad Rasha",
+    position: "Electrical Engineering Student, UGM",
+    text: "Working with Harits on a robotics project was an amazing experience. His innovative ideas and problem solving skills played a huge role in our team's success. Definitely someone you want on your team!",
+    avatar: "/avatar/Muhammad-Rasha.png",
     initials: "MR"
   },
   {
+    id: 2,
+    name: "Aldo Ramadhan",
+    position: "Information Systems Student, BINUS University",
+    text: "Harits has an incredible ability to turn complex problems into simple solutions. During our web development project, his frontend skills were truly next level. A true professional in the making!",
+    avatar: "/avatar/Aldo-Ramadhan.png",
+    initials: "AR"
+  },
+  {
     id: 3,
-    name: "Sarah Johnson",
-    position: "CTO, PowerTech Solutions",
-    text: "Harits brings both technical excellence and innovative thinking to every project. His work on our electrical systems improved efficiency by over 30%.",
-    avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&h=150&fit=crop&q=80",
-    initials: "SJ"
+    name: "Chelsea Natasja",
+    position: "Computer Science Student, UGM",
+    text: "Harits dedication and character set him apart. His intellect and grace in overcoming challenges embody professionalism and integrity.",
+    avatar: "/avatar/Chelsea-Natasja.png",
+    initials: "CN"
   },
   {
     id: 4,
-    name: "David Lee",
-    position: "Lead Engineer, Future Tech Labs",
-    text: "The depth of Harits's knowledge in both AI and electrical engineering is remarkable. He consistently delivers solutions that others wouldn't even think of.",
-    avatar: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&h=150&fit=crop&q=80",
-    initials: "DL"
+    name: "Kevin Aditya",
+    position: "Mechanical Engineering Student, ITB",
+    text: "Harits is an exceptional team player. We worked together on a drone competition, and his expertise in system integration and vision programming ensured our project was a success.",
+    avatar: "/avatar/Kevin-Aditya.png",
+    initials: "KA"
   },
   {
     id: 5,
-    name: "Emma Wilson",
-    position: "Research Director, AI Institute",
-    text: "I've mentored many engineers, but Harits stands out with his unique perspective and dedication. His ability to connect theories to practical applications is outstanding.",
-    avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&h=150&fit=crop&q=80",
-    initials: "EW"
+    name: "Reza Putra",
+    position: "Engineering Physics Student, UGM",
+    text: "Harits’s contributions to our renewable energy prototype were invaluable. His technical insights and coding skills ensured we had a polished and efficient solution. Highly recommend him!",
+    avatar: "/avatar/Reza-Putra.png",
+    initials: "RP"
   }
 ];
 
@@ -61,44 +60,40 @@ const TestimonialsSection = () => {
   const [duplicatedItems, setDuplicatedItems] = useState<Testimonial[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
   const controls = useAnimationControls();
-  
-  // Animation configuration - defined once to ensure consistency
+
+  // Konfigurasi animasi dengan kecepatan konstan
   const animationConfig = {
-    x: "-100%",
+    x: '-100%',
     transition: {
       repeat: Infinity,
-      repeatType: "loop" as const,
-      duration: 45, // Consistent speed value
-      ease: "linear"
-    }
+      repeatType: 'loop' as const,
+      duration: 30, // Atur durasi untuk kecepatan yang diinginkan
+      ease: 'linear', // Pastikan kecepatan konstan
+    },
   };
 
-  // Create duplicated items to enable infinite scroll effect
+  // Duplikasi item untuk infinite scroll (cukup dua kali untuk performa)
   useEffect(() => {
-    // Duplicate the testimonials to create seamless infinite scroll
-    setDuplicatedItems([...testimonials, ...testimonials, ...testimonials]);
+    setDuplicatedItems([...testimonials, ...testimonials]);
   }, []);
 
-  // Effect to handle animation controls based on isPaused state
+  // Kontrol animasi berdasarkan isPaused
   useEffect(() => {
     if (isPaused) {
       controls.stop();
     } else {
-      // Start or resume animation with the consistent speed configuration
       controls.start(animationConfig);
     }
-    
-    // Cleanup function to stop animation when component unmounts
     return () => {
       controls.stop();
     };
   }, [isPaused, controls]);
 
   return (
-    <section id="testimonials" className="w-full py-12 md:py-16 bg-black vintage-effect overflow-hidden">
+    <section id="testimonials" className="w-full py-8 md:py-16 bg-black vintage-effect overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 relative">
-        <motion.h2 
-          className="text-4xl md:text-6xl font-bold mb-8 text-center text-gray-100 vintage-text"
+        <motion.h2
+          className="text-3xl md:text-6xl font-bold mb-6 md:mb-8 text-center text-gray-100 vintage-text"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -106,10 +101,10 @@ const TestimonialsSection = () => {
         >
           What People Say
         </motion.h2>
-        
-        <div className="mb-8 max-w-3xl mx-auto text-center">
-          <motion.p 
-            className="text-lg text-gray-300/90"
+
+        <div className="mb-6 md:mb-8 max-w-3xl mx-auto text-center">
+          <motion.p
+            className="text-base md:text-lg text-gray-300/90"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -119,58 +114,51 @@ const TestimonialsSection = () => {
           </motion.p>
         </div>
 
-        {/* Infinite scrolling testimonial carousel with optimized animation */}
-        <div 
+        {/* Infinite scrolling testimonial carousel */}
+        <div
           className="relative w-full overflow-hidden"
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
           ref={containerRef}
         >
-          <motion.div 
-            className="flex gap-6 will-change-transform"
+          <motion.div
+            className="flex gap-4 md:gap-6 will-change-transform"
             animate={controls}
             initial={{ x: 0 }}
           >
             {duplicatedItems.map((testimonial, index) => (
-              <div 
+              <div
                 key={`${testimonial.id}-${index}`}
-                className="flex-shrink-0 w-[280px] md:w-[320px] vintage-project-card rounded-xl bento-card glow-border"
+                className="flex-shrink-0 w-[260px] md:w-[320px] vintage-project-card rounded-xl bento-card glow-border"
+                onMouseEnter={() => setIsPaused(true)} // Pause saat hover card
+                onMouseLeave={() => setIsPaused(false)} // Lanjutkan saat leave
               >
-                <div className="p-5 flex flex-col h-full relative">
-                  {/* Subtler vintage texture overlay */}
+                <div className="p-4 md:p-5 flex flex-col h-full relative">
                   <div className="absolute inset-0 rounded-xl bg-[#221F26] opacity-50 mix-blend-soft-light pointer-events-none z-0"></div>
                   <div className="absolute inset-0 grain-effect-subtle rounded-xl opacity-10"></div>
-                  
+
                   <div className="flex items-center gap-3 mb-3 relative z-10">
-                    <Avatar className="h-12 w-12 border-2 border-white/10">
+                    <Avatar className="h-10 w-10 md:h-12 md:w-12 border-2 border-white/10">
                       <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
                       <AvatarFallback className="bg-gradient-to-br from-blue-900/80 to-blue-600/50 text-white">
                         {testimonial.initials}
                       </AvatarFallback>
                     </Avatar>
                     <div>
-                      <h4 className="font-medium text-white text-base">{testimonial.name}</h4>
-                      <p className="text-xs text-blue-300/80">{testimonial.position}</p>
+                      <h4 className="font-medium text-white text-sm md:text-base">{testimonial.name}</h4>
+                      <p className="text-[10px] md:text-xs text-blue-300/80">{testimonial.position}</p>
                     </div>
                   </div>
-                  
-                  <p className="text-white/80 text-sm leading-relaxed relative z-10 mt-1">{testimonial.text}</p>
 
-                  {/* Decorative vintage quote element */}
-                  <div className="absolute bottom-3 right-3 opacity-20">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M9.63 17.93C5.38 17.93 2 14.46 2 10.3C2 6.25 5.38 2.77 9.63 2.77C13.88 2.77 17.26 6.25 17.26 10.3C17.26 14.46 13.88 17.93 9.63 17.93Z" stroke="currentColor" strokeWidth="0.5" strokeMiterlimit="10"/>
-                      <path d="M21.98 21.98C21.98 21.98 17.51 17.59 17.26 17.33" stroke="currentColor" strokeWidth="0.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </div>
+                  <p className="text-white/80 text-xs md:text-sm leading-relaxed relative z-10 mt-1">{testimonial.text}</p>
+
+                  <div className="absolute bottom-2 md:bottom-3 right-2 md:right-3 opacity-20"></div>
                 </div>
               </div>
             ))}
           </motion.div>
-          
-          {/* Left and right fade effects for better entry/exit points */}
-          <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none"></div>
-          <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none"></div>
+
+          {/* Fade effects */}
+          <div className="absolute left-0 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none"></div>
+          <div className="absolute right-0 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none"></div>
         </div>
       </div>
     </section>

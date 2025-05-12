@@ -1,4 +1,3 @@
-
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import ProjectCard from './ProjectCard';
@@ -6,40 +5,72 @@ import ProjectCard from './ProjectCard';
 // Sample projects data
 const portfolioProjects = [
   {
-    company: "Acme Corp",
-    year: "2022",
-    title: "Dark Saas Landing Page",
+    company: "Independent Research in Power Quality",
+    year: "2024",
+    title: "Power Quality Classification Using Deep Learning",
     results: [
-      { title: "Enhanced user experience by 40%" },
-      { title: "Improved site speed by 50%" },
-      { title: "Increased mobile traffic by 35%" },
+      { title: "Implemented a 2D CNN model to classify 7 types of power quality disturbances using STFT-transformed voltage signals" },
+      { title: "Processed voltage data from IEEE DataPort into 2D STFT images compatible with CNN input format" },
+      { title: "Integrated Squeeze-and-Excitation blocks as attention mechanisms to enhance feature extraction" },
+      { title: "Applied data augmentation (frequency & time masking), early stopping, and class weighting to improve model robustness and generalization" },
+      { title: "Achieved accurate multi-class classification with evaluation metrics including accuracy, precision, recall, F1-score, and confusion matrix visualization" }
     ],
-    link: "https://example.com/project1",
-    image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=800&q=80",
+    link: "https://github.com/Zenn711/power-quality-classification.git",
+    image: "/project/portfolio4.png",
   },
   {
-    company: "Innovative Co",
-    year: "2021",
-    title: "Light Saas Landing Page",
+    company: "Applied Machine Learning Project",
+    year: "2024",
+    title: "LSTM Time Series Forecasting",
     results: [
-      { title: "Boosted sales by 20%" },
-      { title: "Expanded customer reach by 35%" },
-      { title: "Increased brand awareness by 15%" },
+      { title: "Developed a deep learning model using LSTM to forecast monthly airline passenger counts from 1949–1960" },
+      { title: "Transformed univariate time series data into supervised learning format using a sliding window approach" },
+      { title: "Applied data normalization with MinMaxScaler and reshaped input into [samples, time steps, features] format for LSTM compatibility" },
+      { title: "Built and trained a sequential model with 1 LSTM layer (4 units) and 1 Dense output layer using Keras and TensorFlow" },
+      { title: "Evaluated model with RMSE: ~22.68 (train), ~49.34 (test) and visualized predictions to assess trend and seasonality capture" }
     ],
-    link: "https://example.com/project2",
-    image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=800&q=80",
+    link: "https://github.com/Zenn711/time-series-forecasting.git",
+    image: "/project/portfolio5.png",
   },
   {
-    company: "Quantum Dynamics",
-    year: "2023",
-    title: "AI Startup Landing Page",
+    company: "Educational Tool Development",
+    year: "2025",
+    title: "Interactive Physics Simulation Platform",
     results: [
-      { title: "Enhanced user experience by 40%" },
-      { title: "Improved site speed by 50%" },
-      { title: "Increased mobile traffic by 35%" },
+      { title: "Designed and developed a web-based platform to simulate physics concepts interactively" },
+      { title: "Implemented real-time visualizations for topics like projectile motion, pendulum dynamics, and fluid flow" },
+      { title: "Enabled parameter manipulation (gravity, viscosity, amplitude, etc.) with instant feedback" },
+      { title: "Built using React, TypeScript, Tailwind CSS, and HTML5 Canvas with modular simulation components" },
+      { title: "Created an engaging learning experience aimed at students, educators, and lifelong learners" }
     ],
-    link: "https://example.com/project3",
-    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80",
+    link: "https://github.com/Zenn711/physics-simulation-website.git",
+    image: "/project/portfolio1.png",
+  },
+  {
+    company: "Advanced Simulation Development",
+    year: "2025",
+    title: "Fuzzy Logic Simulation of Obstacle Car",
+    results: [
+      { title: "Developed a fuzzy logic controller to navigate dynamic environments using ultrasonic sensors" },
+      { title: "Reduced collision rate by over 70% in indoor obstacle courses" },
+      { title: "Integrated real-time PWM control for smooth motor actuation using Arduino" },
+      { title: "Built an intuitive interface to tune fuzzy parameters and visualize rule outputs" }
+    ],
+    link: "https://fuzzy-logic-simulation.vercel.app/",
+    image: "/project/portfolio2.png",
+  },
+  {
+    company: "Prototype Development for Healthcare",
+    year: "2025",
+    title: "Disease Diagnosis System",
+    results: [
+      { title: "Developed neural network model for disease classification using synthetic data" },
+      { title: "Achieved 90%+ accuracy across 5-fold cross-validation" },
+      { title: "Built interactive GUI with Tkinter for user-friendly diagnosis flow" },
+      { title: "Visualized training performance with real-time accuracy graphs" }
+    ],
+    link: "https://github.com/Zenn711/disease-diagnosis-system.git",
+    image: "/project/portfolio3.png",
   },
 ];
 
@@ -61,7 +92,7 @@ const ProjectsSection: React.FC = () => {
     <section 
       id="works" 
       ref={sectionRef}
-      className="py-16 md:py-24 lg:py-32 overflow-hidden relative"
+      className="py-12 md:py-24 lg:py-32 overflow-hidden relative" // Reduced padding on mobile
     >
       {/* White grid background */}
       <div className="absolute inset-0 z-0">
@@ -85,10 +116,10 @@ const ProjectsSection: React.FC = () => {
         <div className="absolute bottom-1/3 right-1/5 w-80 h-80 rounded-full bg-blue-900/20 blur-[100px] pointer-events-none" />
       </div>
 
-      <div className="container mx-auto px-6 lg:px-8 relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+      <div className="container mx-auto px-4 lg:px-8 relative z-10">
+        <div className="text-center max-w-3xl mx-auto mb-8 md:mb-16"> {/* Reduced margin on mobile */}
           <motion.p 
-            className="text-sm uppercase tracking-widest text-amber-200 font-medium mb-2"
+            className="text-xs md:text-sm uppercase tracking-widest text-amber-200 font-medium mb-1 md:mb-2" // Reduced size and margin on mobile
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -98,7 +129,7 @@ const ProjectsSection: React.FC = () => {
           </motion.p>
           
           <motion.h2 
-            className="text-3xl md:text-5xl font-bold text-white mb-4"
+            className="text-2xl md:text-5xl font-bold text-white mb-2 md:mb-4" // Reduced size and margin on mobile
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -108,7 +139,7 @@ const ProjectsSection: React.FC = () => {
           </motion.h2>
           
           <motion.p 
-            className="text-lg text-white/70"
+            className="text-sm md:text-lg text-white/70" // Reduced size on mobile
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
@@ -124,7 +155,7 @@ const ProjectsSection: React.FC = () => {
             className="relative w-full mx-auto"
             style={{
               maxWidth: '1200px',
-              minHeight: '600px', // Reduced height for better mobile display
+              minHeight: '500px', // Reduced height for better mobile display
               perspective: '1000px'
             }}
           >

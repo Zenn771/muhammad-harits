@@ -190,7 +190,7 @@ const BentoCard = ({
             {icon}
           </motion.div>
           <motion.h3 
-            className="text-xl font-semibold text-white/90"
+            className="text-lg md:text-xl font-semibold text-white/90 truncate" // Gunakan text-lg untuk mobile, text-xl untuk desktop
             initial={{ opacity: 0.9 }}
             animate={{ opacity: isHovered ? 1 : 0.9 }}
             transition={{ duration: 0.3 }}
