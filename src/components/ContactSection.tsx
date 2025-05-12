@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useForm } from "react-hook-form";
@@ -193,7 +192,7 @@ const ContactSection = () => {
                 </a>
                 
                 <a 
-                  href="https://linkedin.com/in/yourprofile" 
+                  href="https://www.linkedin.com/in/muhammad-harits7" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="flex items-center gap-4 text-gray-300 hover:text-accent transition-colors group"
