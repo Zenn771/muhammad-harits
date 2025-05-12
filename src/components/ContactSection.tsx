@@ -202,7 +202,7 @@ const ContactSection = () => {
                   </div>
                   <div>
                     <p className="text-sm text-white/60">LinkedIn</p>
-                    <p className="text-white">https://www.linkedin.com/in/muhammad-harits7</p>
+                    <p className="text-white">Linkedin Muhammad Harits</p>
                   </div>
                 </a>
               </div>
