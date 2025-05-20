@@ -14,14 +14,14 @@ export const skills: Skill[] = [
   {
     name: "Machine Learning",
     icon: Brain,
-    level: "Expert",
+    level: "Beginner",
     category: "ai",
     color: "purple"
   },
   {
     name: "Deep Learning",
     icon: Network,
-    level: "Expert",
+    level: "Beginner",
     category: "ai",
     color: "blue"
   },
@@ -35,14 +35,14 @@ export const skills: Skill[] = [
   {
     name: "NLP",
     icon: Terminal,
-    level: "Advanced",
+    level: "Beginner",
     category: "ai",
     color: "green"
   },
   {
     name: "TensorFlow",
     icon: Database,
-    level: "Expert",
+    level: "Advanced",
     category: "ai",
     color: "red"
   },
