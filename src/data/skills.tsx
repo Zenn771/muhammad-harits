@@ -102,35 +102,35 @@ export const skills: Skill[] = [
   {
     name: "PCB Design",
     icon: CircuitBoard,
-    level: "Expert",
+    level: "Beginner",
     category: "electrical",
     color: "green"
   },
   {
     name: "Microcontrollers",
     icon: Cpu,
-    level: "Expert",
+    level: "Intermediate",
     category: "electrical",
     color: "blue"
   },
   {
     name: "Circuit Design",
     icon: Zap,
-    level: "Advanced",
+    level: "Intermediate",
     category: "electrical",
     color: "amber"
   },
   {
     name: "Signal Processing",
     icon: LineChart,
-    level: "Advanced",
+    level: "Beginner",
     category: "electrical",
     color: "purple"
   },
   {
     name: "Embedded Systems",
     icon: Bot,
-    level: "Expert",
+    level: "Intermediate",
     category: "electrical",
     color: "red"
   },
